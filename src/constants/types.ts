@@ -5,3 +5,12 @@ export type SidebarElement = {
 };
 
 export type SidebarElements = SidebarElement[];
+
+export type Task = {
+  id: number;
+  group: string;
+  name: string;
+  active: boolean;
+};
+
+export type Tasks = Task[];

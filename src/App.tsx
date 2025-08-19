@@ -5,9 +5,9 @@ import {
 } from "react-router-dom";
 
 import { AppLayout } from "./ui/app-layout";
-import { AwardsPage } from "./pages/AwardsPage";
-import { MyDayPage } from "./pages/MyDayPage";
-import { MyTasksPage } from "./pages/MyTasksPage";
+import { AwardsPage } from "./pages/awards-page";
+import { MyDayPage } from "./pages/my-day-page";
+import { MyTasksPage } from "./pages/my-tasks-page";
 
 const router = createBrowserRouter([
   {

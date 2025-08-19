@@ -14,29 +14,38 @@ export const SidebarListingElement = ({ element }: Props) => {
     <Link
       to={element.url}
       className={cn(
-        "flex px-5 items-center cursor-pointer gap-5 h-[76px] transition-all duration-300 group",
+        "flex pl-5 items-center cursor-pointer h-[76px] transition-all duration-300 group justify-between",
         isCurrent ? "bg-tma-light-400" : null,
         "hover:bg-tma-light-400"
       )}
       key={element.url}
     >
-      <span
+      <div className="flex gap-5 items-center pr-5">
+        <span
+          className={cn(
+            isCurrent ? "text-tma-blue-200" : "text-tma-light-600",
+            "group-hover:text-tma-blue-200"
+          )}
+        >
+          {element.icon}
+        </span>
+        <p
+          className={cn(
+            "uppercase leading-none font-semibold text-lg line-clamp-1",
+            isCurrent ? "text-tma-blue-200" : "text-tma-light-600",
+            "group-hover:text-tma-blue-200"
+          )}
+        >
+          {element.name}
+        </p>
+      </div>
+      <div
         className={cn(
-          isCurrent ? "text-tma-blue-200" : "text-tma-light-600",
-          "group-hover:text-tma-blue-200"
+          "w-[6px] min-w-[6px] flex h-full",
+          isCurrent ? "bg-tma-blue-200" : null,
+          "group-hover:bg-tma-blue-200"
         )}
-      >
-        {element.icon}
-      </span>
-      <p
-        className={cn(
-          "uppercase leading-none font-semibold text-lg",
-          isCurrent ? "text-tma-blue-200" : "text-tma-light-600",
-          "group-hover:text-tma-blue-200"
-        )}
-      >
-        {element.name}
-      </p>
+      ></div>
     </Link>
   );
 };
