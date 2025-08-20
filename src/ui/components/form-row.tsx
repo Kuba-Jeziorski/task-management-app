@@ -24,7 +24,7 @@ export const FormRow = ({ label, children, error }: FormRowProps) => {
       )}
       {children}
       {error && (
-        <p className="absolute right-3 text-sm leading-none top-[17px] text-red-500 select-none">
+        <p className="absolute right-3 text-sm leading-none top-[17px] text-tma-danger select-none">
           {error}
         </p>
       )}
