@@ -1,5 +1,6 @@
-import type { SidebarElements } from "./types";
 import { CalendarClock, Grid2X2Check, Trophy } from "lucide-react";
+
+import type { SidebarElements } from "./types";
 
 export const sidebarElements: SidebarElements = [
   {

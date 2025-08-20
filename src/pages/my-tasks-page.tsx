@@ -1,5 +1,10 @@
-import { TaskGrid } from "../ui/task-grid";
+import { TaskContextProvider } from "../contexts/providers/task-context";
+import { TaskGrid } from "../ui/components/task-grid";
 
 export const MyTasksPage = () => {
-  return <TaskGrid />;
+  return (
+    <TaskContextProvider>
+      <TaskGrid />
+    </TaskContextProvider>
+  );
 };

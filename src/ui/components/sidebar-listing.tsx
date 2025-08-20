@@ -1,5 +1,5 @@
+import { sidebarElements } from "../../constants/sidebar-elements";
 import { SidebarListingElement } from "./sidebar-listing-element";
-import { sidebarElements } from "../constants/sidebar-elements";
 
 export const SidebarListing = () => {
   return (

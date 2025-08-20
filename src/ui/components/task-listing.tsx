@@ -1,5 +1,5 @@
 import { CircleCheck } from "lucide-react";
-import type { Tasks } from "../constants/types";
+import type { Tasks } from "../../constants/types";
 
 type Props = {
   tasks: Tasks;
@@ -7,7 +7,7 @@ type Props = {
 
 export const TaskListing = ({ tasks }: Props) => {
   return (
-    <ul className="flex flex-col p-3">
+    <ul className="flex flex-col pr-3">
       {tasks?.map((task) => (
         <div
           key={task.id}
