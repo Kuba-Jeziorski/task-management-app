@@ -9,7 +9,7 @@ export const DropdownListing = ({ listing }: Props) => {
   return (
     <>
       {listing.map((option) => (
-        <DropdownListingElement element={option} />
+        <DropdownListingElement key={option.name} element={option} />
       ))}
     </>
   );

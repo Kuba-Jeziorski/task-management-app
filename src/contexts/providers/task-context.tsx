@@ -43,7 +43,8 @@ const dummyData: Tasks = [
 ];
 
 export const TaskContextProvider = ({ children }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [groupName, setGroupName] = useState<GroupName | undefined>(undefined);
   const [data, setData] = useState<Tasks>([]);
   const [currentTaskId, setCurrentTaskId] = useState<number | undefined>(
@@ -57,8 +58,10 @@ export const TaskContextProvider = ({ children }: Props) => {
   return (
     <TaskContext.Provider
       value={{
-        isOpen,
-        setIsOpen,
+        isOpenDialog,
+        setIsOpenDialog,
+        isOpenDropdown,
+        setIsOpenDropdown,
         groupName,
         setGroupName,
         data,

@@ -5,7 +5,7 @@ import type { GroupName, Tasks } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { createPortal } from "react-dom";
 import { Dialog } from "../primitives/dialog";
-import { DONE } from "../../constants/constants";
+import { DONE, NEW } from "../../constants/constants";
 import { Form } from "./form";
 
 type Props = {
@@ -15,19 +15,26 @@ type Props = {
 };
 
 export const TaskGroup = ({ title, description, tasks }: Props) => {
-  const { isOpen, setIsOpen, groupName, setGroupName } = useTaskContext();
+  const {
+    isOpenDialog,
+    setIsOpenDialog,
+    setIsOpenDropdown,
+    groupName,
+    setGroupName,
+  } = useTaskContext();
 
   const handleOpen = () => {
-    setIsOpen(true);
+    setIsOpenDialog(true);
+    setIsOpenDropdown(false);
     setGroupName(title);
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpenDialog(false);
     setGroupName(undefined);
   };
 
-  const isOpenCondition = isOpen && groupName === title;
+  const isOpenCondition = isOpenDialog && groupName === title;
 
   const activeTasks = tasks?.filter((task) => task.active === true);
   const inactiveTasks = tasks?.filter((task) => task.active !== true);
@@ -66,7 +73,7 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
               Add new task to the{" "}
               <span className="font-black uppercase">{title}</span> group
             </p>
-            <Form title={title} />
+            <Form type={NEW} groupName={title} />
           </div>
         </Dialog>,
         document.body

@@ -4,6 +4,7 @@ import type {
   GROUP_DELEGATE,
   GROUP_DELETE,
   GROUP_DO,
+  NEW,
   REMOVE,
 } from "./constants";
 
@@ -39,3 +40,5 @@ export type DropdownOptionElement = {
 };
 
 export type DropdownOptionElements = DropdownOptionElement[];
+
+export type FormType = typeof NEW | typeof EDIT;

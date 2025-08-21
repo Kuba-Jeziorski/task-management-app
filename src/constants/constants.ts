@@ -14,3 +14,5 @@ export const DONE = "done";
 
 export const EDIT = "edit";
 export const REMOVE = "remove";
+
+export const NEW = "new";
