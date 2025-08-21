@@ -8,6 +8,8 @@ type TaskContextProps = {
   setGroupName: React.Dispatch<React.SetStateAction<GroupName | undefined>>;
   data: Tasks;
   setData: React.Dispatch<SetStateAction<Tasks>>;
+  currentTaskId: number | undefined;
+  setCurrentTaskId: React.Dispatch<SetStateAction<number | undefined>>;
 };
 
 export const TaskContext = createContext<TaskContextProps | undefined>(

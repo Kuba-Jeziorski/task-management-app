@@ -11,3 +11,6 @@ export const GROUP_DELEGATE_DESCRIPTION = "who can do it for you?";
 export const GROUP_DELETE_DESCRIPTION = "don't do it";
 
 export const DONE = "done";
+
+export const EDIT = "edit";
+export const REMOVE = "remove";

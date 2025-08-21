@@ -46,6 +46,9 @@ export const TaskContextProvider = ({ children }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [groupName, setGroupName] = useState<GroupName | undefined>(undefined);
   const [data, setData] = useState<Tasks>([]);
+  const [currentTaskId, setCurrentTaskId] = useState<number | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     setData(dummyData);
@@ -53,7 +56,16 @@ export const TaskContextProvider = ({ children }: Props) => {
 
   return (
     <TaskContext.Provider
-      value={{ isOpen, setIsOpen, groupName, setGroupName, data, setData }}
+      value={{
+        isOpen,
+        setIsOpen,
+        groupName,
+        setGroupName,
+        data,
+        setData,
+        currentTaskId,
+        setCurrentTaskId,
+      }}
     >
       {children}
     </TaskContext.Provider>

@@ -1,8 +1,10 @@
 import type {
+  EDIT,
   GROUP_DECIDE,
   GROUP_DELEGATE,
   GROUP_DELETE,
   GROUP_DO,
+  REMOVE,
 } from "./constants";
 
 export type SidebarElement = {
@@ -27,3 +29,13 @@ export type GroupName =
   | typeof GROUP_DECIDE
   | typeof GROUP_DELEGATE
   | typeof GROUP_DELETE;
+
+type DropdownName = typeof EDIT | typeof REMOVE;
+
+export type DropdownOptionElement = {
+  icon: React.ReactNode;
+  name: DropdownName;
+  className: string;
+};
+
+export type DropdownOptionElements = DropdownOptionElement[];

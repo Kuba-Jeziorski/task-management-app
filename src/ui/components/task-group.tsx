@@ -22,7 +22,12 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
     setGroupName(title);
   };
 
-  const shouldBeOpen = isOpen && groupName === title;
+  const handleClose = () => {
+    setIsOpen(false);
+    setGroupName(undefined);
+  };
+
+  const isOpenCondition = isOpen && groupName === title;
 
   const activeTasks = tasks?.filter((task) => task.active === true);
   const inactiveTasks = tasks?.filter((task) => task.active !== true);
@@ -55,12 +60,7 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
         </div>
       </div>
       {createPortal(
-        <Dialog
-          isOpen={shouldBeOpen}
-          setIsOpen={handleOpen}
-          groupName={title}
-          setGroupName={setGroupName}
-        >
+        <Dialog isOpen={isOpenCondition} closeFn={handleClose}>
           <div className="flex gap-3 flex-col">
             <p className="text-lg text-tma-blue-200">
               Add new task to the{" "}
