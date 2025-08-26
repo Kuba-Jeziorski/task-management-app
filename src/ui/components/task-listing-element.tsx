@@ -44,14 +44,17 @@ export const TaskListingElement = ({ task }: TaskProps) => {
           <button
             onClick={handleChangeActive}
             className={cn(
-              "text-tma-light-100 cursor-pointer transition-all duration-300",
-              "[&:hover_svg]:fill-[#6174a8]"
+              "text-tma-blue-200 cursor-pointer transition-all duration-300",
+              "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
             )}
           >
             {
               <CircleCheck
                 size={32}
-                className="fill-[#00227a] transition-all duration-300"
+                className={cn(
+                  "fill-[#00227a] transition-all duration-300",
+                  "[&_path]:stroke-tma-light-100"
+                )}
               />
             }
           </button>
