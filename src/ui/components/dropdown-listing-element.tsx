@@ -11,7 +11,7 @@ export const DropdownListingElement = ({ element }: Props) => {
   const isEdit = element.name === EDIT;
   const isRemove = element.name === REMOVE;
 
-  const { setData, setIsOpenDropdown, currentTaskId, setIsOpenDialog } =
+  const { setData, setIsOpenDropdown, setDialogType, currentTaskId } =
     useTaskContext();
 
   const removeTask = () => {
@@ -21,7 +21,7 @@ export const DropdownListingElement = ({ element }: Props) => {
   const handleClick = () => {
     setIsOpenDropdown(false);
     if (isEdit) {
-      setIsOpenDialog(true);
+      setDialogType(EDIT);
     }
     if (isRemove) {
       removeTask();

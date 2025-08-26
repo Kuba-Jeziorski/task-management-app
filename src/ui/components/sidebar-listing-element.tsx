@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+
 import type { SidebarElement } from "../../constants/types";
 import { cn } from "../../utils/css";
 

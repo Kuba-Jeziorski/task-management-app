@@ -1,4 +1,4 @@
-export const PRIORITY_MATRIX = "Priority Matrix";
+export const PRIORITY_MATRIX = "priority matrix";
 
 export const GROUP_DO = "do";
 export const GROUP_DECIDE = "decide";
@@ -16,3 +16,10 @@ export const EDIT = "edit";
 export const REMOVE = "remove";
 
 export const NEW = "new";
+
+export const TASK_CONTEXT_ERROR =
+  "TaskContext was used outside of TaskContextProvider";
+
+export const TASK_EDITING = "You are editing a task";
+export const SAVE_TASK = "Save task";
+export const CANCEL = "cancel";

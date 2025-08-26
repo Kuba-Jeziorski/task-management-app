@@ -4,10 +4,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AwardsPage } from "./pages/awards-page";
-import { MyDayPage } from "./pages/my-day-page";
-import { MyTasksPage } from "./pages/my-tasks-page";
 import { AppLayout } from "./ui/components/app-layout";
+import { MyTasksPage } from "./ui/pages/my-tasks-page";
+import { AwardsPage } from "./ui/pages/awards-page";
+import { MyDayPage } from "./ui/pages/my-day-page";
 
 const router = createBrowserRouter([
   {

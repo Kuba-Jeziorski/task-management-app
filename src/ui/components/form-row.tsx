@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+
 import { cn } from "../../utils/css";
 
 type FormRowProps = {
@@ -13,7 +14,7 @@ export const FormRow = ({ label, children, error }: FormRowProps) => {
       {label && children && (
         <label
           className={cn(
-            "absolute left-3 text-sm leading-none transition-all duration-300",
+            "absolute left-3 text-sm leading-none transition-all duration-300 pointer-none",
             "top-[17px] group-has-[input:focus]:top-[6px]",
             "group-has-[input:not(:placeholder-shown)]:top-[6px]"
           )}

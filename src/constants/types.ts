@@ -41,4 +41,4 @@ export type DropdownOptionElement = {
 
 export type DropdownOptionElements = DropdownOptionElement[];
 
-export type FormType = typeof NEW | typeof EDIT;
+export type DialogType = typeof NEW | typeof EDIT;

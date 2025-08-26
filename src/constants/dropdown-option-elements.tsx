@@ -1,4 +1,5 @@
 import { Edit2, Trash } from "lucide-react";
+
 import { EDIT, REMOVE } from "./constants";
 import type { DropdownOptionElements } from "./types";
 

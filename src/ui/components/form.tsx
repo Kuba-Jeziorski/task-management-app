@@ -1,36 +1,34 @@
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+
 import { FormRow } from "./form-row";
-import type { FormType, GroupName, Task } from "../../constants/types";
+import type { Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Button } from "../primitives/button";
-import { EDIT, NEW } from "../../constants/constants";
-import { useEffect } from "react";
-
-type FormProps = {
-  type: FormType;
-  groupName?: GroupName;
-};
+import { CANCEL, EDIT, NEW, SAVE_TASK } from "../../constants/constants";
 
 type FormValues = {
   taskName: string;
 };
 
-export const Form = ({ type, groupName }: FormProps) => {
-  const isNew = type === NEW;
-  const isEdit = type === EDIT;
-
+export const Form = () => {
   const {
     data: currentTasks,
     setData,
-    setIsOpenDialog: setIsOpen,
+    dialogType,
+    setDialogType,
     currentTaskId,
+    groupName,
   } = useTaskContext();
 
+  const isNewForm = dialogType === NEW;
+  const isEditForm = dialogType === EDIT;
+
   const taskToEdit =
-    isEdit && currentTaskId
+    isEditForm && currentTaskId
       ? currentTasks.find((task) => task.id === currentTaskId)
-      : "";
+      : null;
 
   const {
     register,
@@ -44,16 +42,13 @@ export const Form = ({ type, groupName }: FormProps) => {
   });
 
   useEffect(() => {
-    if (isEdit && currentTaskId) {
-      const taskToEdit = currentTasks.find((task) => task.id === currentTaskId);
-      if (taskToEdit) {
-        reset({ taskName: taskToEdit.name });
-      }
+    if (isEditForm && currentTaskId && taskToEdit) {
+      reset({ taskName: taskToEdit.name });
     }
-  }, [isEdit, currentTaskId, currentTasks, reset]);
+  }, [isEditForm, currentTaskId, taskToEdit, currentTasks, reset]);
 
   const onSubmit = (data: FormValues) => {
-    if (isNew && groupName) {
+    if (isNewForm && groupName) {
       const lastId = currentTasks.at(-1)?.id;
       const newId = lastId ? lastId + 1 : 0;
 
@@ -65,16 +60,18 @@ export const Form = ({ type, groupName }: FormProps) => {
       };
 
       setData((currentTasks) => [...currentTasks, newTask]);
-      setIsOpen(false);
+      setDialogType(null);
+      reset();
+      return;
     }
 
-    if (isEdit && currentTaskId != null) {
+    if (isEditForm && currentTaskId != null) {
       setData((currentTasks) =>
         currentTasks.map((task) =>
           task.id === currentTaskId ? { ...task, name: data.taskName } : task
         )
       );
-      setIsOpen(false);
+      setDialogType(null);
       reset();
       return;
     }
@@ -82,7 +79,7 @@ export const Form = ({ type, groupName }: FormProps) => {
 
   const handleClose = () => {
     reset();
-    setIsOpen(false);
+    setDialogType(null);
   };
 
   return (
@@ -93,7 +90,7 @@ export const Form = ({ type, groupName }: FormProps) => {
           id="taskName"
           placeholder="placeholder"
           className={cn(
-            "h-12 px-3 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
+            "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
             "placeholder-transparent"
           )}
           {...register("taskName", {
@@ -108,9 +105,9 @@ export const Form = ({ type, groupName }: FormProps) => {
         />
       </FormRow>
       <div className="flex gap-4 mt-4">
-        <Button variant={"primary"}>Create a new task</Button>
+        <Button variant={"primary"}>{SAVE_TASK}</Button>
         <Button variant={"danger"} type="reset" onClick={handleClose}>
-          Cancel
+          {CANCEL}
         </Button>
       </div>
     </form>

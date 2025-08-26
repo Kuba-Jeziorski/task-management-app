@@ -1,17 +1,18 @@
 import { createContext, type SetStateAction } from "react";
-import type { GroupName, Tasks } from "../constants/types";
+
+import type { DialogType, GroupName, Tasks } from "../constants/types";
 
 type TaskContextProps = {
-  isOpenDialog: boolean;
-  setIsOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  dialogType: DialogType | null;
+  setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
   isOpenDropdown: boolean;
   setIsOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   groupName: GroupName | undefined;
   setGroupName: React.Dispatch<React.SetStateAction<GroupName | undefined>>;
   data: Tasks;
   setData: React.Dispatch<SetStateAction<Tasks>>;
-  currentTaskId: number | undefined;
-  setCurrentTaskId: React.Dispatch<SetStateAction<number | undefined>>;
+  currentTaskId: number | null;
+  setCurrentTaskId: React.Dispatch<SetStateAction<number | null>>;
 };
 
 export const TaskContext = createContext<TaskContextProps | undefined>(

@@ -3,10 +3,7 @@ import { Plus } from "lucide-react";
 import { TaskListing } from "./task-listing";
 import type { GroupName, Tasks } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
-import { createPortal } from "react-dom";
-import { Dialog } from "../primitives/dialog";
 import { DONE, NEW } from "../../constants/constants";
-import { Form } from "./form";
 
 type Props = {
   title: GroupName;
@@ -15,26 +12,13 @@ type Props = {
 };
 
 export const TaskGroup = ({ title, description, tasks }: Props) => {
-  const {
-    isOpenDialog,
-    setIsOpenDialog,
-    setIsOpenDropdown,
-    groupName,
-    setGroupName,
-  } = useTaskContext();
+  const { setDialogType, setIsOpenDropdown, setGroupName } = useTaskContext();
 
   const handleOpen = () => {
-    setIsOpenDialog(true);
+    setDialogType(NEW);
     setIsOpenDropdown(false);
     setGroupName(title);
   };
-
-  const handleClose = () => {
-    setIsOpenDialog(false);
-    setGroupName(undefined);
-  };
-
-  const isOpenCondition = isOpenDialog && groupName === title;
 
   const activeTasks = tasks?.filter((task) => task.active === true);
   const inactiveTasks = tasks?.filter((task) => task.active !== true);
@@ -66,18 +50,6 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
           )}
         </div>
       </div>
-      {createPortal(
-        <Dialog isOpen={isOpenCondition} closeFn={handleClose}>
-          <div className="flex gap-3 flex-col">
-            <p className="text-lg text-tma-blue-200">
-              Add new task to the{" "}
-              <span className="font-black uppercase">{title}</span> group
-            </p>
-            <Form type={NEW} groupName={title} />
-          </div>
-        </Dialog>,
-        document.body
-      )}
     </div>
   );
 };

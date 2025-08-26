@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+
 import { TaskContext } from "../task";
-import type { GroupName, Tasks } from "../../constants/types";
+import type { DialogType, GroupName, Tasks } from "../../constants/types";
 import {
   GROUP_DECIDE,
   GROUP_DELEGATE,
@@ -43,13 +44,11 @@ const dummyData: Tasks = [
 ];
 
 export const TaskContextProvider = ({ children }: Props) => {
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [dialogType, setDialogType] = useState<DialogType | null>(null);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const [groupName, setGroupName] = useState<GroupName | undefined>(undefined);
   const [data, setData] = useState<Tasks>([]);
-  const [currentTaskId, setCurrentTaskId] = useState<number | undefined>(
-    undefined
-  );
+  const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
   useEffect(() => {
     setData(dummyData);
@@ -58,8 +57,8 @@ export const TaskContextProvider = ({ children }: Props) => {
   return (
     <TaskContext.Provider
       value={{
-        isOpenDialog,
-        setIsOpenDialog,
+        dialogType,
+        setDialogType,
         isOpenDropdown,
         setIsOpenDropdown,
         groupName,
