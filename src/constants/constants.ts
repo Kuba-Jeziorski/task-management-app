@@ -20,6 +20,15 @@ export const NEW = "new";
 export const TASK_CONTEXT_ERROR =
   "TaskContext was used outside of TaskContextProvider";
 
+export const TASK_UNIQUE_NAME = "Task name must be uniqe";
+
 export const TASK_EDITING = "You are editing a task";
 export const SAVE_TASK = "Save task";
 export const CANCEL = "cancel";
+
+export const REQUIRED_FIELD = "This field is required";
+
+export const TASK_ACTIVITY = "task activity:";
+
+export const ACTIVE = "active";
+export const INACTIVE = "inactive";

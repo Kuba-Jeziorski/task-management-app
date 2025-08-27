@@ -2,13 +2,13 @@ import type { ReactElement } from "react";
 
 import { cn } from "../../utils/css";
 
-type FormRowProps = {
+type InputWrapperProps = {
   label: string;
   children: ReactElement<{ id: string }>;
   error?: string;
 };
 
-export const FormRow = ({ label, children, error }: FormRowProps) => {
+export const InputWrapper = ({ label, children, error }: InputWrapperProps) => {
   return (
     <div className={cn("flex flex-col gap-2 relative group")}>
       {label && children && (

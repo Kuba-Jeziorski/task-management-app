@@ -1,12 +1,21 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { FormRow } from "./form-row";
+import { InputWrapper } from "./input-wrapper";
 import type { Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Button } from "../primitives/button";
-import { CANCEL, EDIT, NEW, SAVE_TASK } from "../../constants/constants";
+import {
+  CANCEL,
+  EDIT,
+  NEW,
+  REQUIRED_FIELD,
+  SAVE_TASK,
+  TASK_ACTIVITY,
+  TASK_UNIQUE_NAME,
+} from "../../constants/constants";
+import { Switch } from "./the-switch";
 
 type FormValues = {
   taskName: string;
@@ -41,6 +50,10 @@ export const Form = () => {
     },
   });
 
+  const [localActivity, setLocalActivity] = useState(
+    taskToEdit?.active ?? true
+  );
+
   useEffect(() => {
     if (isEditForm && currentTaskId && taskToEdit) {
       reset({ taskName: taskToEdit.name });
@@ -68,7 +81,9 @@ export const Form = () => {
     if (isEditForm && currentTaskId != null) {
       setData((currentTasks) =>
         currentTasks.map((task) =>
-          task.id === currentTaskId ? { ...task, name: data.taskName } : task
+          task.id === currentTaskId
+            ? { ...task, name: data.taskName, active: localActivity }
+            : task
         )
       );
       setDialogType(null);
@@ -82,33 +97,56 @@ export const Form = () => {
     setDialogType(null);
   };
 
+  const handleToggleActivity = () => {
+    setLocalActivity((prev) => !prev);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="New task name" error={errors?.taskName?.message}>
-        <input
-          type="text"
-          id="taskName"
-          placeholder="placeholder"
-          className={cn(
-            "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-            "placeholder-transparent"
-          )}
-          {...register("taskName", {
-            required: "This field is required",
-            validate: (value) => {
-              const isUnique = !currentTasks.some(
-                (task) => task.name === value
-              );
-              return isUnique || "Task name must be uniqe";
-            },
-          })}
-        />
-      </FormRow>
-      <div className="flex gap-4 mt-4">
-        <Button variant={"primary"}>{SAVE_TASK}</Button>
-        <Button variant={"danger"} type="reset" onClick={handleClose}>
-          {CANCEL}
-        </Button>
+      <div className="flex flex-col gap-4">
+        <InputWrapper label="New task name" error={errors?.taskName?.message}>
+          <input
+            type="text"
+            id="taskName"
+            placeholder="placeholder"
+            className={cn(
+              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
+              "placeholder-transparent"
+            )}
+            {...register("taskName", {
+              required: REQUIRED_FIELD,
+              validate: (value) => {
+                const newFormUniqueNameCondition = !currentTasks.some(
+                  (task) => task.name === value
+                );
+                const editFormUniqueNameCondition = !currentTasks.some(
+                  (task) => task.name === value && task.id !== currentTaskId
+                );
+
+                const isUnique = taskToEdit
+                  ? editFormUniqueNameCondition
+                  : newFormUniqueNameCondition;
+                return isUnique || TASK_UNIQUE_NAME;
+              },
+            })}
+          />
+        </InputWrapper>
+        <div className="flex gap-4 items-center">
+          <p className="capitalize">{TASK_ACTIVITY}</p>
+          <Switch
+            isOn={localActivity}
+            onToggle={handleToggleActivity}
+            isDisabled={isNewForm}
+          />
+        </div>
+        <div className="flex gap-4">
+          <Button variant={"primary"} type="submit">
+            {SAVE_TASK}
+          </Button>
+          <Button variant={"danger"} type="reset" onClick={handleClose}>
+            {CANCEL}
+          </Button>
+        </div>
       </div>
     </form>
   );
