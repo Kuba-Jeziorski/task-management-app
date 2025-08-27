@@ -19,22 +19,22 @@ type Props = {
 const initialPosition = { x: 0, y: 0 };
 
 export const Dropdown = ({ taskId }: Props) => {
-  const { currentTaskId, setCurrentTaskId, setIsOpenDropdown, isOpenDropdown } =
+  const { currentTaskId, setCurrentTaskId, setIsDropdownOpen, isDropdownOpen } =
     useTaskContext();
 
   const [position, setPosition] = useState<Position>(initialPosition);
-  const isDropdownOpen = isOpenDropdown && currentTaskId === taskId;
+  const dropdownOpenCondition = isDropdownOpen && currentTaskId === taskId;
 
   const handleOpenDropdown: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
     e.stopPropagation();
 
-    if (isDropdownOpen) {
-      setIsOpenDropdown(false);
+    if (dropdownOpenCondition) {
+      setIsDropdownOpen(false);
     } else {
       setCurrentTaskId(taskId);
-      setIsOpenDropdown(true);
+      setIsDropdownOpen(true);
 
       const rect = e.currentTarget.getBoundingClientRect();
       setPosition({
@@ -58,7 +58,7 @@ export const Dropdown = ({ taskId }: Props) => {
           <EllipsisVertical size={26} />
         </span>
       </button>
-      {isDropdownOpen &&
+      {dropdownOpenCondition &&
         createPortal(
           <div
             style={{ right: `${position.x}px`, top: `${position.y}px` }}

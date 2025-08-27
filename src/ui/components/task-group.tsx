@@ -12,11 +12,11 @@ type Props = {
 };
 
 export const TaskGroup = ({ title, description, tasks }: Props) => {
-  const { setDialogType, setIsOpenDropdown, setGroupName } = useTaskContext();
+  const { setDialogType, setIsDropdownOpen, setGroupName } = useTaskContext();
 
   const handleOpen = () => {
     setDialogType(NEW);
-    setIsOpenDropdown(false);
+    setIsDropdownOpen(false);
     setGroupName(title);
   };
 
