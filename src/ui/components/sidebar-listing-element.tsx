@@ -7,16 +7,19 @@ type Props = {
   element: SidebarElement;
 };
 
-export const SidebarListingElement = ({ element }: Props) => {
+export const SidebarListingElement = ({
+  element: { icon, url, name, disabled },
+}: Props) => {
   return (
     <NavLink
-      to={element.url}
-      key={element.url}
+      to={url}
+      key={url}
       className={({ isActive }) =>
         cn(
           "flex pl-5 items-center cursor-pointer h-[76px] transition-all duration-300 group justify-between",
           isActive ? "bg-tma-light-400" : null,
-          "hover:bg-tma-light-400"
+          "hover:bg-tma-light-400",
+          disabled ? "opacity-50 pointer-events-none" : null
         )
       }
     >
@@ -29,7 +32,7 @@ export const SidebarListingElement = ({ element }: Props) => {
                 "group-hover:text-tma-blue-200"
               )}
             >
-              {element.icon}
+              {icon}
             </span>
             <p
               className={cn(
@@ -38,7 +41,7 @@ export const SidebarListingElement = ({ element }: Props) => {
                 "group-hover:text-tma-blue-200"
               )}
             >
-              {element.name}
+              {name}
             </p>
           </div>
           <div

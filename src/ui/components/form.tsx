@@ -132,7 +132,7 @@ export const Form = () => {
           />
         </InputWrapper>
         <div className="flex gap-4 items-center">
-          <p className="capitalize">{TASK_ACTIVITY}</p>
+          <p className="capitalize">{`${TASK_ACTIVITY}:`}</p>
           <Switch
             isOn={localActivity}
             onToggle={handleToggleActivity}
@@ -140,10 +140,15 @@ export const Form = () => {
           />
         </div>
         <div className="flex gap-4">
-          <Button variant={"primary"} type="submit">
+          <Button variant={"primary"} type="submit" className="uppercase">
             {SAVE_TASK}
           </Button>
-          <Button variant={"danger"} type="reset" onClick={handleClose}>
+          <Button
+            variant={"danger"}
+            type="reset"
+            onClick={handleClose}
+            className="uppercase"
+          >
             {CANCEL}
           </Button>
         </div>

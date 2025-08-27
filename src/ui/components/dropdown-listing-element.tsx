@@ -1,4 +1,4 @@
-import { EDIT, REMOVE } from "../../constants/constants";
+import { CONFIRMATION, EDIT, REMOVE } from "../../constants/constants";
 import type { DropdownOptionElement } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
@@ -11,12 +11,7 @@ export const DropdownListingElement = ({ element }: Props) => {
   const isEdit = element.name === EDIT;
   const isRemove = element.name === REMOVE;
 
-  const { setData, setIsDropdownOpen, setDialogType, currentTaskId } =
-    useTaskContext();
-
-  const removeTask = () => {
-    setData((prev) => prev.filter((task) => task.id !== currentTaskId));
-  };
+  const { setIsDropdownOpen, setDialogType } = useTaskContext();
 
   const handleClick = () => {
     setIsDropdownOpen(false);
@@ -24,7 +19,7 @@ export const DropdownListingElement = ({ element }: Props) => {
       setDialogType(EDIT);
     }
     if (isRemove) {
-      removeTask();
+      setDialogType(CONFIRMATION);
     }
   };
 

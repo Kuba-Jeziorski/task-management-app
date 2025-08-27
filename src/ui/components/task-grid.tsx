@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { TaskGroup } from "./task-group";
 import {
+  CONFIRMATION,
   EDIT,
   GROUP_DECIDE,
   GROUP_DECIDE_DESCRIPTION,
@@ -11,19 +12,26 @@ import {
   GROUP_DO,
   GROUP_DO_DESCRIPTION,
   NEW,
+  NO,
+  REMOVING,
   TASK_EDITING,
+  TASK_REMOVING,
+  YES,
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { Dialog } from "../primitives/dialog";
 import { Form } from "./form";
 import type { Task } from "../../constants/types";
+import { Button } from "../primitives/button";
 
 export const TaskGrid = () => {
   const {
     data,
+    setData,
     dialogType,
     setDialogType,
     currentTaskId,
+    setCurrentTaskId,
     groupName,
     setGroupName,
   } = useTaskContext();
@@ -43,11 +51,22 @@ export const TaskGrid = () => {
   const deleteTasks = data.filter((task) => task.group === GROUP_DELETE);
 
   const isDialogOpen =
-    (dialogType === NEW && groupName) || (dialogType === EDIT && currentTaskId);
+    (dialogType === NEW && groupName) ||
+    (dialogType === EDIT && currentTaskId) ||
+    (dialogType === CONFIRMATION && currentTaskId);
+
+  const removingTaskName =
+    currentTaskId && data.filter((task) => task.id === currentTaskId)[0].name;
 
   const handleCloseDialog = () => {
     setDialogType(null);
     setGroupName(undefined);
+  };
+
+  const removeTask = () => {
+    setData((prev) => prev.filter((task) => task.id !== currentTaskId));
+    setCurrentTaskId(null);
+    setDialogType(null);
   };
 
   return (
@@ -75,21 +94,54 @@ export const TaskGrid = () => {
       {isDialogOpen && (
         <Dialog closeFn={handleCloseDialog}>
           <div className="flex gap-3 flex-col" data-task={dialogType}>
-            {dialogType === NEW ? (
-              <p className="text-lg text-tma-blue-200">
-                Add new task to the{" "}
-                <span className="font-black uppercase">{groupName}</span> group
-              </p>
-            ) : (
-              <p className="text-lg text-tma-blue-200 line-clamp-1">
-                {TASK_EDITING}{" "}
-                <span className="font-black uppercase">
-                  {currentTask?.name}
-                </span>
-              </p>
+            {dialogType === NEW && (
+              <>
+                <p className="text-lg text-tma-blue-200">
+                  Add new task to the{" "}
+                  <span className="font-black uppercase">{groupName}</span>{" "}
+                  group
+                </p>
+                <Form />
+              </>
             )}
-
-            <Form />
+            {dialogType === EDIT && (
+              <>
+                <p className="text-lg text-tma-blue-200 line-clamp-1">
+                  {TASK_EDITING}{" "}
+                  <span className="font-black uppercase">
+                    {currentTask?.name}
+                  </span>
+                </p>
+                <Form />
+              </>
+            )}
+            {dialogType === CONFIRMATION && (
+              <div className="flex flex-col gap-4">
+                <p className="text-lg text-tma-blue-200 line-clamp-1">
+                  {`${REMOVING}: `}
+                  {removingTaskName && (
+                    <span className="font-black">{removingTaskName}</span>
+                  )}
+                </p>
+                <p>{TASK_REMOVING}</p>
+                <div className="flex gap-4">
+                  <Button
+                    variant={"danger"}
+                    onClick={removeTask}
+                    className="uppercase"
+                  >
+                    {YES}
+                  </Button>
+                  <Button
+                    variant={"primary"}
+                    onClick={handleCloseDialog}
+                    className="uppercase"
+                  >
+                    {NO}
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </Dialog>
       )}

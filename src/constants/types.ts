@@ -1,4 +1,5 @@
 import type {
+  CONFIRMATION,
   EDIT,
   GROUP_DECIDE,
   GROUP_DELEGATE,
@@ -12,6 +13,7 @@ export type SidebarElement = {
   icon: React.ReactNode;
   url: string;
   name: string;
+  disabled: boolean;
 };
 
 export type SidebarElements = SidebarElement[];
@@ -41,4 +43,4 @@ export type DropdownOptionElement = {
 
 export type DropdownOptionElements = DropdownOptionElement[];
 
-export type DialogType = typeof NEW | typeof EDIT;
+export type DialogType = typeof NEW | typeof EDIT | typeof CONFIRMATION;
