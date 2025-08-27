@@ -1,6 +1,6 @@
 import { EllipsisVertical } from "lucide-react";
 import { cn } from "../../utils/css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
@@ -25,6 +25,9 @@ export const Dropdown = ({ taskId }: Props) => {
   const [position, setPosition] = useState<Position>(initialPosition);
   const dropdownOpenCondition = isDropdownOpen && currentTaskId === taskId;
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const handleOpenDropdown: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ) => {
@@ -44,8 +47,29 @@ export const Dropdown = ({ taskId }: Props) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const isWrapperClickValid =
+        wrapperRef.current && !wrapperRef.current.contains(e.target as Node);
+      const isDropdownClickValid =
+        dropdownRef.current && !dropdownRef.current.contains(e.target as Node);
+
+      if (isWrapperClickValid && isDropdownClickValid) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpenCondition) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownOpenCondition, setIsDropdownOpen]);
+
   return (
-    <div className="w-7 flex justify-center items-center ml-2">
+    <div ref={wrapperRef} className="w-7 flex justify-center items-center ml-2">
       <button
         onClick={handleOpenDropdown}
         className={cn(
@@ -61,6 +85,7 @@ export const Dropdown = ({ taskId }: Props) => {
       {dropdownOpenCondition &&
         createPortal(
           <div
+            ref={dropdownRef}
             style={{ right: `${position.x}px`, top: `${position.y}px` }}
             className={cn(
               "flex flex-col fixed bg-tma-light-100 border-tma-blue-200 border rounded-lg overflow-hidden"
