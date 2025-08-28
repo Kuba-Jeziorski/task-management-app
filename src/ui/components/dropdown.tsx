@@ -88,7 +88,7 @@ export const Dropdown = ({ taskId }: Props) => {
             ref={dropdownRef}
             style={{ right: `${position.x}px`, top: `${position.y}px` }}
             className={cn(
-              "flex flex-col fixed bg-tma-light-100 border-tma-blue-200 border rounded-lg overflow-hidden"
+              "flex flex-col fixed bg-tma-light-100 shadow-xl shadow-gray-300/30 ring-1 ring-gray-200 rounded-lg overflow-hidden"
             )}
           >
             <DropdownListing listing={dropdownOptionElements} />
