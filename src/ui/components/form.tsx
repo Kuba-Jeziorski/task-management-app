@@ -106,9 +106,11 @@ export const Form = () => {
         <div className="flex gap-3 items-center">
           <button
             type="button"
+            disabled={isNewForm}
             onClick={handleToggleActivity}
             className={cn(
               "text-tma-blue-200 cursor-pointer transition-all duration-300",
+              isNewForm ? "opacity-50 pointer-events-none" : null,
               localActivity
                 ? "hover:text-tma-blue-100"
                 : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"

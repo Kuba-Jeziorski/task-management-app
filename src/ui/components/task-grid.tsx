@@ -12,11 +12,11 @@ import {
   GROUP_DO,
   GROUP_DO_DESCRIPTION,
   NEW,
-  NO,
+  REMOVE_NO,
+  REMOVE_YES,
   REMOVING,
   TASK_EDITING,
   TASK_REMOVING,
-  YES,
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { Dialog } from "../primitives/dialog";
@@ -130,14 +130,14 @@ export const TaskGrid = () => {
                     onClick={removeTask}
                     className="uppercase"
                   >
-                    {YES}
+                    {REMOVE_YES}
                   </Button>
                   <Button
-                    variant={"primary"}
+                    variant={"secondary"}
                     onClick={handleCloseDialog}
                     className="uppercase"
                   >
-                    {NO}
+                    {REMOVE_NO}
                   </Button>
                 </div>
               </div>

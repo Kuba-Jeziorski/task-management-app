@@ -16,13 +16,14 @@ export const NEW = "new";
 export const NO = "no";
 export const PRIORITY_MATRIX = "priority matrix";
 export const REMOVE = "remove";
+export const REMOVE_YES = "yes, remove it";
+export const REMOVE_NO = "no, go back";
 export const REMOVING = "Removing";
 export const REQUIRED_FIELD = "This field is required";
 export const SAVE_TASK = "save task";
 export const TASK_ACTIVITY = "task activity";
 export const TASK_CONTEXT_ERROR =
   "TaskContext was used outside of TaskContextProvider";
-export const TASK_EDITING = "You are editing a task";
+export const TASK_EDITING = "Editing:";
 export const TASK_REMOVING = "Are you sure you want to remove this task?";
 export const TASK_UNIQUE_NAME = "Task name must be uniqe";
-export const YES = "yes";
