@@ -10,7 +10,7 @@ type InputWrapperProps = {
 
 export const InputWrapper = ({ label, children, error }: InputWrapperProps) => {
   return (
-    <div className={cn("flex flex-col gap-2 relative group")}>
+    <div className={cn("flex flex-col gap-2 relative group w-full")}>
       {label && children && (
         <label
           className={cn(

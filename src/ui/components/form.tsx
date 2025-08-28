@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { CircleCheck } from "lucide-react";
 
 import { InputWrapper } from "./input-wrapper";
 import type { Task } from "../../constants/types";
@@ -12,10 +13,8 @@ import {
   NEW,
   REQUIRED_FIELD,
   SAVE_TASK,
-  TASK_ACTIVITY,
   TASK_UNIQUE_NAME,
 } from "../../constants/constants";
-import { Switch } from "./the-switch";
 
 type FormValues = {
   taskName: string;
@@ -104,52 +103,66 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <InputWrapper label="New task name" error={errors?.taskName?.message}>
-          <input
-            type="text"
-            id="taskName"
-            placeholder="placeholder"
+        <div className="flex gap-3 items-center">
+          <button
+            type="button"
+            onClick={handleToggleActivity}
             className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
+              "text-tma-blue-200 cursor-pointer transition-all duration-300",
+              localActivity
+                ? "hover:text-tma-blue-100"
+                : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
             )}
-            {...register("taskName", {
-              required: REQUIRED_FIELD,
-              validate: (value) => {
-                const newFormUniqueNameCondition = !currentTasks.some(
-                  (task) => task.name === value
-                );
-                const editFormUniqueNameCondition = !currentTasks.some(
-                  (task) => task.name === value && task.id !== currentTaskId
-                );
+          >
+            {
+              <CircleCheck
+                size={32}
+                className={cn(
+                  !localActivity &&
+                    "fill-[#00227a] transition-all duration-300 [&_path]:stroke-tma-light-100"
+                )}
+              />
+            }
+          </button>
+          <InputWrapper label="New task name" error={errors?.taskName?.message}>
+            <input
+              type="text"
+              id="taskName"
+              placeholder="placeholder"
+              className={cn(
+                "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
+                "placeholder-transparent"
+              )}
+              {...register("taskName", {
+                required: REQUIRED_FIELD,
+                validate: (value) => {
+                  const newFormUniqueNameCondition = !currentTasks.some(
+                    (task) => task.name === value
+                  );
+                  const editFormUniqueNameCondition = !currentTasks.some(
+                    (task) => task.name === value && task.id !== currentTaskId
+                  );
 
-                const isUnique = taskToEdit
-                  ? editFormUniqueNameCondition
-                  : newFormUniqueNameCondition;
-                return isUnique || TASK_UNIQUE_NAME;
-              },
-            })}
-          />
-        </InputWrapper>
-        <div className="flex gap-4 items-center">
-          <p className="capitalize">{`${TASK_ACTIVITY}:`}</p>
-          <Switch
-            isOn={localActivity}
-            onToggle={handleToggleActivity}
-            isDisabled={isNewForm}
-          />
+                  const isUnique = taskToEdit
+                    ? editFormUniqueNameCondition
+                    : newFormUniqueNameCondition;
+                  return isUnique || TASK_UNIQUE_NAME;
+                },
+              })}
+            />
+          </InputWrapper>
         </div>
-        <div className="flex gap-4">
-          <Button variant={"primary"} type="submit" className="uppercase">
-            {SAVE_TASK}
-          </Button>
+        <div className="flex gap-4 justify-end">
           <Button
-            variant={"danger"}
+            variant={"secondary"}
             type="reset"
             onClick={handleClose}
             className="uppercase"
           >
             {CANCEL}
+          </Button>
+          <Button variant={"primary"} type="submit" className="uppercase">
+            {SAVE_TASK}
           </Button>
         </div>
       </div>

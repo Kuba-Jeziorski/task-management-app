@@ -96,7 +96,7 @@ export const TaskGrid = () => {
           <div className="flex gap-3 flex-col" data-task={dialogType}>
             {dialogType === NEW && (
               <>
-                <p className="text-lg text-tma-blue-200">
+                <p className="title text-lg text-tma-blue-200">
                   Add new task to the{" "}
                   <span className="font-black uppercase">{groupName}</span>{" "}
                   group
@@ -106,7 +106,7 @@ export const TaskGrid = () => {
             )}
             {dialogType === EDIT && (
               <>
-                <p className="text-lg text-tma-blue-200 line-clamp-1">
+                <p className="title text-lg text-tma-blue-200 line-clamp-1">
                   {TASK_EDITING}{" "}
                   <span className="font-black uppercase">
                     {currentTask?.name}
@@ -117,7 +117,7 @@ export const TaskGrid = () => {
             )}
             {dialogType === CONFIRMATION && (
               <div className="flex flex-col gap-4">
-                <p className="text-lg text-tma-blue-200 line-clamp-1">
+                <p className="title text-lg text-tma-blue-200 line-clamp-1">
                   {`${REMOVING}: `}
                   {removingTaskName && (
                     <span className="font-black">{removingTaskName}</span>

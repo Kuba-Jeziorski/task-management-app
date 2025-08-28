@@ -13,6 +13,10 @@ export const buttonVariants = cva(
           "border-tma-blue-200 bg-tma-blue-200 text-tma-light-100",
           "hover:border-tma-blue-100 hover:bg-tma-blue-100"
         ),
+        secondary: cn(
+          "border-tma-blue-200 bg-tma-light-100 text-tma-blue-200",
+          "hover:bg-tma-light-300"
+        ),
         danger: cn(
           "border-tma-danger bg-tma-danger text-tma-light-100 opacity-75",
           "hover:opacity-100"
