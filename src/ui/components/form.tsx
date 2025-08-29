@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CircleCheck } from "lucide-react";
 
 import { InputWrapper } from "./input-wrapper";
@@ -45,7 +45,7 @@ export const Form = () => {
     reset,
   } = useForm<FormValues>({
     defaultValues: {
-      taskName: taskToEdit ? taskToEdit?.name : "",
+      taskName: taskToEdit?.name ?? "",
     },
   });
 
@@ -54,27 +54,49 @@ export const Form = () => {
   );
 
   useEffect(() => {
-    if (isEditForm && currentTaskId && taskToEdit) {
+    if (isEditForm && taskToEdit) {
       reset({ taskName: taskToEdit.name });
+      setLocalActivity(taskToEdit.active);
     }
-  }, [isEditForm, currentTaskId, taskToEdit, currentTasks, reset]);
+  }, [isEditForm, taskToEdit, reset]);
+
+  const closeForm = useCallback(() => {
+    reset();
+    setDialogType(null);
+  }, [reset, setDialogType]);
+
+  const validateUniqueName = useCallback(
+    (value: string) => {
+      if (isEditForm && taskToEdit) {
+        return (
+          !currentTasks.some(
+            (task) => task.name === value && task.id !== currentTaskId
+          ) || TASK_UNIQUE_NAME
+        );
+      }
+      return (
+        !currentTasks.some((task) => task.name === value) || TASK_UNIQUE_NAME
+      );
+    },
+    [isEditForm, taskToEdit, currentTasks, currentTaskId]
+  );
+
+  const handleToggleActivity = () => {
+    setLocalActivity((prev) => !prev);
+  };
 
   const onSubmit = (data: FormValues) => {
     if (isNewForm && groupName) {
-      const lastId = currentTasks.at(-1)?.id;
-      const newId = lastId ? lastId + 1 : 0;
+      const lastId = currentTasks.at(-1)?.id ?? -1;
 
       const newTask: Task = {
-        active: true,
-        group: groupName,
-        id: newId,
+        id: lastId + 1,
         name: data.taskName,
+        group: groupName,
+        active: true,
       };
 
-      setData((currentTasks) => [...currentTasks, newTask]);
-      setDialogType(null);
-      reset();
-      return;
+      setData([...currentTasks, newTask]);
     }
 
     if (isEditForm && currentTaskId != null) {
@@ -85,19 +107,8 @@ export const Form = () => {
             : task
         )
       );
-      setDialogType(null);
-      reset();
-      return;
     }
-  };
-
-  const handleClose = () => {
-    reset();
-    setDialogType(null);
-  };
-
-  const handleToggleActivity = () => {
-    setLocalActivity((prev) => !prev);
+    closeForm();
   };
 
   return (
@@ -110,7 +121,7 @@ export const Form = () => {
             onClick={handleToggleActivity}
             className={cn(
               "text-tma-blue-200 cursor-pointer transition-all duration-300",
-              isNewForm ? "opacity-50 pointer-events-none" : null,
+              isNewForm && "opacity-50 pointer-events-none",
               localActivity
                 ? "hover:text-tma-blue-100"
                 : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
@@ -137,19 +148,7 @@ export const Form = () => {
               )}
               {...register("taskName", {
                 required: REQUIRED_FIELD,
-                validate: (value) => {
-                  const newFormUniqueNameCondition = !currentTasks.some(
-                    (task) => task.name === value
-                  );
-                  const editFormUniqueNameCondition = !currentTasks.some(
-                    (task) => task.name === value && task.id !== currentTaskId
-                  );
-
-                  const isUnique = taskToEdit
-                    ? editFormUniqueNameCondition
-                    : newFormUniqueNameCondition;
-                  return isUnique || TASK_UNIQUE_NAME;
-                },
+                validate: validateUniqueName,
               })}
             />
           </InputWrapper>
@@ -158,7 +157,7 @@ export const Form = () => {
           <Button
             variant={"secondary"}
             type="reset"
-            onClick={handleClose}
+            onClick={closeForm}
             className="uppercase"
           >
             {CANCEL}

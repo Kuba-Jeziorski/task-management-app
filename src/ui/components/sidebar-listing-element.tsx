@@ -17,9 +17,9 @@ export const SidebarListingElement = ({
       className={({ isActive }) =>
         cn(
           "flex pl-5 items-center cursor-pointer h-[76px] transition-all duration-300 group justify-between",
-          isActive ? "bg-tma-light-400" : null,
+          isActive && "bg-tma-light-400",
           "hover:bg-tma-light-400",
-          disabled ? "opacity-50 pointer-events-none" : null
+          disabled && "opacity-50 pointer-events-none"
         )
       }
     >
@@ -47,7 +47,7 @@ export const SidebarListingElement = ({
           <div
             className={cn(
               "w-[6px] min-w-[6px] flex h-full",
-              isActive ? "bg-tma-blue-200" : null,
+              isActive && "bg-tma-blue-200",
               "group-hover:bg-tma-blue-200"
             )}
           />

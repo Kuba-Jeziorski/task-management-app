@@ -1,3 +1,4 @@
+export const ADD_NEW_TASK = "Add new task to";
 export const ACTIVE = "active";
 export const CANCEL = "cancel";
 export const CONFIRMATION = "confirmation";

@@ -5,13 +5,13 @@ import type { GroupName, Tasks } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { DONE, NEW } from "../../constants/constants";
 
-type Props = {
+type TaskGroupProps = {
   title: GroupName;
   description: string;
   tasks: Tasks;
 };
 
-export const TaskGroup = ({ title, description, tasks }: Props) => {
+export const TaskGroup = ({ title, description, tasks }: TaskGroupProps) => {
   const { setDialogType, setIsDropdownOpen, setGroupName } = useTaskContext();
 
   const handleOpen = () => {
@@ -20,8 +20,17 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
     setGroupName(title);
   };
 
-  const activeTasks = tasks?.filter((task) => task.active === true);
-  const inactiveTasks = tasks?.filter((task) => task.active !== true);
+  const { active, inactive } = tasks.reduce(
+    (acc, task) => {
+      if (task.active) {
+        acc.active.push(task);
+      } else {
+        acc.inactive.push(task);
+      }
+      return acc;
+    },
+    { active: [] as Tasks, inactive: [] as Tasks }
+  );
 
   return (
     <div className="bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden">
@@ -39,13 +48,13 @@ export const TaskGroup = ({ title, description, tasks }: Props) => {
       </div>
       <div className="flex-1 flex flex-col p-3 h-1/2">
         <div className="flex-1 overflow-y-auto">
-          <TaskListing tasks={activeTasks} />
-          {inactiveTasks.length > 0 && (
+          <TaskListing tasks={active} />
+          {inactive.length > 0 && (
             <>
               <p className="p-5 pb-[10px] text-xl text-tma-light-600 uppercase">
                 {DONE}
               </p>
-              <TaskListing tasks={inactiveTasks} />
+              <TaskListing tasks={inactive} />
             </>
           )}
         </div>

@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-
-import { TaskGroup } from "./task-group";
 import {
+  ADD_NEW_TASK,
   CONFIRMATION,
   EDIT,
   GROUP_DECIDE,
@@ -19,10 +17,18 @@ import {
   TASK_REMOVING,
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
+import { TaskGroup } from "./task-group";
 import { Dialog } from "../primitives/dialog";
 import { Form } from "./form";
-import type { Task } from "../../constants/types";
 import { Button } from "../primitives/button";
+import type { Tasks } from "../../constants/types";
+
+type GroupedTasks = {
+  [GROUP_DO]: Tasks;
+  [GROUP_DECIDE]: Tasks;
+  [GROUP_DELEGATE]: Tasks;
+  [GROUP_DELETE]: Tasks;
+};
 
 export const TaskGrid = () => {
   const {
@@ -36,37 +42,39 @@ export const TaskGrid = () => {
     setGroupName,
   } = useTaskContext();
 
-  const [currentTask, setCurrentTask] = useState<Task>();
+  const currentTask = currentTaskId
+    ? data.find((task) => task.id === currentTaskId)
+    : undefined;
 
-  useEffect(() => {
-    if (currentTaskId) {
-      const selectedTask = data.filter((task) => task.id === currentTaskId)[0];
-      setCurrentTask(selectedTask);
+  const groupedTasks: GroupedTasks = {
+    [GROUP_DO]: [],
+    [GROUP_DECIDE]: [],
+    [GROUP_DELEGATE]: [],
+    [GROUP_DELETE]: [],
+  };
+
+  data.forEach((task) => {
+    if (groupedTasks[task.group]) {
+      groupedTasks[task.group].push(task);
     }
-  }, [data, currentTaskId]);
-
-  const doTasks = data.filter((task) => task.group === GROUP_DO);
-  const decideTasks = data.filter((task) => task.group === GROUP_DECIDE);
-  const delegateTasks = data.filter((task) => task.group === GROUP_DELEGATE);
-  const deleteTasks = data.filter((task) => task.group === GROUP_DELETE);
+  });
 
   const isDialogOpen =
     (dialogType === NEW && groupName) ||
     (dialogType === EDIT && currentTaskId) ||
     (dialogType === CONFIRMATION && currentTaskId);
 
-  const removingTaskName =
-    currentTaskId && data.filter((task) => task.id === currentTaskId)[0].name;
-
   const handleCloseDialog = () => {
     setDialogType(null);
     setGroupName(undefined);
+    setCurrentTaskId(null);
   };
 
   const removeTask = () => {
-    setData((prev) => prev.filter((task) => task.id !== currentTaskId));
-    setCurrentTaskId(null);
-    setDialogType(null);
+    if (currentTaskId != null) {
+      setData((prev) => prev.filter((task) => task.id !== currentTaskId));
+    }
+    handleCloseDialog();
   };
 
   return (
@@ -74,66 +82,66 @@ export const TaskGrid = () => {
       <TaskGroup
         title={GROUP_DO}
         description={GROUP_DO_DESCRIPTION}
-        tasks={doTasks}
+        tasks={groupedTasks[GROUP_DO]}
       />
       <TaskGroup
         title={GROUP_DECIDE}
         description={GROUP_DECIDE_DESCRIPTION}
-        tasks={decideTasks}
+        tasks={groupedTasks[GROUP_DECIDE]}
       />
       <TaskGroup
         title={GROUP_DELEGATE}
         description={GROUP_DELETE_DESCRIPTION}
-        tasks={delegateTasks}
+        tasks={groupedTasks[GROUP_DELEGATE]}
       />
       <TaskGroup
         title={GROUP_DELETE}
         description={GROUP_DELETE_DESCRIPTION}
-        tasks={deleteTasks}
+        tasks={groupedTasks[GROUP_DELETE]}
       />
+
       {isDialogOpen && (
         <Dialog closeFn={handleCloseDialog}>
           <div className="flex gap-3 flex-col" data-task={dialogType}>
-            {dialogType === NEW && (
+            {dialogType === NEW && groupName && (
               <>
                 <p className="title text-lg text-tma-blue-200">
-                  Add new task to the{" "}
-                  <span className="font-black uppercase">{groupName}</span>{" "}
-                  group
+                  {`${ADD_NEW_TASK} `}
+                  <span className="font-black uppercase">{groupName}</span>
                 </p>
                 <Form />
               </>
             )}
-            {dialogType === EDIT && (
+
+            {dialogType === EDIT && currentTask && (
               <>
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
                   {TASK_EDITING}{" "}
                   <span className="font-black uppercase">
-                    {currentTask?.name}
+                    {currentTask.name}
                   </span>
                 </p>
                 <Form />
               </>
             )}
-            {dialogType === CONFIRMATION && (
+
+            {dialogType === CONFIRMATION && currentTask && (
               <div className="flex flex-col gap-4">
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
-                  {`${REMOVING}: `}
-                  {removingTaskName && (
-                    <span className="font-black">{removingTaskName}</span>
-                  )}
+                  {`${REMOVING} `}
+                  <span className="font-black">{currentTask.name}</span>
                 </p>
                 <p>{TASK_REMOVING}</p>
                 <div className="flex gap-4">
                   <Button
-                    variant={"danger"}
+                    variant="danger"
                     onClick={removeTask}
                     className="uppercase"
                   >
                     {REMOVE_YES}
                   </Button>
                   <Button
-                    variant={"secondary"}
+                    variant="secondary"
                     onClick={handleCloseDialog}
                     className="uppercase"
                   >
