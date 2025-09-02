@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { TaskListing } from "./task-listing";
 import type { GroupName, Tasks } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
-import { DONE, NEW } from "../../constants/constants";
+import { COMPLETED, NEW } from "../../constants/constants";
 import { tooltipMessages } from "../../constants/tooltip-messages";
 import { CustomTooltip } from "./custom-tooltip";
 
@@ -57,7 +57,7 @@ export const TaskGroup = ({ title, description, tasks }: TaskGroupProps) => {
           {inactive.length > 0 && (
             <>
               <p className="p-5 pb-[10px] text-xl text-tma-light-600 uppercase">
-                {DONE}
+                {COMPLETED}
               </p>
               <TaskListing tasks={inactive} />
             </>

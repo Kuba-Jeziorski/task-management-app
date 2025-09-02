@@ -1,8 +1,8 @@
 export const ADD_NEW_TASK = "Add new task to";
 export const ACTIVE = "active";
 export const CANCEL = "cancel";
+export const COMPLETED = "completed";
 export const CONFIRMATION = "confirmation";
-export const DONE = "done";
 export const EDIT = "edit";
 export const GROUP_DO = "do";
 export const GROUP_DECIDE = "decide";
