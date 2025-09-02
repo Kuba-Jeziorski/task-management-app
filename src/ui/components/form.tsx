@@ -99,7 +99,7 @@ export const Form = () => {
         active: true,
       };
 
-      setData([...currentTasks, newTask]);
+      setData([newTask, ...currentTasks]);
     }
 
     if (isEditForm && currentTaskId != null) {
