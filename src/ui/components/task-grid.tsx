@@ -5,6 +5,7 @@ import {
   GROUP_DECIDE,
   GROUP_DECIDE_DESCRIPTION,
   GROUP_DELEGATE,
+  GROUP_DELEGATE_DESCRIPTION,
   GROUP_DELETE,
   GROUP_DELETE_DESCRIPTION,
   GROUP_DO,
@@ -91,7 +92,7 @@ export const TaskGrid = () => {
       />
       <TaskGroup
         title={GROUP_DELEGATE}
-        description={GROUP_DELETE_DESCRIPTION}
+        description={GROUP_DELEGATE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DELEGATE]}
       />
       <TaskGroup

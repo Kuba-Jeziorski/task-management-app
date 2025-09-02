@@ -28,3 +28,13 @@ export const TASK_CONTEXT_ERROR =
 export const TASK_EDITING = "Editing:";
 export const TASK_REMOVING = "Are you sure you want to remove this task?";
 export const TASK_UNIQUE_NAME = "Task name must be uniqe";
+export const TOOLTIP_TOGGLE_ACTIVE = "Move to completed";
+export const TOOLTIP_TOGGLE_INACTIVE = "Move back to active";
+export const TOOLTIP_DECIDE =
+  "Schedule it - tasks that are important but not urgent.";
+export const TOOLTIP_DELEGATE =
+  "Assign to others - tasks that are urgent but less important.";
+export const TOOLTIP_DELETE =
+  "Eliminate it - tasks that are neither urgent nor important.";
+export const TOOLTIP_DO =
+  "Do it immediately - tasks that are urgent and important.";

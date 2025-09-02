@@ -4,6 +4,11 @@ import type { Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Dropdown } from "./dropdown";
+import { CustomTooltip } from "./custom-tooltip";
+import {
+  TOOLTIP_TOGGLE_ACTIVE,
+  TOOLTIP_TOGGLE_INACTIVE,
+} from "../../constants/constants";
 
 type TaskProps = {
   task: Task;
@@ -22,6 +27,10 @@ export const TaskListingElement = ({ task }: TaskProps) => {
     );
   };
 
+  const tooltipMessage = task.active
+    ? TOOLTIP_TOGGLE_ACTIVE
+    : TOOLTIP_TOGGLE_INACTIVE;
+
   return (
     <div
       key={task.id}
@@ -31,35 +40,37 @@ export const TaskListingElement = ({ task }: TaskProps) => {
       )}
     >
       <div className="flex gap-5 items-center">
-        {task.active === true ? (
-          <button
-            onClick={handleChangeActive}
-            className={cn(
-              "text-tma-blue-200 cursor-pointer transition-all duration-300",
-              "hover:text-tma-blue-100"
-            )}
-          >
-            {<CircleCheck size={32} />}
-          </button>
-        ) : (
-          <button
-            onClick={handleChangeActive}
-            className={cn(
-              "text-tma-blue-200 cursor-pointer transition-all duration-300",
-              "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
-            )}
-          >
-            {
-              <CircleCheck
-                size={32}
-                className={cn(
-                  "fill-[#00227a] transition-all duration-300",
-                  "[&_path]:stroke-tma-light-100"
-                )}
-              />
-            }
-          </button>
-        )}
+        <CustomTooltip title={tooltipMessage}>
+          {task.active === true ? (
+            <button
+              onClick={handleChangeActive}
+              className={cn(
+                "text-tma-blue-200 cursor-pointer transition-all duration-300",
+                "hover:text-tma-blue-100"
+              )}
+            >
+              {<CircleCheck size={32} />}
+            </button>
+          ) : (
+            <button
+              onClick={handleChangeActive}
+              className={cn(
+                "text-tma-blue-200 cursor-pointer transition-all duration-300",
+                "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
+              )}
+            >
+              {
+                <CircleCheck
+                  size={32}
+                  className={cn(
+                    "fill-[#00227a] transition-all duration-300",
+                    "[&_path]:stroke-tma-light-100"
+                  )}
+                />
+              }
+            </button>
+          )}
+        </CustomTooltip>
         {task.active === true ? (
           <p className="text-lg text-tma-light-600 line-clamp-1 leading-none">
             {task.name}

@@ -14,7 +14,10 @@ import {
   REQUIRED_FIELD,
   SAVE_TASK,
   TASK_UNIQUE_NAME,
+  TOOLTIP_TOGGLE_ACTIVE,
+  TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
+import { CustomTooltip } from "./custom-tooltip";
 
 type FormValues = {
   taskName: string;
@@ -111,32 +114,41 @@ export const Form = () => {
     closeForm();
   };
 
+  const tooltipMessage = !isNewForm
+    ? localActivity
+      ? TOOLTIP_TOGGLE_ACTIVE
+      : TOOLTIP_TOGGLE_INACTIVE
+    : "";
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <div className="flex gap-3 items-center">
-          <button
-            type="button"
-            disabled={isNewForm}
-            onClick={handleToggleActivity}
-            className={cn(
-              "text-tma-blue-200 cursor-pointer transition-all duration-300",
-              isNewForm && "opacity-50 pointer-events-none",
-              localActivity
-                ? "hover:text-tma-blue-100"
-                : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
-            )}
-          >
-            {
-              <CircleCheck
-                size={32}
-                className={cn(
-                  !localActivity &&
-                    "fill-[#00227a] transition-all duration-300 [&_path]:stroke-tma-light-100"
-                )}
-              />
-            }
-          </button>
+          <CustomTooltip title={tooltipMessage}>
+            <button
+              type="button"
+              disabled={isNewForm}
+              onClick={handleToggleActivity}
+              className={cn(
+                "text-tma-blue-200 cursor-pointer transition-all duration-300",
+                isNewForm && "opacity-50 pointer-events-none",
+                localActivity
+                  ? "hover:text-tma-blue-100"
+                  : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
+              )}
+            >
+              {
+                <CircleCheck
+                  size={32}
+                  className={cn(
+                    !localActivity &&
+                      "fill-[#00227a] transition-all duration-300 [&_path]:stroke-tma-light-100"
+                  )}
+                />
+              }
+            </button>
+          </CustomTooltip>
+
           <InputWrapper label="New task name" error={errors?.taskName?.message}>
             <input
               type="text"
