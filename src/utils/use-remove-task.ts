@@ -1,19 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { removeTask as removeTaskDb } from "../services/api-tasks";
+import toast from "react-hot-toast";
+import { SUCCESSFUL_TASK_REMOVE } from "../constants/constants";
 
 export const useRemoveTask = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: removeTask, isPending: isRemoving } = useMutation({
+  const { mutate: removeTask } = useMutation({
     mutationFn: removeTaskDb,
     onSuccess: () => {
-      console.log(`Successfully removed task - toast`);
+      toast.success(SUCCESSFUL_TASK_REMOVE);
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
-    onError: (err) =>
-      console.log(`Failed with removing - toast: ${err.message}`),
+    onError: (err) => toast.error(err.message),
   });
 
-  return { removeTask, isRemoving };
+  return { removeTask };
 };

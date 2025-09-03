@@ -9,6 +9,7 @@ export const useTasks = () => {
   } = useQuery({
     queryKey: ["tasks"],
     queryFn: () => getTasks(),
+    retry: 5,
   });
 
   return { isLoading, tasks, error };

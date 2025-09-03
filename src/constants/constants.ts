@@ -22,6 +22,9 @@ export const REMOVE_NO = "no, go back";
 export const REMOVING = "Removing";
 export const REQUIRED_FIELD = "This field is required";
 export const SAVE_TASK = "save task";
+export const SUCCESSFUL_TASK_CREATE = "Successfully created a task";
+export const SUCCESSFUL_TASK_REMOVE = "Successfully removed a task";
+export const SUCCESSFUL_TASK_UPDATE = "Successfully updated a task";
 export const TASK_ACTIVITY = "task activity";
 export const TASK_CONTEXT_ERROR =
   "TaskContext was used outside of TaskContextProvider";

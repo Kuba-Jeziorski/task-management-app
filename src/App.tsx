@@ -4,6 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 import { AppLayout } from "./ui/components/app-layout";
 import { MyTasksPage } from "./ui/pages/my-tasks-page";
@@ -35,7 +36,20 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
+      <Toaster
+        position="bottom-center"
+        gutter={12}
+        containerStyle={{ margin: "16px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }

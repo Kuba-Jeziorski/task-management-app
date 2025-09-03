@@ -6,17 +6,15 @@ export const getTasks = async (): Promise<Task[]> => {
   try {
     const { data, error } = await supabase.from("tasks").select("*");
     if (error) {
-      console.error(`Supabase error: ${error.message}`);
-      return [];
+      throw new Error(error.message);
     }
     return data ?? [];
   } catch (error) {
     if (error instanceof Error) {
-      console.error(`Unexpected fetch error: ${error}`);
+      throw new Error(error.message);
     } else {
       throw error;
     }
-    return [];
   }
 };
 
@@ -24,11 +22,11 @@ export const createTask = async (task: Omit<Task, "id">): Promise<void> => {
   try {
     const { error } = await supabase.from("tasks").insert(task);
     if (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error(`Unexpected fetch error: ${error}`);
+      throw new Error(error.message);
     } else {
       throw error;
     }
@@ -43,17 +41,15 @@ export const updateTask = async (task: Task): Promise<Task | null> => {
       .eq("id", task.id)
       .single();
     if (error) {
-      console.log(error.message);
-      return null;
+      throw new Error(error.message);
     }
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error(`Unexpected fetch error: ${error}`);
+      throw new Error(error.message);
     } else {
       throw error;
     }
-    return null;
   }
 };
 
@@ -61,11 +57,11 @@ export const removeTask = async (id: number): Promise<void> => {
   try {
     const { error } = await supabase.from("tasks").delete().eq("id", id);
     if (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error(`Unexpected fetch error: ${error}`);
+      throw new Error(error.message);
     } else {
       throw error;
     }

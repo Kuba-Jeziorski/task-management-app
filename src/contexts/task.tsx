@@ -10,7 +10,6 @@ type TaskContextProps = {
   groupName: GroupName | undefined;
   setGroupName: React.Dispatch<React.SetStateAction<GroupName | undefined>>;
   data: Tasks;
-  setData: React.Dispatch<SetStateAction<Tasks>>;
   currentTaskId: number | null;
   setCurrentTaskId: React.Dispatch<SetStateAction<number | null>>;
 };
