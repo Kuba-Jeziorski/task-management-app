@@ -19,13 +19,13 @@ import {
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
-import { Dialog } from "../primitives/dialog";
-import { Form } from "./form";
-import { Button } from "../primitives/button";
+import { Form } from "../form/form";
+import { Button } from "../button/button";
 import type { Tasks } from "../../constants/types";
-import { useTasks } from "../../utils/use-tasks";
-import { useRemoveTask } from "../../utils/use-remove-task";
-import { Spinner } from "./the-spinner";
+import { useTasks } from "../../hooks/use-tasks";
+import { useRemoveTask } from "../../hooks/use-remove-task";
+import { Spinner } from "../spinner/the-spinner";
+import { Dialog } from "../dialog/dialog";
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;

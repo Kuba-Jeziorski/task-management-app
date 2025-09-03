@@ -5,7 +5,7 @@ import type { GroupName, Tasks } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { COMPLETED, NEW } from "../../constants/constants";
 import { tooltipMessages } from "../../constants/tooltip-messages";
-import { CustomTooltip } from "./custom-tooltip";
+import { CustomTooltip } from "../tooltip/custom-tooltip";
 
 type TaskGroupProps = {
   title: GroupName;

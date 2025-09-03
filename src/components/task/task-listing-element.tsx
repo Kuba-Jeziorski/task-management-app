@@ -3,13 +3,13 @@ import { CircleCheck } from "lucide-react";
 import type { Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
-import { Dropdown } from "./dropdown";
-import { CustomTooltip } from "./custom-tooltip";
+import { Dropdown } from "../dropdown/dropdown";
+import { CustomTooltip } from "../tooltip/custom-tooltip";
 import {
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
-import { useUpdateTask } from "../../utils/use-update-task";
+import { useUpdateTask } from "../../hooks/use-update-task";
 
 type TaskProps = {
   task: Task;

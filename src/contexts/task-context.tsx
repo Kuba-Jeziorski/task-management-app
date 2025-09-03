@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { TaskContext } from "../task";
-import type { DialogType, GroupName } from "../../constants/types";
-import { useTasks } from "../../utils/use-tasks";
+import type { DialogType, GroupName } from "../constants/types";
+import { useTasks } from "../hooks/use-tasks";
+import { TaskContext } from "./task";
 
 type Props = {
   children: React.ReactNode;

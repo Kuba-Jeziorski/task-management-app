@@ -6,7 +6,7 @@ import { InputWrapper } from "./input-wrapper";
 import type { NewTask, Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
-import { Button } from "../primitives/button";
+import { Button } from "../button/button";
 import {
   CANCEL,
   EDIT,
@@ -16,9 +16,9 @@ import {
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
-import { CustomTooltip } from "./custom-tooltip";
-import { useUpdateTask } from "../../utils/use-update-task";
-import { useCreateTask } from "../../utils/use-create-task";
+import { CustomTooltip } from "../tooltip/custom-tooltip";
+import { useUpdateTask } from "../../hooks/use-update-task";
+import { useCreateTask } from "../../hooks/use-create-task";
 
 type FormValues = {
   taskName: string;

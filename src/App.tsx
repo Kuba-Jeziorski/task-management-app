@@ -6,10 +6,10 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
-import { AppLayout } from "./ui/components/app-layout";
-import { MyTasksPage } from "./ui/pages/my-tasks-page";
-import { AwardsPage } from "./ui/pages/awards-page";
-import { MyDayPage } from "./ui/pages/my-day-page";
+import { AppLayout } from "./components/layout/app-layout";
+import { MyTasksPage } from "./components/pages/my-tasks-page";
+import { AwardsPage } from "./components/pages/awards-page";
+import { MyDayPage } from "./components/pages/my-day-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {

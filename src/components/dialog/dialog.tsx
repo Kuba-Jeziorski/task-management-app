@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
+import { cn } from "../../utils/css";
 import { createPortal } from "react-dom";
 
-import { cn } from "../../utils/css";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 
 type Props = {
