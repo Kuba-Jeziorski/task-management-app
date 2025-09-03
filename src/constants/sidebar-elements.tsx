@@ -1,4 +1,10 @@
-import { CalendarClock, Grid2X2Check, Trophy } from "lucide-react";
+import {
+  CalendarClock,
+  Grid2X2Check,
+  LibraryBig,
+  Trophy,
+  User,
+} from "lucide-react";
 
 import type { SidebarElements } from "./types";
 
@@ -20,5 +26,17 @@ export const sidebarElements: SidebarElements = [
     url: "/my-day",
     name: "my day",
     disabled: true,
+  },
+  {
+    icon: <LibraryBig size={36} />,
+    url: "/about",
+    name: "about",
+    disabled: true,
+  },
+  {
+    icon: <User size={36} />,
+    url: "/user",
+    name: "user",
+    disabled: false,
   },
 ];

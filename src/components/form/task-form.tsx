@@ -24,7 +24,7 @@ type FormValues = {
   taskName: string;
 };
 
-export const Form = () => {
+export const TaskForm = () => {
   const {
     data: currentTasks,
     dialogType,

@@ -19,7 +19,7 @@ import {
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
-import { Form } from "../form/form";
+import { TaskForm } from "../form/task-form";
 import { Button } from "../button/button";
 import type { Tasks } from "../../constants/types";
 import { useTasks } from "../../hooks/use-tasks";
@@ -116,7 +116,7 @@ export const TaskGrid = () => {
                   {`${ADD_NEW_TASK} `}
                   <span className="font-black uppercase">{groupName}</span>
                 </p>
-                <Form />
+                <TaskForm />
               </>
             )}
 
@@ -128,7 +128,7 @@ export const TaskGrid = () => {
                     {currentTask.name}
                   </span>
                 </p>
-                <Form />
+                <TaskForm />
               </>
             )}
 
@@ -143,7 +143,6 @@ export const TaskGrid = () => {
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveTask(currentTask.id)}
-                    className="uppercase"
                   >
                     {REMOVE_YES}
                   </Button>

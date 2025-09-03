@@ -18,7 +18,7 @@ export const buttonVariants = cva(
           "hover:bg-tma-light-300"
         ),
         danger: cn(
-          "border-tma-danger bg-tma-danger text-tma-light-100 opacity-75",
+          "border-tma-danger bg-tma-danger text-tma-light-100 opacity-75 uppercase",
           "hover:opacity-100"
         ),
       },

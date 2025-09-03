@@ -1,12 +1,14 @@
-import type {
-  CONFIRMATION,
-  EDIT,
-  GROUP_DECIDE,
-  GROUP_DELEGATE,
-  GROUP_DELETE,
-  GROUP_DO,
-  NEW,
-  REMOVE,
+import {
+  USER_FORM_LOGIN,
+  USER_FORM_SIGNUP,
+  type CONFIRMATION,
+  type EDIT,
+  type GROUP_DECIDE,
+  type GROUP_DELEGATE,
+  type GROUP_DELETE,
+  type GROUP_DO,
+  type NEW,
+  type REMOVE,
 } from "./constants";
 
 export type SidebarElement = {
@@ -47,3 +49,16 @@ export type DropdownOptionElement = {
 export type DropdownOptionElements = DropdownOptionElement[];
 
 export type DialogType = typeof NEW | typeof EDIT | typeof CONFIRMATION;
+
+export type UserFormType = typeof USER_FORM_LOGIN | typeof USER_FORM_SIGNUP;
+
+export type SignupProps = {
+  fullName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
+
+export type PartialSignupProps = Omit<SignupProps, "passwordConfirm">;
+
+export type LoginProps = Omit<SignupProps, "fullName" | "passwordConfirm">;
