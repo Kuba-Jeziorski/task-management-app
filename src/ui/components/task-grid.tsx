@@ -25,6 +25,7 @@ import { Button } from "../primitives/button";
 import type { Tasks } from "../../constants/types";
 import { useTasks } from "../../utils/use-tasks";
 import { useRemoveTask } from "../../utils/use-remove-task";
+import { Spinner } from "./the-spinner";
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;
@@ -43,7 +44,7 @@ export const TaskGrid = () => {
     setGroupName,
   } = useTaskContext();
 
-  const { tasks: data = [] } = useTasks();
+  const { tasks: data = [], isLoading } = useTasks();
   const { removeTask } = useRemoveTask();
 
   const currentTask = currentTaskId
@@ -81,7 +82,9 @@ export const TaskGrid = () => {
     handleCloseDialog();
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-10">
       <TaskGroup
         title={GROUP_DO}
