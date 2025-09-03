@@ -23,7 +23,8 @@ import { Dialog } from "../primitives/dialog";
 import { Form } from "./form";
 import { Button } from "../primitives/button";
 import type { Tasks } from "../../constants/types";
-import { getTasks, removeTask } from "../../services/api-tasks";
+import { useTasks } from "../../utils/use-tasks";
+import { useRemoveTask } from "../../utils/use-remove-task";
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;
@@ -34,8 +35,8 @@ type GroupedTasks = {
 
 export const TaskGrid = () => {
   const {
-    data,
-    setData,
+    // data,
+    // setData,
     dialogType,
     setDialogType,
     currentTaskId,
@@ -43,6 +44,9 @@ export const TaskGrid = () => {
     groupName,
     setGroupName,
   } = useTaskContext();
+
+  const { tasks: data = [] } = useTasks();
+  const { removeTask } = useRemoveTask();
 
   const currentTask = currentTaskId
     ? data.find((task) => task.id === currentTaskId)
@@ -83,8 +87,6 @@ export const TaskGrid = () => {
   const handleRemoveTask = async (id: number) => {
     if (currentTaskId != null) {
       removeTask(id);
-      const freshTasks = await getTasks();
-      setData(freshTasks);
     }
     handleCloseDialog();
   };

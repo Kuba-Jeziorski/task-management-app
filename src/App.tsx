@@ -3,11 +3,20 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { AppLayout } from "./ui/components/app-layout";
 import { MyTasksPage } from "./ui/pages/my-tasks-page";
 import { AwardsPage } from "./ui/pages/awards-page";
 import { MyDayPage } from "./ui/pages/my-day-page";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -24,7 +33,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;

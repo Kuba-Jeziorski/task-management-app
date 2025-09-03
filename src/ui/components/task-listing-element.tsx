@@ -9,14 +9,16 @@ import {
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
-import { handleUpdateTask } from "../../utils/handle-update-task";
+import { useUpdateTask } from "../../utils/use-update-task";
 
 type TaskProps = {
   task: Task;
 };
 
 export const TaskListingElement = ({ task }: TaskProps) => {
-  const { data: currentTasks, setData } = useTaskContext();
+  const { data: currentTasks } = useTaskContext();
+
+  const { updateTask } = useUpdateTask();
 
   // const handleToggleState = () => {
   //   setData((prev) =>
@@ -35,7 +37,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
         ...taskToUpdate,
         active: !taskToUpdate.active,
       };
-      handleUpdateTask({ task: updatedTask, setData });
+      updateTask(updatedTask);
     }
   };
 

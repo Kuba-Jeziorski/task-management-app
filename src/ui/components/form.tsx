@@ -17,8 +17,8 @@ import {
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
 import { CustomTooltip } from "./custom-tooltip";
-import { createTask, getTasks } from "../../services/api-tasks";
-import { handleUpdateTask } from "../../utils/handle-update-task";
+import { useUpdateTask } from "../../utils/use-update-task";
+import { useCreateTask } from "../../utils/use-create-task";
 
 type FormValues = {
   taskName: string;
@@ -27,12 +27,14 @@ type FormValues = {
 export const Form = () => {
   const {
     data: currentTasks,
-    setData,
     dialogType,
     setDialogType,
     currentTaskId,
     groupName,
   } = useTaskContext();
+
+  const { updateTask } = useUpdateTask();
+  const { createTask } = useCreateTask();
 
   const isNewForm = dialogType === NEW;
   const isEditForm = dialogType === EDIT;
@@ -73,13 +75,6 @@ export const Form = () => {
     setLocalActivity((prev) => !prev);
   };
 
-  const handleCreateTask = async (task: NewTask) => {
-    await createTask(task);
-    // TODO swap with tanStack - invalidate queries
-    const freshTasks = await getTasks();
-    setData(freshTasks);
-  };
-
   const onSubmit = (data: FormValues) => {
     if (isNewForm && groupName) {
       const newTask: NewTask = {
@@ -88,7 +83,7 @@ export const Form = () => {
         active: true,
       };
 
-      handleCreateTask(newTask);
+      createTask(newTask);
 
       // TODO keep for not logged-in users
       // const lastId = currentTasks.at(-1)?.id ?? -1;
@@ -113,7 +108,7 @@ export const Form = () => {
           name: data.taskName,
           active: localActivity,
         };
-        handleUpdateTask({ task: updatedTask, setData });
+        updateTask(updatedTask);
       }
       // TODO keep for not logged-in users
       // setData((currentTasks) =>

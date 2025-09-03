@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { TaskContext } from "../task";
 import type { DialogType, GroupName, Tasks } from "../../constants/types";
-import { getTasks } from "../../services/api-tasks";
+import { useTasks } from "../../utils/use-tasks";
 
 type Props = {
   children: React.ReactNode;
@@ -46,14 +46,11 @@ export const TaskContextProvider = ({ children }: Props) => {
   const [data, setData] = useState<Tasks>([]);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const supabaseData = await getTasks();
-      setData(supabaseData);
-    };
+  const { tasks = [] } = useTasks();
 
-    fetchTasks();
-  }, []);
+  useEffect(() => {
+    setData(tasks);
+  }, [tasks]);
 
   // TODO keep for not logged-in users
   // useEffect(() => {
