@@ -1,6 +1,6 @@
 import supabase from "./supabase-config";
 
-import type { Task } from "../constants/types";
+import type { NewTask, Task } from "../constants/types";
 
 export const getTasks = async (): Promise<Task[]> => {
   try {
@@ -18,7 +18,7 @@ export const getTasks = async (): Promise<Task[]> => {
   }
 };
 
-export const createTask = async (task: Omit<Task, "id">): Promise<void> => {
+export const createTask = async (task: NewTask): Promise<void> => {
   try {
     const { error } = await supabase.from("tasks").insert(task);
     if (error) {

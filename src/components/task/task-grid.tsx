@@ -135,7 +135,7 @@ export const TaskGrid = () => {
             {dialogType === CONFIRMATION && currentTask && (
               <div className="flex flex-col gap-4">
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
-                  {`${REMOVING} `}
+                  {`${REMOVING}: `}
                   <span className="font-black">{currentTask.name}</span>
                 </p>
                 <p>{TASK_REMOVING}</p>
