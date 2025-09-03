@@ -23,6 +23,7 @@ import { Dialog } from "../primitives/dialog";
 import { Form } from "./form";
 import { Button } from "../primitives/button";
 import type { Tasks } from "../../constants/types";
+import { getTasks, removeTask } from "../../services/api-tasks";
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;
@@ -71,9 +72,19 @@ export const TaskGrid = () => {
     setCurrentTaskId(null);
   };
 
-  const removeTask = () => {
+  // TODO keep for not logged-in users
+  // const deleteTask = () => {
+  //   if (currentTaskId != null) {
+  //     setData((prev) => prev.filter((task) => task.id !== currentTaskId));
+  //   }
+  //   handleCloseDialog();
+  // };
+
+  const handleRemoveTask = async (id: number) => {
     if (currentTaskId != null) {
-      setData((prev) => prev.filter((task) => task.id !== currentTaskId));
+      removeTask(id);
+      const freshTasks = await getTasks();
+      setData(freshTasks);
     }
     handleCloseDialog();
   };
@@ -136,7 +147,8 @@ export const TaskGrid = () => {
                 <div className="flex gap-4">
                   <Button
                     variant="danger"
-                    onClick={removeTask}
+                    onClick={() => handleRemoveTask(currentTask.id)}
+                    // onClick={deleteTask}
                     className="uppercase"
                   >
                     {REMOVE_YES}

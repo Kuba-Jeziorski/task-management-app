@@ -27,7 +27,6 @@ export const TASK_CONTEXT_ERROR =
   "TaskContext was used outside of TaskContextProvider";
 export const TASK_EDITING = "Editing:";
 export const TASK_REMOVING = "Are you sure you want to remove this task?";
-export const TASK_UNIQUE_NAME = "Task name must be uniqe";
 export const TOOLTIP_TOGGLE_ACTIVE = "Move to completed";
 export const TOOLTIP_TOGGLE_INACTIVE = "Move back to active";
 export const TOOLTIP_DECIDE =

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CircleCheck } from "lucide-react";
 
 import { InputWrapper } from "./input-wrapper";
-import type { Task } from "../../constants/types";
+import type { NewTask, Task } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Button } from "../primitives/button";
@@ -13,11 +13,12 @@ import {
   NEW,
   REQUIRED_FIELD,
   SAVE_TASK,
-  TASK_UNIQUE_NAME,
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
 import { CustomTooltip } from "./custom-tooltip";
+import { createTask, getTasks } from "../../services/api-tasks";
+import { handleUpdateTask } from "../../utils/handle-update-task";
 
 type FormValues = {
   taskName: string;
@@ -68,48 +69,60 @@ export const Form = () => {
     setDialogType(null);
   }, [reset, setDialogType]);
 
-  const validateUniqueName = useCallback(
-    (value: string) => {
-      if (isEditForm && taskToEdit) {
-        return (
-          !currentTasks.some(
-            (task) => task.name === value && task.id !== currentTaskId
-          ) || TASK_UNIQUE_NAME
-        );
-      }
-      return (
-        !currentTasks.some((task) => task.name === value) || TASK_UNIQUE_NAME
-      );
-    },
-    [isEditForm, taskToEdit, currentTasks, currentTaskId]
-  );
-
   const handleToggleActivity = () => {
     setLocalActivity((prev) => !prev);
   };
 
+  const handleCreateTask = async (task: NewTask) => {
+    await createTask(task);
+    // TODO swap with tanStack - invalidate queries
+    const freshTasks = await getTasks();
+    setData(freshTasks);
+  };
+
   const onSubmit = (data: FormValues) => {
     if (isNewForm && groupName) {
-      const lastId = currentTasks.at(-1)?.id ?? -1;
-
-      const newTask: Task = {
-        id: lastId + 1,
+      const newTask: NewTask = {
         name: data.taskName,
         group: groupName,
         active: true,
       };
 
-      setData([newTask, ...currentTasks]);
+      handleCreateTask(newTask);
+
+      // TODO keep for not logged-in users
+      // const lastId = currentTasks.at(-1)?.id ?? -1;
+
+      // const newTask: Task = {
+      //   id: lastId + 1,
+      //   name: data.taskName,
+      //   group: groupName,
+      //   active: true,
+      // };
+
+      // setData([newTask, ...currentTasks]);
     }
 
     if (isEditForm && currentTaskId != null) {
-      setData((currentTasks) =>
-        currentTasks.map((task) =>
-          task.id === currentTaskId
-            ? { ...task, name: data.taskName, active: localActivity }
-            : task
-        )
+      const taskToUpdate = currentTasks.find(
+        (task) => task.id === currentTaskId
       );
+      if (taskToUpdate) {
+        const updatedTask: Task = {
+          ...taskToUpdate,
+          name: data.taskName,
+          active: localActivity,
+        };
+        handleUpdateTask({ task: updatedTask, setData });
+      }
+      // TODO keep for not logged-in users
+      // setData((currentTasks) =>
+      //   currentTasks.map((task) =>
+      //     task.id === currentTaskId
+      //       ? { ...task, name: data.taskName, active: localActivity }
+      //       : task
+      //   )
+      // );
     }
     closeForm();
   };
@@ -160,7 +173,6 @@ export const Form = () => {
               )}
               {...register("taskName", {
                 required: REQUIRED_FIELD,
-                validate: validateUniqueName,
               })}
             />
           </InputWrapper>

@@ -29,7 +29,10 @@ export type Task = {
   group: GroupName;
   name: string;
   active: boolean;
+  created_at?: string;
 };
+
+export type NewTask = Omit<Task, "id">;
 
 export type Tasks = Task[];
 

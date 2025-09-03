@@ -9,22 +9,34 @@ import {
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
+import { handleUpdateTask } from "../../utils/handle-update-task";
 
 type TaskProps = {
   task: Task;
 };
 
 export const TaskListingElement = ({ task }: TaskProps) => {
-  const { setData } = useTaskContext();
+  const { data: currentTasks, setData } = useTaskContext();
 
-  const handleChangeActive = () => {
-    setData((prev) =>
-      prev.map((element) =>
-        element.id === task.id
-          ? { ...element, active: !element.active }
-          : element
-      )
-    );
+  // const handleToggleState = () => {
+  //   setData((prev) =>
+  //     prev.map((element) =>
+  //       element.id === task.id
+  //         ? { ...element, active: !element.active }
+  //         : element
+  //     )
+  //   );
+  // };
+
+  const handleChangeActive = async () => {
+    const taskToUpdate = currentTasks.find((element) => element.id === task.id);
+    if (taskToUpdate) {
+      const updatedTask: Task = {
+        ...taskToUpdate,
+        active: !taskToUpdate.active,
+      };
+      handleUpdateTask({ task: updatedTask, setData });
+    }
   };
 
   const tooltipMessage = task.active
@@ -44,6 +56,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
           {task.active === true ? (
             <button
               onClick={handleChangeActive}
+              // onClick={handleToggleState}
               className={cn(
                 "text-tma-blue-200 cursor-pointer transition-all duration-300",
                 "hover:text-tma-blue-100"
@@ -54,6 +67,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
           ) : (
             <button
               onClick={handleChangeActive}
+              // onClick={handleToggleState}
               className={cn(
                 "text-tma-blue-200 cursor-pointer transition-all duration-300",
                 "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
