@@ -35,8 +35,6 @@ type GroupedTasks = {
 
 export const TaskGrid = () => {
   const {
-    // data,
-    // setData,
     dialogType,
     setDialogType,
     currentTaskId,
@@ -75,14 +73,6 @@ export const TaskGrid = () => {
     setGroupName(undefined);
     setCurrentTaskId(null);
   };
-
-  // TODO keep for not logged-in users
-  // const deleteTask = () => {
-  //   if (currentTaskId != null) {
-  //     setData((prev) => prev.filter((task) => task.id !== currentTaskId));
-  //   }
-  //   handleCloseDialog();
-  // };
 
   const handleRemoveTask = async (id: number) => {
     if (currentTaskId != null) {
@@ -150,7 +140,6 @@ export const TaskGrid = () => {
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveTask(currentTask.id)}
-                    // onClick={deleteTask}
                     className="uppercase"
                   >
                     {REMOVE_YES}

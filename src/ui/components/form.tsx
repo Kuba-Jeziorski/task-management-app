@@ -84,18 +84,6 @@ export const Form = () => {
       };
 
       createTask(newTask);
-
-      // TODO keep for not logged-in users
-      // const lastId = currentTasks.at(-1)?.id ?? -1;
-
-      // const newTask: Task = {
-      //   id: lastId + 1,
-      //   name: data.taskName,
-      //   group: groupName,
-      //   active: true,
-      // };
-
-      // setData([newTask, ...currentTasks]);
     }
 
     if (isEditForm && currentTaskId != null) {
@@ -110,14 +98,6 @@ export const Form = () => {
         };
         updateTask(updatedTask);
       }
-      // TODO keep for not logged-in users
-      // setData((currentTasks) =>
-      //   currentTasks.map((task) =>
-      //     task.id === currentTaskId
-      //       ? { ...task, name: data.taskName, active: localActivity }
-      //       : task
-      //   )
-      // );
     }
     closeForm();
   };
