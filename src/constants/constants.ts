@@ -1,5 +1,7 @@
-export const ADD_NEW_TASK = "Add new task to";
+// STRINGS
 export const ACTIVE = "active";
+export const ADD_NEW_TASK = "Add new task to";
+export const AUTHENTICATED = "authenticated";
 export const CANCEL = "cancel";
 export const COMPLETED = "completed";
 export const CONFIRMATION = "confirmation";
@@ -38,6 +40,7 @@ export const REQUIRED_FIELD = "This field is required";
 export const SAVE_TASK = "save task";
 export const SIGN_UP = "sign up";
 export const SIGN_UP_MESSAGE = "Sign up to the application";
+export const SIGN_UP_SUCCESS = "Signed up successfully";
 export const SUCCESSFUL_TASK_CREATE = "Successfully created a task";
 export const SUCCESSFUL_TASK_REMOVE = "Successfully removed a task";
 export const SUCCESSFUL_TASK_UPDATE = "Successfully updated a task";
@@ -57,4 +60,7 @@ export const TOOLTIP_DELETE =
 export const TOOLTIP_DO =
   "Do it immediately - tasks that are urgent and important.";
 export const USER_FORM_LOGIN = "login";
-export const USER_FORM_SIGNUP = "signup";
+export const USER_FORM_SIGNUP = "sign up";
+
+// NUMBERS
+export const RETRY_ATTEMPTS = 5;

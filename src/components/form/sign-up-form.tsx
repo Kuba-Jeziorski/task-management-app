@@ -9,15 +9,20 @@ import {
   PASSWORD_REPEAT,
   REQUIRED_FIELD,
   SIGN_UP_MESSAGE,
+  USER_FORM_LOGIN,
   USER_FORM_SIGNUP,
 } from "../../constants/constants";
 import { useSignUp } from "../../hooks/use-signup";
-import type { SignupProps } from "../../constants/types";
+import type { SignupProps, UserFormType } from "../../constants/types";
 import { InputWrapper } from "./input-wrapper";
 import { Button } from "../button/button";
-import { cn } from "../../utils/css";
+import { Input } from "./the-input";
 
-export const SignUpForm = () => {
+type SignUpFormProps = {
+  handleFormTypeChange: React.Dispatch<React.SetStateAction<UserFormType>>;
+};
+
+export const SignUpForm = ({ handleFormTypeChange }: SignUpFormProps) => {
   const { signUp, isPending } = useSignUp();
   const {
     register,
@@ -31,7 +36,10 @@ export const SignUpForm = () => {
     signUp(
       { fullName, email, password },
       {
-        onSettled: () => reset(),
+        onSettled: () => {
+          handleFormTypeChange(USER_FORM_LOGIN);
+          reset();
+        },
       }
     );
   };
@@ -43,30 +51,24 @@ export const SignUpForm = () => {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <InputWrapper label={FULL_NAME} error={errors?.fullName?.message}>
-          <input
+          <Input
             type="text"
             id="fullName"
             disabled={isPending}
             placeholder="placeholder"
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
+            autoComplete="username"
             {...register("fullName", {
               required: REQUIRED_FIELD,
             })}
           />
         </InputWrapper>
         <InputWrapper label={EMAIL_ADDRESS} error={errors?.email?.message}>
-          <input
+          <Input
             type="email"
             id="email"
             disabled={isPending}
             placeholder="placeholder"
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
+            autoComplete="username"
             {...register("email", {
               required: REQUIRED_FIELD,
               pattern: {
@@ -77,15 +79,12 @@ export const SignUpForm = () => {
           />
         </InputWrapper>
         <InputWrapper label={PASSWORD} error={errors?.fullName?.message}>
-          <input
+          <Input
             type="password"
             id="password"
             disabled={isPending}
             placeholder="placeholder"
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
+            autoComplete="current-password"
             {...register("password", {
               required: REQUIRED_FIELD,
               minLength: {
@@ -99,15 +98,12 @@ export const SignUpForm = () => {
           label={PASSWORD_REPEAT}
           error={errors?.passwordConfirm?.message}
         >
-          <input
+          <Input
             type="password"
             id="passwordConfirm"
             disabled={isPending}
             placeholder="placeholder"
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
+            autoComplete="current-password"
             {...register("passwordConfirm", {
               required: REQUIRED_FIELD,
               validate: (value) =>
@@ -116,10 +112,20 @@ export const SignUpForm = () => {
           />
         </InputWrapper>
         <div className="flex gap-3">
-          <Button variant="primary" disabled={isPending} type="submit">
+          <Button
+            variant="primary"
+            disabled={isPending}
+            type="submit"
+            className="uppercase"
+          >
             {USER_FORM_SIGNUP}
           </Button>
-          <Button variant="secondary" disabled={isPending} type="reset">
+          <Button
+            variant="secondary"
+            disabled={isPending}
+            type="reset"
+            className="uppercase"
+          >
             {CANCEL}
           </Button>
         </div>

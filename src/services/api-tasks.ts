@@ -1,10 +1,13 @@
 import supabase from "./supabase-config";
 
-import type { NewTask, Task } from "../constants/types";
+import type { GetTasksProps, NewTask, Task } from "../constants/types";
 
-export const getTasks = async (): Promise<Task[]> => {
+export const getTasks = async (userId: GetTasksProps): Promise<Task[]> => {
   try {
-    const { data, error } = await supabase.from("tasks").select("*");
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("*")
+      .eq("user_id", userId);
     if (error) {
       throw new Error(error.message);
     }

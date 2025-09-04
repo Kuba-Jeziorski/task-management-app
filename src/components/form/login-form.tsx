@@ -2,8 +2,8 @@ import { useState, type FormEvent } from "react";
 import { useLogin } from "../../hooks/use-login";
 import { Button } from "../button/button";
 import { InputWrapper } from "./input-wrapper";
-import { cn } from "../../utils/css";
 import { LOG_IN, LOG_IN_MESSAGE } from "../../constants/constants";
+import { Input } from "./the-input";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ export const LoginForm = () => {
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <InputWrapper label="Email">
-          <input
+          <Input
             type="email"
             id="email"
             placeholder="placeholder"
@@ -44,14 +44,10 @@ export const LoginForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={isPending}
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
           />
         </InputWrapper>
         <InputWrapper label="Password">
-          <input
+          <Input
             type="password"
             id="password"
             placeholder="placeholder"
@@ -59,10 +55,6 @@ export const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={isPending}
-            className={cn(
-              "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-              "placeholder-transparent"
-            )}
           />
         </InputWrapper>
         <div className="flex">

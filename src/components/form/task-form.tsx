@@ -19,6 +19,8 @@ import {
 import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { useUpdateTask } from "../../hooks/use-update-task";
 import { useCreateTask } from "../../hooks/use-create-task";
+import { Input } from "./the-input";
+import { useUser } from "../../hooks/use-user";
 
 type FormValues = {
   taskName: string;
@@ -32,6 +34,9 @@ export const TaskForm = () => {
     currentTaskId,
     groupName,
   } = useTaskContext();
+
+  const { user } = useUser();
+  const { id: userId } = user!;
 
   const { updateTask } = useUpdateTask();
   const { createTask } = useCreateTask();
@@ -78,6 +83,7 @@ export const TaskForm = () => {
   const onSubmit = (data: FormValues) => {
     if (isNewForm && groupName) {
       const newTask: NewTask = {
+        user_id: userId,
         name: data.taskName,
         group: groupName,
         active: true,
@@ -138,14 +144,10 @@ export const TaskForm = () => {
           </CustomTooltip>
 
           <InputWrapper label="New task name" error={errors?.taskName?.message}>
-            <input
+            <Input
               type="text"
               id="taskName"
               placeholder="placeholder"
-              className={cn(
-                "h-12 px-3 z-1 pt-4 border border-tma-blue-200 rounded-xl outline-0 text-base leading-none font-semibold",
-                "placeholder-transparent"
-              )}
               {...register("taskName", {
                 required: REQUIRED_FIELD,
               })}

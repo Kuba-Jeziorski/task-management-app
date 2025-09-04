@@ -28,6 +28,7 @@ export type GroupName =
 
 export type Task = {
   id: number;
+  user_id: string;
   group: GroupName;
   name: string;
   active: boolean;
@@ -62,3 +63,7 @@ export type SignupProps = {
 export type PartialSignupProps = Omit<SignupProps, "passwordConfirm">;
 
 export type LoginProps = Omit<SignupProps, "fullName" | "passwordConfirm">;
+
+export type GetTasksProps = {
+  userId: string;
+};

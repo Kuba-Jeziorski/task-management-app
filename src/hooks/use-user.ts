@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getCurrentUser } from "./get-current-user";
+import { AUTHENTICATED } from "../constants/constants";
 
 export function useUser() {
   const { data: user, isLoading } = useQuery({
@@ -7,5 +9,5 @@ export function useUser() {
     queryFn: getCurrentUser,
   });
 
-  return { user, isLoading, isAuthenticated: user?.role === "authenticated" };
+  return { user, isLoading, isAuthenticated: user?.role === AUTHENTICATED };
 }

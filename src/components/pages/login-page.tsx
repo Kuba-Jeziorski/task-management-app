@@ -18,7 +18,11 @@ export const LoginPage = () => {
         <div className="flex flex-col">
           <LoginFormTabs currentTab={formType} setCurrentTab={handleToggle} />
           <div className="flex flex-col gap-3  px-6 py-3">
-            {formType === USER_FORM_LOGIN ? <LoginForm /> : <SignUpForm />}
+            {formType === USER_FORM_LOGIN ? (
+              <LoginForm />
+            ) : (
+              <SignUpForm handleFormTypeChange={setFormType} />
+            )}
           </div>
         </div>
       </div>

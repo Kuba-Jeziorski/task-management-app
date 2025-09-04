@@ -19,7 +19,7 @@ export const useLogin = () => {
       navigate("/", { replace: true });
     },
     onError: (err) => {
-      console.log(`Error while logging in: ${err}`);
+      console.log(err.message);
       toast.error(LOGGED_IN_ERROR);
     },
   });
