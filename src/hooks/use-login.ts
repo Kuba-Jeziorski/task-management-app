@@ -1,7 +1,8 @@
+import toast from "react-hot-toast";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { login as loginApi } from "../services/api-user";
-import toast from "react-hot-toast";
 import {
   LOGGED_IN_ERROR,
   LOGGED_IN_SUCCESSFULLY,
@@ -19,7 +20,7 @@ export const useLogin = () => {
       navigate("/", { replace: true });
     },
     onError: (err) => {
-      console.log(err.message);
+      console.error(err.message);
       toast.error(LOGGED_IN_ERROR);
     },
   });

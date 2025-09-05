@@ -1,13 +1,17 @@
 // STRINGS
 export const ACTIVE = "active";
 export const ADD_NEW_TASK = "Add new task to";
+export const APPLY_CHANGES = "apply changes";
 export const AUTHENTICATED = "authenticated";
 export const CANCEL = "cancel";
+export const CHANGE_YOUR_NAME = "Change your name";
+export const CHANGE_YOUR_PASSWORD = "Change your password";
 export const COMPLETED = "completed";
 export const CONFIRMATION = "confirmation";
 export const EDIT = "edit";
 export const EMAIL_ADDRESS = "Email address";
 export const FULL_NAME = "Full name";
+export const FULL_NAME_CHANGED_SUCCESSFULLY = "Name changed successfully";
 export const GROUP_DO = "do";
 export const GROUP_DECIDE = "decide";
 export const GROUP_DELEGATE = "delegate";
@@ -21,7 +25,7 @@ export const LOG_IN = "log in";
 export const LOGGED_IN_ERROR = "Provided data is incorrect";
 export const LOG_IN_MESSAGE = "Log in to the application";
 export const LOGGED_IN_SUCCESSFULLY = "Logged in successfully";
-export const LOG_OUT = "log out";
+export const LOG_OUT = "Log out";
 export const LOGGED_OUT_ERROR =
   "There was a problem with logging out. Try again later";
 export const LOGGED_OUT_SUCCESSFULLY = "Logged out successfully";
@@ -31,6 +35,7 @@ export const NON_VALID_EMAIL = "Please provide a valid email address";
 export const NOT_FOUND_PAGE_DESCRIPTION = "Let's get back to homepage";
 export const NOT_FOUND_PAGE_TITLE = "Nothing to do here!";
 export const PASSWORD = "Password";
+export const PASSWORD_CHANGED_SUCCESSFULLY = "Password changed successfully";
 export const PASSWORD_MIN_LENGTH = "Password needs a minimum of 8 characters";
 export const PASSWORD_REPEAT = "Repeat password";
 export const PRIORITY_MATRIX = "priority matrix";
@@ -72,13 +77,21 @@ export const TRY_AGAIN = "try again";
 export const USER_FORM_LOGIN = "login";
 export const USER_FORM_SIGNUP = "sign up";
 
+export const USER_FORM_TYPE_FULLNAME = "fullName";
+export const USER_FORM_TYPE_PASSWORD = "password";
+
+export const USER_INFO_CHANGED_ERROR =
+  "Can't change user info now. Try again later";
+export const USER_NAME_PLACEHOLDER = "User";
+export const WELCOME_TITLE = "Hello there";
+
 // URLs
 export const URL_ABOUT_PAGE = "about";
 export const URL_AWARDS_PAGE = "awards";
 export const URL_LOGIN_PAGE = "login";
 export const URL_MY_DAY_PAGE = "my-day";
 export const URL_MY_TASKS_PAGE = "my-tasks";
-export const URL_USER_PAGE = "user;";
+export const URL_USER_PAGE = "user";
 
 // NUMBERS
 export const FETCH_RETRY_ATTEMPTS = 5;

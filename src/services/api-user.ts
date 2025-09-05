@@ -1,4 +1,8 @@
-import type { LoginProps, PartialSignupProps } from "../constants/types";
+import type {
+  LoginProps,
+  PartialSignupProps,
+  UpdateUserPayload,
+} from "../constants/types";
 import supabase from "./supabase-config";
 
 export const signup = async ({
@@ -42,4 +46,14 @@ export const logout = async () => {
   if (error) {
     throw new Error(error.message);
   }
+};
+
+export const updateUser = async (payload: UpdateUserPayload) => {
+  const { data, error } = await supabase.auth.updateUser(payload);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 };
