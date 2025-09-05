@@ -23,10 +23,24 @@ export const AboutPage = () => {
               Tasks are organized into four groups:
             </p>
             <ul className="list-disc pl-6 space-y-3 mt-3">
-              <li>Do - Urgent & important tasks to handle immediately</li>
-              <li>Decide - Important but less urgent tasks you schedule</li>
-              <li>Delegate - Tasks you hand off to someone else</li>
-              <li>Delete - Distractions or low-value tasks to drop</li>
+              <li>
+                <span className="font-semibold text-tma-blue-200">Do</span> -
+                Urgent & important tasks to handle immediately
+              </li>
+              <li>
+                <span className="font-semibold text-tma-blue-200">Decide</span>{" "}
+                - Important but less urgent tasks you schedule
+              </li>
+              <li>
+                <span className="font-semibold text-tma-blue-200">
+                  Delegate
+                </span>{" "}
+                - Tasks you hand off to someone else
+              </li>
+              <li>
+                <span className="font-semibold text-tma-blue-200">Delete</span>{" "}
+                - Distractions or low-value tasks to drop
+              </li>
             </ul>
           </li>
           <li className="font-semibold">
