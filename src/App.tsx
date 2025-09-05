@@ -14,6 +14,7 @@ import { LoginPage } from "./components/pages/login-page";
 import { ProtectedRoute } from "./components/ui/protected-route";
 import { UserPage } from "./components/pages/user-page";
 import { AboutPage } from "./components/pages/about-page";
+import { NotFoundPage } from "./components/pages/not-found-page";
 import {
   TOAST_ERROR_DURATION,
   TOAST_SUCCESS_DURATION,
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
       { path: `/${URL_USER_PAGE}`, Component: UserPage },
       {
         path: "*",
-        Component: () => <Navigate to={`/${URL_MY_TASKS_PAGE}`} replace />,
+        Component: NotFoundPage,
       },
     ],
   },

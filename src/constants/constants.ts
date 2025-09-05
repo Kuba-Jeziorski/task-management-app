@@ -28,6 +28,8 @@ export const LOGGED_OUT_SUCCESSFULLY = "Logged out successfully";
 export const NEW = "new";
 export const NO = "no";
 export const NON_VALID_EMAIL = "Please provide a valid email address";
+export const NOT_FOUND_PAGE_DESCRIPTION = "Let's get back to homepage";
+export const NOT_FOUND_PAGE_TITLE = "Nothing to do here!";
 export const PASSWORD = "Password";
 export const PASSWORD_MIN_LENGTH = "Password needs a minimum of 8 characters";
 export const PASSWORD_REPEAT = "Repeat password";
@@ -50,6 +52,7 @@ export const SOMETHING_WENT_WRONG = "Something went wrong!";
 export const SUCCESSFUL_TASK_CREATE = "Successfully created a task";
 export const SUCCESSFUL_TASK_REMOVE = "Successfully removed a task";
 export const SUCCESSFUL_TASK_UPDATE = "Successfully updated a task";
+export const TAKE_ME_BACK = "Take me back";
 export const TASK_ACTIVITY = "task activity";
 export const TASK_CONTEXT_ERROR =
   "TaskContext was used outside of TaskContextProvider";
