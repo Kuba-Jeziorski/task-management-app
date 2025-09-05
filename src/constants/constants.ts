@@ -41,6 +41,7 @@ export const SAVE_TASK = "save task";
 export const SIGN_UP = "sign up";
 export const SIGN_UP_MESSAGE = "Sign up to the application";
 export const SIGN_UP_SUCCESS = "Signed up successfully";
+export const SOMETHING_WENT_WRONG = "Something went wrong!";
 export const SUCCESSFUL_TASK_CREATE = "Successfully created a task";
 export const SUCCESSFUL_TASK_REMOVE = "Successfully removed a task";
 export const SUCCESSFUL_TASK_UPDATE = "Successfully updated a task";
@@ -59,6 +60,7 @@ export const TOOLTIP_DELETE =
   "Eliminate it - tasks that are neither urgent nor important.";
 export const TOOLTIP_DO =
   "Do it immediately - tasks that are urgent and important.";
+export const TRY_AGAIN = "try again";
 export const USER_FORM_LOGIN = "login";
 export const USER_FORM_SIGNUP = "sign up";
 
