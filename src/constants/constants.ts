@@ -38,6 +38,11 @@ export const REMOVE_NO = "no, go back";
 export const REMOVING = "Removing";
 export const REQUIRED_FIELD = "This field is required";
 export const SAVE_TASK = "save task";
+export const SIDEBAR_ABOUT_PAGE_NAME = "about";
+export const SIDEBAR_AWARDS_PAGE_NAME = "awards";
+export const SIDEBAR_MY_DAY_PAGE_NAME = "my day";
+export const SIDEBAR_MY_TASKS_PAGE_NAME = "my tasks";
+export const SIDEBAR_USER_PAGE_NAME = "user";
 export const SIGN_UP = "sign up";
 export const SIGN_UP_MESSAGE = "Sign up to the application";
 export const SIGN_UP_SUCCESS = "Signed up successfully";
@@ -64,5 +69,14 @@ export const TRY_AGAIN = "try again";
 export const USER_FORM_LOGIN = "login";
 export const USER_FORM_SIGNUP = "sign up";
 
+// URLs
+export const URL_ABOUT_PAGE = "about";
+export const URL_AWARDS_PAGE = "awards";
+export const URL_MY_DAY_PAGE = "my-day";
+export const URL_MY_TASKS_PAGE = "my-tasks";
+export const URL_USER_PAGE = "user;";
+
 // NUMBERS
-export const RETRY_ATTEMPTS = 5;
+export const FETCH_RETRY_ATTEMPTS = 5;
+export const TOAST_ERROR_DURATION = 5000;
+export const TOAST_SUCCESS_DURATION = 3000;
