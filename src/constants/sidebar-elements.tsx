@@ -31,7 +31,7 @@ export const sidebarElements: SidebarElements = [
     icon: <LibraryBig size={36} />,
     url: "/about",
     name: "about",
-    disabled: true,
+    disabled: false,
   },
   {
     icon: <User size={36} />,

@@ -13,6 +13,7 @@ import { MyDayPage } from "./components/pages/my-day-page";
 import { LoginPage } from "./components/pages/login-page";
 import { ProtectedRoute } from "./components/ui/protected-route";
 import { UserPage } from "./components/pages/user-page";
+import { AboutPage } from "./components/pages/about-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: "my-tasks", Component: MyTasksPage },
       { path: "awards", Component: AwardsPage },
       { path: "my-day", Component: MyDayPage },
+      { path: "about", Component: AboutPage },
       { path: "user", Component: UserPage },
       { path: "*", Component: () => <Navigate to="my-tasks" replace /> },
     ],
