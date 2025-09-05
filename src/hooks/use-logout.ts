@@ -4,6 +4,7 @@ import { logout as logoutApi } from "../services/api-user";
 import {
   LOGGED_OUT_ERROR,
   LOGGED_OUT_SUCCESSFULLY,
+  URL_LOGIN_PAGE,
 } from "../constants/constants";
 import toast from "react-hot-toast";
 
@@ -16,7 +17,7 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.removeQueries();
       toast.success(LOGGED_OUT_SUCCESSFULLY);
-      navigate("/login", { replace: true });
+      navigate(`/${URL_LOGIN_PAGE}`, { replace: true });
     },
     onError: (err) => {
       console.error(err.message);

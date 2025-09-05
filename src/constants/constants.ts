@@ -72,6 +72,7 @@ export const USER_FORM_SIGNUP = "sign up";
 // URLs
 export const URL_ABOUT_PAGE = "about";
 export const URL_AWARDS_PAGE = "awards";
+export const URL_LOGIN_PAGE = "login";
 export const URL_MY_DAY_PAGE = "my-day";
 export const URL_MY_TASKS_PAGE = "my-tasks";
 export const URL_USER_PAGE = "user;";

@@ -19,6 +19,7 @@ import {
   TOAST_SUCCESS_DURATION,
   URL_ABOUT_PAGE,
   URL_AWARDS_PAGE,
+  URL_LOGIN_PAGE,
   URL_MY_DAY_PAGE,
   URL_MY_TASKS_PAGE,
   URL_USER_PAGE,
@@ -43,21 +44,21 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: () => <Navigate to={URL_MY_TASKS_PAGE} replace />,
+        Component: () => <Navigate to={`/${URL_MY_TASKS_PAGE}`} replace />,
       },
-      { path: URL_MY_TASKS_PAGE, Component: MyTasksPage },
-      { path: URL_AWARDS_PAGE, Component: AwardsPage },
-      { path: URL_MY_DAY_PAGE, Component: MyDayPage },
-      { path: URL_ABOUT_PAGE, Component: AboutPage },
-      { path: URL_USER_PAGE, Component: UserPage },
+      { path: `/${URL_MY_TASKS_PAGE}`, Component: MyTasksPage },
+      { path: `/${URL_AWARDS_PAGE}`, Component: AwardsPage },
+      { path: `/${URL_MY_DAY_PAGE}`, Component: MyDayPage },
+      { path: `/${URL_ABOUT_PAGE}`, Component: AboutPage },
+      { path: `/${URL_USER_PAGE}`, Component: UserPage },
       {
         path: "*",
-        Component: () => <Navigate to={URL_MY_TASKS_PAGE} replace />,
+        Component: () => <Navigate to={`/${URL_MY_TASKS_PAGE}`} replace />,
       },
     ],
   },
   {
-    path: "/login",
+    path: `/${URL_LOGIN_PAGE}`,
     Component: LoginPage,
   },
 ]);

@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 
+import { URL_MY_TASKS_PAGE } from "../../constants/constants";
+
 export const AboutPage = () => {
   return (
     <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-xl">
@@ -73,7 +75,7 @@ export const AboutPage = () => {
           <li>Celebrate your progress along the way</li>
         </ul>
         <Link
-          to="/my-tasks"
+          to={`${URL_MY_TASKS_PAGE}`}
           className="underline transition-color duration-300 hover:text-tma-blue-200 font-bold pt-4"
         >
           Start today and experience a gamified way to get things done!
