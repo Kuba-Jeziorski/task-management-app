@@ -39,7 +39,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
     <div
       key={task.id}
       className={cn(
-        "flex justify-between border-b border-b-tma-light-300 px-2 h-[52px] group transition-all duration-300",
+        "flex justify-between border-b border-b-tma-light-300 rounded-md px-2 h-[52px] group transition-all duration-300",
         "hover:bg-tma-light-200"
       )}
     >

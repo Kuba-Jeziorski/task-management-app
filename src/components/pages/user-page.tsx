@@ -5,6 +5,7 @@ import {
   USER_NAME_PLACEHOLDER,
   WELCOME_TITLE,
 } from "../../constants/constants";
+import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
 import { useLogout } from "../../hooks/use-logout";
 import { useUser } from "../../hooks/use-user";
 import { Button } from "../button/button";
@@ -13,6 +14,8 @@ import { UserUpdateForm } from "../form/user-update-form";
 export const UserPage = () => {
   const { logout, isPending } = useLogout();
   const { user } = useUser();
+
+  useBlockedRedirect();
 
   const displayName = user?.user_metadata.fullName ?? USER_NAME_PLACEHOLDER;
 

@@ -1,6 +1,7 @@
 // STRINGS
 export const ACTIVE = "active";
-export const ADD_NEW_TASK = "Add new task to";
+export const ADD_NEW_TASK = "Add a new task";
+export const ADD_NEW_TASK_TO = "Add new task to";
 export const APPLY_CHANGES = "apply changes";
 export const AUTHENTICATED = "authenticated";
 export const CANCEL = "cancel";
@@ -16,10 +17,11 @@ export const GROUP_DO = "do";
 export const GROUP_DECIDE = "decide";
 export const GROUP_DELEGATE = "delegate";
 export const GROUP_DELETE = "delete";
-export const GROUP_DO_DESCRIPTION = "it now";
-export const GROUP_DECIDE_DESCRIPTION = "when to do it";
-export const GROUP_DELEGATE_DESCRIPTION = "who can do it for you?";
-export const GROUP_DELETE_DESCRIPTION = "don't do it";
+export const GROUP_DO_DESCRIPTION = "#URGENT #IMPORTANT";
+export const GROUP_DECIDE_DESCRIPTION = "#NOT URGENT #IMPORTANT";
+export const GROUP_DELEGATE_DESCRIPTION = "#URGENT #NOT IMPORTANT";
+export const GROUP_DELETE_DESCRIPTION = "#NOT URGENT #NOT IMPORTANT";
+export const HELLO_THERE = "Hello there,";
 export const INACTIVE = "inactive";
 export const LOG_IN = "log in";
 export const LOGGED_IN_ERROR = "Provided data is incorrect";
@@ -76,14 +78,13 @@ export const TOOLTIP_DO =
 export const TRY_AGAIN = "try again";
 export const USER_FORM_LOGIN = "login";
 export const USER_FORM_SIGNUP = "sign up";
-
 export const USER_FORM_TYPE_FULLNAME = "fullName";
 export const USER_FORM_TYPE_PASSWORD = "password";
-
 export const USER_INFO_CHANGED_ERROR =
   "Can't change user info now. Try again later";
 export const USER_NAME_PLACEHOLDER = "User";
 export const WELCOME_TITLE = "Hello there";
+export const YOU_ALREADY_GAINED = "You already gained";
 
 // URLs
 export const URL_ABOUT_PAGE = "about";
@@ -97,3 +98,7 @@ export const URL_USER_PAGE = "user";
 export const FETCH_RETRY_ATTEMPTS = 5;
 export const TOAST_ERROR_DURATION = 5000;
 export const TOAST_SUCCESS_DURATION = 3000;
+export const DO_GROUP_POINTS = 4;
+export const DECIDE_GROUP_POINTS = 3;
+export const DELEGATE_GROUP_POINTS = 2;
+export const DELETE_GROUP_POINTS = 1;

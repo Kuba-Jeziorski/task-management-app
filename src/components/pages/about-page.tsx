@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 
 import { URL_MY_TASKS_PAGE } from "../../constants/constants";
+import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
 
 export const AboutPage = () => {
+  useBlockedRedirect();
+
   return (
     <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-xl">
       <div className="flex flex-col gap-3 p-2 pr-4 w-full overflow-auto h-full text-tma-blue-100 text-lg">

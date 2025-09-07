@@ -1,6 +1,10 @@
 import {
-  ADD_NEW_TASK,
+  ADD_NEW_TASK_TO,
   CONFIRMATION,
+  DECIDE_GROUP_POINTS,
+  DELEGATE_GROUP_POINTS,
+  DELETE_GROUP_POINTS,
+  DO_GROUP_POINTS,
   EDIT,
   GROUP_DECIDE,
   GROUP_DECIDE_DESCRIPTION,
@@ -90,21 +94,25 @@ export const TaskGrid = () => {
         title={GROUP_DO}
         description={GROUP_DO_DESCRIPTION}
         tasks={groupedTasks[GROUP_DO]}
+        points={DO_GROUP_POINTS}
       />
       <TaskGroup
         title={GROUP_DECIDE}
         description={GROUP_DECIDE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DECIDE]}
+        points={DECIDE_GROUP_POINTS}
       />
       <TaskGroup
         title={GROUP_DELEGATE}
         description={GROUP_DELEGATE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DELEGATE]}
+        points={DELEGATE_GROUP_POINTS}
       />
       <TaskGroup
         title={GROUP_DELETE}
         description={GROUP_DELETE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DELETE]}
+        points={DELETE_GROUP_POINTS}
       />
 
       {isDialogOpen && (
@@ -113,7 +121,7 @@ export const TaskGrid = () => {
             {dialogType === NEW && groupName && (
               <>
                 <p className="title text-lg text-tma-blue-200">
-                  {`${ADD_NEW_TASK} `}
+                  {`${ADD_NEW_TASK_TO} `}
                   <span className="font-black uppercase">{groupName}</span>
                 </p>
                 <TaskForm />
