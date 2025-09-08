@@ -48,6 +48,7 @@ export const logout = async () => {
   }
 };
 
+// TODO: only password change
 export const updateUser = async (payload: UpdateUserPayload) => {
   const { data, error } = await supabase.auth.updateUser(payload);
 

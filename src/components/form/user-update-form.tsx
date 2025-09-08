@@ -28,6 +28,7 @@ export const UserUpdateForm = ({ type }: Props) => {
   } = useForm<FieldValues>();
 
   const onSubmit = (values: FieldValues) => {
+    // TODO: from api-profiles
     if (type === USER_FORM_TYPE_FULLNAME) {
       const payload: UpdateUserPayload = {
         data: { fullName: values.fullName },
@@ -35,6 +36,7 @@ export const UserUpdateForm = ({ type }: Props) => {
       updateUser(payload);
     }
 
+    // TODO: from api-user
     if (type === USER_FORM_TYPE_PASSWORD) {
       const payload: UpdateUserPayload = { password: values.password };
       updateUser(payload);

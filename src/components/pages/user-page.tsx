@@ -17,6 +17,7 @@ export const UserPage = () => {
 
   useBlockedRedirect();
 
+  // TODO: display name should comes from api-profiles
   const displayName = user?.user_metadata.fullName ?? USER_NAME_PLACEHOLDER;
 
   return (

@@ -71,3 +71,10 @@ export type UpdateUserPayload =
 export type GetTasksProps = {
   userId: string;
 };
+
+export type ProfileProps = {
+  user_id: string;
+  name: string;
+  current_points: number;
+  all_points: number;
+};
