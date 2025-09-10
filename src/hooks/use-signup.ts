@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 import { signup as signupApi } from "../services/api-user";
 import { SIGN_UP_SUCCESS } from "../constants/constants";
-import { createProfile } from "../services/api-profiles";
+import { createProfile } from "../services/api-profile";
 
 export const useSignUp = () => {
   const { mutate: signUp, isPending } = useMutation({

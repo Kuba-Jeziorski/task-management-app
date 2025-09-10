@@ -1,7 +1,7 @@
 import type {
   LoginProps,
   PartialSignupProps,
-  UpdateUserPayload,
+  UpdateUserPassword,
 } from "../constants/types";
 import supabase from "./supabase-config";
 
@@ -48,8 +48,7 @@ export const logout = async () => {
   }
 };
 
-// TODO: only password change
-export const updateUser = async (payload: UpdateUserPayload) => {
+export const passwordChange = async (payload: UpdateUserPassword) => {
   const { data, error } = await supabase.auth.updateUser(payload);
 
   if (error) {

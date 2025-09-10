@@ -2,22 +2,25 @@ import { useForm, type FieldValues } from "react-hook-form";
 import { InputWrapper } from "./input-wrapper";
 import { Input } from "./the-input";
 import { Button } from "../button/button";
-import { useUpdateUser } from "../../hooks/use-update-user";
+import { useChangePassword } from "../../hooks/use-update-user";
 import {
   APPLY_CHANGES,
+  EMAIL_ADDRESS_PLACEHOLDER,
   PASSWORD_REPEAT,
   USER_FORM_TYPE_FULLNAME,
   USER_FORM_TYPE_PASSWORD,
 } from "../../constants/constants";
-import type { UpdateUserPayload } from "../../constants/types";
+import type { UpdateUserPassword } from "../../constants/types";
 import { useUser } from "../../hooks/use-user";
+import { useUpdateProfileName } from "../../hooks/use-updated-profile";
 
 type Props = {
   type: typeof USER_FORM_TYPE_FULLNAME | typeof USER_FORM_TYPE_PASSWORD;
 };
 
 export const UserUpdateForm = ({ type }: Props) => {
-  const { updateUser, isPending } = useUpdateUser();
+  const { passwordChange, isPending } = useChangePassword();
+  const { updateProfileName, isUpdating } = useUpdateProfileName();
   const { user } = useUser();
 
   const {
@@ -28,22 +31,18 @@ export const UserUpdateForm = ({ type }: Props) => {
   } = useForm<FieldValues>();
 
   const onSubmit = (values: FieldValues) => {
-    // TODO: from api-profiles
     if (type === USER_FORM_TYPE_FULLNAME) {
-      const payload: UpdateUserPayload = {
-        data: { fullName: values.fullName },
-      };
-      updateUser(payload);
+      const newName = values.fullName;
+      updateProfileName(newName);
     }
 
-    // TODO: from api-user
     if (type === USER_FORM_TYPE_PASSWORD) {
-      const payload: UpdateUserPayload = { password: values.password };
-      updateUser(payload);
+      const newPassword: UpdateUserPassword = { password: values.password };
+      passwordChange(newPassword);
     }
   };
 
-  const userEmail = user?.email ?? "placeholder@mail.com";
+  const userEmail = user?.email ?? EMAIL_ADDRESS_PLACEHOLDER;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
@@ -91,7 +90,7 @@ export const UserUpdateForm = ({ type }: Props) => {
             <Input
               type="password"
               id="passwordConfirm"
-              disabled={isPending}
+              disabled={isPending || isUpdating}
               placeholder="placeholder"
               autoComplete="current-password"
               {...register("passwordConfirm", {
@@ -107,7 +106,7 @@ export const UserUpdateForm = ({ type }: Props) => {
         <Button
           variant="primary"
           type="submit"
-          disabled={isPending}
+          disabled={isPending || isUpdating}
           className="uppercase"
         >
           {APPLY_CHANGES}

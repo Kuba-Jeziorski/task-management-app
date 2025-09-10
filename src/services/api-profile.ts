@@ -40,7 +40,32 @@ export const createProfile = async () => {
   }
 };
 
-// use this for profile's name change
+export const getProfile = async () => {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error(EXPECTED_LOGGED_IN_USER);
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw error;
+    }
+  }
+};
+
 export const updateProfileName = async (fullName: string) => {
   const user = await getCurrentUser();
 

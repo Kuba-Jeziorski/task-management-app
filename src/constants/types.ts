@@ -64,11 +64,13 @@ export type PartialSignupProps = Omit<SignupProps, "passwordConfirm">;
 
 export type LoginProps = Omit<SignupProps, "fullName" | "passwordConfirm">;
 
-export type UpdateUserPayload =
-  | { password: string }
-  | { data: { fullName: string } };
+export type UpdateUserPassword = { password: string };
 
 export type GetTasksProps = {
+  userId: string;
+};
+
+export type GetProfileProps = {
   userId: string;
 };
 

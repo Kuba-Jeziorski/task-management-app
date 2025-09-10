@@ -1,19 +1,19 @@
 import { Link, Outlet } from "react-router-dom";
+import { Gem } from "lucide-react";
+import { cn } from "../../utils/css";
 
 import { Sidebar } from "../sidebar/the-sidebar";
-import { useUser } from "../../hooks/use-user";
 import {
   HELLO_THERE,
   URL_AWARDS_PAGE,
   USER_NAME_PLACEHOLDER,
   YOU_ALREADY_GAINED,
 } from "../../constants/constants";
-import { Gem } from "lucide-react";
-import { cn } from "../../utils/css";
+import { useProfile } from "../../hooks/use-profile";
 
 export const AppLayout = () => {
-  const { user } = useUser();
-  const displayName = user?.user_metadata.fullName ?? USER_NAME_PLACEHOLDER;
+  const profile = useProfile();
+  const displayName = profile?.profile?.name ?? USER_NAME_PLACEHOLDER;
 
   return (
     <div className="w-full p-10 flex flex-wrap gap-10 items-center h-full max-h-100vh">
