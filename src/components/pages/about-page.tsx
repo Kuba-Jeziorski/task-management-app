@@ -7,7 +7,7 @@ export const AboutPage = () => {
   useBlockedRedirect();
 
   return (
-    <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-xl">
+    <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-[20px]">
       <div className="flex flex-col gap-3 p-2 pr-4 w-full overflow-auto h-full text-tma-blue-100 text-lg">
         <h1 className="font-black text-tma-blue-200 text-3xl">
           About this application

@@ -1,6 +1,8 @@
 import {
   ALL_POINTS,
+  COLLECTED_REWARDS,
   CURRENT_POINTS,
+  REWARDS,
   USER_FORM_LOGIN,
   USER_FORM_SIGNUP,
   type CONFIRMATION,
@@ -94,3 +96,5 @@ export type PointsUpdateProps = {
   taskValue: number;
   pointsType: PointsType;
 };
+type Awards = typeof REWARDS | typeof COLLECTED_REWARDS;
+export type TooltipMessages = GroupName | Awards;

@@ -1,18 +1,26 @@
 import {
+  COLLECTED_REWARDS,
+  COLLECTED_REWARDS_TOOLTIP,
   GROUP_DECIDE,
   GROUP_DELEGATE,
   GROUP_DELETE,
   GROUP_DO,
+  REWARDS,
+  REWARDS_TOOLTIP,
   TOOLTIP_DECIDE,
   TOOLTIP_DELEGATE,
   TOOLTIP_DELETE,
   TOOLTIP_DO,
 } from "./constants";
-import type { GroupName } from "./types";
+import type { TooltipMessages } from "./types";
 
-export const tooltipMessages: Record<GroupName, string> = {
+export const tooltipMessages: Record<TooltipMessages, string> = {
+  // tasks
   [GROUP_DO]: TOOLTIP_DO,
   [GROUP_DECIDE]: TOOLTIP_DECIDE,
   [GROUP_DELEGATE]: TOOLTIP_DELEGATE,
   [GROUP_DELETE]: TOOLTIP_DELETE,
+  // awards
+  [REWARDS]: REWARDS_TOOLTIP,
+  [COLLECTED_REWARDS]: COLLECTED_REWARDS_TOOLTIP,
 };

@@ -31,7 +31,7 @@ export const sidebarElements: SidebarElements = [
     icon: <Trophy size={36} />,
     url: `/${URL_AWARDS_PAGE}`,
     name: SIDEBAR_AWARDS_PAGE_NAME,
-    disabled: true,
+    disabled: false,
   },
   {
     icon: <CalendarClock size={36} />,
