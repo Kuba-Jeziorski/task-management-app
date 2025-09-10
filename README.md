@@ -62,7 +62,7 @@ Stay focused, prioritize effectively, and turn productivity into rewards.
 - Create toasts for success/error outcomes
 - Utilize a tanStack isPending prop
 
-### **Phase three (ongoing) ✍**
+### **Phase three (finished) ✅**
 
 - Create an auth functionality
 - Create a login/sign up page
@@ -73,7 +73,7 @@ Stay focused, prioritize effectively, and turn productivity into rewards.
 - Create a Not-found page
 - Create a README.md file
 
-### **Phase four**
+### **Phase four (ongoing) ✍**
 
 - Create an Award page
 - Create an exchanging points for prizes functionality
