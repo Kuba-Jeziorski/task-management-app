@@ -8,7 +8,9 @@ import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Button } from "../button/button";
 import {
+  ALL_POINTS,
   CANCEL,
+  CURRENT_POINTS,
   EDIT,
   NEW,
   REQUIRED_FIELD,
@@ -21,6 +23,8 @@ import { useUpdateTask } from "../../hooks/use-update-task";
 import { useCreateTask } from "../../hooks/use-create-task";
 import { Input } from "./the-input";
 import { useUser } from "../../hooks/use-user";
+import { useCurrentPoints } from "../../hooks/use-current-points";
+import { taskGroupPoints } from "../../constants/task-group-points";
 
 type FormValues = {
   taskName: string;
@@ -40,6 +44,7 @@ export const TaskForm = () => {
 
   const { updateTask } = useUpdateTask();
   const { createTask } = useCreateTask();
+  const { updatePoints, isUpdating } = useCurrentPoints();
 
   const isNewForm = dialogType === NEW;
   const isEditForm = dialogType === EDIT;
@@ -103,6 +108,13 @@ export const TaskForm = () => {
           active: localActivity,
         };
         updateTask(updatedTask);
+
+        const taskValue = updatedTask.active
+          ? taskGroupPoints[updatedTask.group] * -1
+          : taskGroupPoints[updatedTask.group];
+
+        updatePoints({ taskValue, pointsType: CURRENT_POINTS });
+        updatePoints({ taskValue, pointsType: ALL_POINTS });
       }
     }
     closeForm();
@@ -163,7 +175,12 @@ export const TaskForm = () => {
           >
             {CANCEL}
           </Button>
-          <Button variant={"primary"} type="submit" className="uppercase">
+          <Button
+            variant={"primary"}
+            type="submit"
+            className="uppercase"
+            disabled={isUpdating}
+          >
             {SAVE_TASK}
           </Button>
         </div>

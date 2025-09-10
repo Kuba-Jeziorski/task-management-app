@@ -1,10 +1,10 @@
 import {
   ADD_NEW_TASK_TO,
   CONFIRMATION,
-  DECIDE_GROUP_POINTS,
-  DELEGATE_GROUP_POINTS,
-  DELETE_GROUP_POINTS,
-  DO_GROUP_POINTS,
+  GROUP_DECIDE_POINTS,
+  GROUP_DELEGATE_POINTS,
+  GROUP_DELETE_POINTS,
+  GROUP_DO_POINTS,
   EDIT,
   GROUP_DECIDE,
   GROUP_DECIDE_DESCRIPTION,
@@ -94,25 +94,25 @@ export const TaskGrid = () => {
         title={GROUP_DO}
         description={GROUP_DO_DESCRIPTION}
         tasks={groupedTasks[GROUP_DO]}
-        points={DO_GROUP_POINTS}
+        points={GROUP_DO_POINTS}
       />
       <TaskGroup
         title={GROUP_DECIDE}
         description={GROUP_DECIDE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DECIDE]}
-        points={DECIDE_GROUP_POINTS}
+        points={GROUP_DECIDE_POINTS}
       />
       <TaskGroup
         title={GROUP_DELEGATE}
         description={GROUP_DELEGATE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DELEGATE]}
-        points={DELEGATE_GROUP_POINTS}
+        points={GROUP_DELEGATE_POINTS}
       />
       <TaskGroup
         title={GROUP_DELETE}
         description={GROUP_DELETE_DESCRIPTION}
         tasks={groupedTasks[GROUP_DELETE]}
-        points={DELETE_GROUP_POINTS}
+        points={GROUP_DELETE_POINTS}
       />
 
       {isDialogOpen && (

@@ -12,7 +12,7 @@ import {
 } from "../../constants/constants";
 import type { UpdateUserPassword } from "../../constants/types";
 import { useUser } from "../../hooks/use-user";
-import { useUpdateProfileName } from "../../hooks/use-updated-profile";
+import { useUpdateProfileName } from "../../hooks/use-update-profile";
 
 type Props = {
   type: typeof USER_FORM_TYPE_FULLNAME | typeof USER_FORM_TYPE_PASSWORD;

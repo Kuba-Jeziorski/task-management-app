@@ -1,4 +1,6 @@
 import {
+  ALL_POINTS,
+  CURRENT_POINTS,
   USER_FORM_LOGIN,
   USER_FORM_SIGNUP,
   type CONFIRMATION,
@@ -79,4 +81,16 @@ export type ProfileProps = {
   name: string;
   current_points: number;
   all_points: number;
+};
+
+export type ProfilePoints = {
+  current_points?: number;
+  all_points?: number;
+};
+
+type PointsType = typeof CURRENT_POINTS | typeof ALL_POINTS;
+
+export type PointsUpdateProps = {
+  taskValue: number;
+  pointsType: PointsType;
 };

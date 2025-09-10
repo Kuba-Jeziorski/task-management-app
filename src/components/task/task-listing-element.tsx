@@ -6,10 +6,14 @@ import { cn } from "../../utils/css";
 import { Dropdown } from "../dropdown/dropdown";
 import { CustomTooltip } from "../tooltip/custom-tooltip";
 import {
+  ALL_POINTS,
+  CURRENT_POINTS,
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
 import { useUpdateTask } from "../../hooks/use-update-task";
+import { useCurrentPoints } from "../../hooks/use-current-points";
+import { taskGroupPoints } from "../../constants/task-group-points";
 
 type TaskProps = {
   task: Task;
@@ -19,6 +23,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
   const { data: currentTasks } = useTaskContext();
 
   const { updateTask } = useUpdateTask();
+  const { updatePoints, isUpdating } = useCurrentPoints();
 
   const handleChangeActive = async () => {
     const taskToUpdate = currentTasks.find((element) => element.id === task.id);
@@ -28,6 +33,13 @@ export const TaskListingElement = ({ task }: TaskProps) => {
         active: !taskToUpdate.active,
       };
       updateTask(updatedTask);
+
+      const taskValue = updatedTask.active
+        ? taskGroupPoints[updatedTask.group] * -1
+        : taskGroupPoints[updatedTask.group];
+
+      updatePoints({ taskValue, pointsType: CURRENT_POINTS });
+      updatePoints({ taskValue, pointsType: ALL_POINTS });
     }
   };
 
@@ -47,6 +59,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
         <CustomTooltip title={tooltipMessage}>
           {task.active === true ? (
             <button
+              disabled={isUpdating}
               onClick={handleChangeActive}
               className={cn(
                 "text-tma-blue-200 cursor-pointer transition-all duration-300",
@@ -57,6 +70,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
             </button>
           ) : (
             <button
+              disabled={isUpdating}
               onClick={handleChangeActive}
               className={cn(
                 "text-tma-blue-200 cursor-pointer transition-all duration-300",

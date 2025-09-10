@@ -2,6 +2,7 @@
 export const ACTIVE = "active";
 export const ADD_NEW_TASK = "Add a new task";
 export const ADD_NEW_TASK_TO = "Add new task to";
+export const ALL_POINTS = "all_points";
 export const APPLY_CHANGES = "apply changes";
 export const AUTHENTICATED = "authenticated";
 export const CANCEL = "cancel";
@@ -9,6 +10,7 @@ export const CHANGE_YOUR_NAME = "Change your name";
 export const CHANGE_YOUR_PASSWORD = "Change your password";
 export const COMPLETED = "completed";
 export const CONFIRMATION = "confirmation";
+export const CURRENT_POINTS = "current_points";
 export const EDIT = "edit";
 export const EMAIL_ADDRESS = "Email address";
 export const EMAIL_ADDRESS_PLACEHOLDER = "placeholder@mail.com";
@@ -43,6 +45,9 @@ export const PASSWORD = "Password";
 export const PASSWORD_CHANGED_SUCCESSFULLY = "Password changed successfully";
 export const PASSWORD_MIN_LENGTH = "Password needs a minimum of 8 characters";
 export const PASSWORD_REPEAT = "Repeat password";
+export const POINTS_CHANGED_SUCCESSFULLY = "Your points has changed!";
+export const POINTS_CHANGED_ERROR =
+  "There was some issue with updating your points!";
 export const PRIORITY_MATRIX = "priority matrix";
 export const REMOVE = "remove";
 export const REMOVE_YES = "yes, remove it";
@@ -86,7 +91,6 @@ export const USER_FORM_TYPE_PASSWORD = "password";
 export const USER_INFO_CHANGED_ERROR =
   "Can't change user info now. Try again later";
 export const USER_NAME_PLACEHOLDER = "User";
-export const WELCOME_TITLE = "Hello there";
 export const YOU_ALREADY_GAINED = "You already gained";
 
 // URLs
@@ -101,9 +105,9 @@ export const URL_USER_PAGE = "user";
 export const FETCH_RETRY_ATTEMPTS = 5;
 export const TOAST_ERROR_DURATION = 5000;
 export const TOAST_SUCCESS_DURATION = 3000;
-export const DO_GROUP_POINTS = 4;
-export const DECIDE_GROUP_POINTS = 3;
-export const DELEGATE_GROUP_POINTS = 2;
-export const DELETE_GROUP_POINTS = 1;
+export const GROUP_DO_POINTS = 4;
+export const GROUP_DECIDE_POINTS = 3;
+export const GROUP_DELEGATE_POINTS = 2;
+export const GROUP_DELETE_POINTS = 1;
 export const BASE_ALL_POINTS = 0;
 export const BASE_CURRENT_POINTS = 0;

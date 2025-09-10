@@ -6,7 +6,11 @@ import {
   EXPECTED_LOGGED_IN_USER,
   USER_NAME_PLACEHOLDER,
 } from "../constants/constants";
-import type { ProfileProps } from "../constants/types";
+import type {
+  PointsUpdateProps,
+  ProfilePoints,
+  ProfileProps,
+} from "../constants/types";
 import { getCurrentUser } from "../hooks/get-current-user";
 
 export const createProfile = async () => {
@@ -89,5 +93,47 @@ export const updateProfileName = async (fullName: string) => {
     } else {
       throw error;
     }
+  }
+};
+
+export const updatePoints = async ({
+  taskValue,
+  pointsType,
+}: PointsUpdateProps) => {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error(EXPECTED_LOGGED_IN_USER);
+  }
+
+  try {
+    const { data: profile, error: fetchError } = await supabase
+      .from("profiles")
+      .select(pointsType)
+      .eq("user_id", user.id)
+      .single<ProfilePoints>();
+
+    if (fetchError) {
+      throw new Error(fetchError.message);
+    }
+
+    const newPoints = (profile?.[pointsType] ?? 0) + taskValue;
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({ [pointsType]: newPoints })
+      .eq("user_id", user.id)
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw error;
   }
 };
