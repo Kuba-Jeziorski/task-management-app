@@ -1,5 +1,11 @@
-import { CONFIRMATION, EDIT, REMOVE } from "../../constants/constants";
+import {
+  CONFIRMATION,
+  EDIT,
+  EDIT_TASK,
+  REMOVE,
+} from "../../constants/constants";
 import type { DropdownOptionElement } from "../../constants/types";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 
@@ -11,12 +17,14 @@ export const DropdownListingElement = ({ element }: Props) => {
   const isEdit = element.name === EDIT;
   const isRemove = element.name === REMOVE;
 
-  const { setIsDropdownOpen, setDialogType } = useTaskContext();
+  const { setIsDropdownOpen } = useTaskContext();
+
+  const { setDialogType } = useGlobalContext();
 
   const handleClick = () => {
     setIsDropdownOpen(false);
     if (isEdit) {
-      setDialogType(EDIT);
+      setDialogType(EDIT_TASK);
     }
     if (isRemove) {
       setDialogType(CONFIRMATION);

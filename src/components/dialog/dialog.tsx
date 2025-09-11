@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { cn } from "../../utils/css";
 import { createPortal } from "react-dom";
 
-import { useTaskContext } from "../../contexts/helpers/use-task-context";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 
 type Props = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const Dialog = ({ children, closeFn }: Props) => {
-  const { dialogType } = useTaskContext();
+  const { dialogType } = useGlobalContext();
 
   const isOpen = dialogType !== null;
 

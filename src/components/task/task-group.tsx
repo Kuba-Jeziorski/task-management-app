@@ -6,13 +6,14 @@ import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import {
   ADD_NEW_TASK,
   COMPLETED,
-  NEW,
+  NEW_TASK,
   URL_AWARDS_PAGE,
 } from "../../constants/constants";
 import { tooltipMessages } from "../../constants/tooltip-messages";
 import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { Link } from "react-router";
 import { cn } from "../../utils/css";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 
 type TaskGroupProps = {
   title: GroupName;
@@ -27,10 +28,12 @@ export const TaskGroup = ({
   tasks,
   points,
 }: TaskGroupProps) => {
-  const { setDialogType, setIsDropdownOpen, setGroupName } = useTaskContext();
+  const { setIsDropdownOpen, setGroupName } = useTaskContext();
+
+  const { setDialogType } = useGlobalContext();
 
   const handleOpen = () => {
-    setDialogType(NEW);
+    setDialogType(NEW_TASK);
     setIsDropdownOpen(false);
     setGroupName(title);
   };

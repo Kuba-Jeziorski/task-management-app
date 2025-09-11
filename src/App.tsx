@@ -25,6 +25,7 @@ import {
   URL_MY_TASKS_PAGE,
   URL_USER_PAGE,
 } from "./constants/constants";
+import { GlobalContextProvider } from "./contexts/global-context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,20 +68,22 @@ const router = createBrowserRouter([
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster
-        position="bottom-center"
-        gutter={12}
-        containerStyle={{ margin: "16px" }}
-        toastOptions={{
-          success: {
-            duration: TOAST_SUCCESS_DURATION,
-          },
-          error: {
-            duration: TOAST_ERROR_DURATION,
-          },
-        }}
-      />
+      <GlobalContextProvider>
+        <RouterProvider router={router} />
+        <Toaster
+          position="bottom-center"
+          gutter={12}
+          containerStyle={{ margin: "16px" }}
+          toastOptions={{
+            success: {
+              duration: TOAST_SUCCESS_DURATION,
+            },
+            error: {
+              duration: TOAST_ERROR_DURATION,
+            },
+          }}
+        />
+      </GlobalContextProvider>
     </QueryClientProvider>
   );
 }

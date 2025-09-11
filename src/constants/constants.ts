@@ -12,7 +12,6 @@ export const COLLECTED_REWARDS = "collected_rewards";
 export const COLLECTED_REWARDS_TITLE = "Recent awards";
 export const COLLECTED_REWARDS_TOOLTIP = "Collected rewards tooltip";
 export const COMPLETED = "completed";
-export const CONFIRMATION = "confirmation";
 export const CURRENT_POINTS = "current_points";
 export const EDIT = "edit";
 export const EMAIL_ADDRESS = "Email address";
@@ -98,6 +97,13 @@ export const USER_INFO_CHANGED_ERROR =
   "Can't change user info now. Try again later";
 export const USER_NAME_PLACEHOLDER = "User";
 export const YOU_ALREADY_GAINED = "You already gained";
+
+// DIALOG
+export const NEW_TASK = "new-task";
+export const EDIT_TASK = "edit-task";
+export const NEW_REWARD = "new-reward";
+export const EDIT_REWARD = "edit-reward";
+export const CONFIRMATION = "confirmation";
 
 // URLs
 export const URL_ABOUT_PAGE = "about";

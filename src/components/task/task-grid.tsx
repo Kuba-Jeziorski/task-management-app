@@ -5,7 +5,6 @@ import {
   GROUP_DELEGATE_POINTS,
   GROUP_DELETE_POINTS,
   GROUP_DO_POINTS,
-  EDIT,
   GROUP_DECIDE,
   GROUP_DECIDE_DESCRIPTION,
   GROUP_DELEGATE,
@@ -14,12 +13,13 @@ import {
   GROUP_DELETE_DESCRIPTION,
   GROUP_DO,
   GROUP_DO_DESCRIPTION,
-  NEW,
   REMOVE_NO,
   REMOVE_YES,
   REMOVING,
   TASK_EDITING,
   TASK_REMOVING,
+  NEW_TASK,
+  EDIT_TASK,
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
@@ -30,6 +30,7 @@ import { useTasks } from "../../hooks/use-tasks";
 import { useRemoveTask } from "../../hooks/use-remove-task";
 import { Spinner } from "../spinner/the-spinner";
 import { Dialog } from "../dialog/dialog";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;
@@ -39,14 +40,10 @@ type GroupedTasks = {
 };
 
 export const TaskGrid = () => {
-  const {
-    dialogType,
-    setDialogType,
-    currentTaskId,
-    setCurrentTaskId,
-    groupName,
-    setGroupName,
-  } = useTaskContext();
+  const { currentTaskId, setCurrentTaskId, groupName, setGroupName } =
+    useTaskContext();
+
+  const { dialogType, setDialogType } = useGlobalContext();
 
   const { tasks: data = [], isLoading } = useTasks();
   const { removeTask } = useRemoveTask();
@@ -69,8 +66,8 @@ export const TaskGrid = () => {
   });
 
   const isDialogOpen =
-    (dialogType === NEW && groupName) ||
-    (dialogType === EDIT && currentTaskId) ||
+    (dialogType === NEW_TASK && groupName) ||
+    (dialogType === EDIT_TASK && currentTaskId) ||
     (dialogType === CONFIRMATION && currentTaskId);
 
   const handleCloseDialog = () => {
@@ -118,7 +115,7 @@ export const TaskGrid = () => {
       {isDialogOpen && (
         <Dialog closeFn={handleCloseDialog}>
           <div className="flex gap-3 flex-col" data-task={dialogType}>
-            {dialogType === NEW && groupName && (
+            {dialogType === NEW_TASK && groupName && (
               <>
                 <p className="title text-lg text-tma-blue-200">
                   {`${ADD_NEW_TASK_TO} `}
@@ -128,7 +125,7 @@ export const TaskGrid = () => {
               </>
             )}
 
-            {dialogType === EDIT && currentTask && (
+            {dialogType === EDIT_TASK && currentTask && (
               <>
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
                   {TASK_EDITING}{" "}

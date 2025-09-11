@@ -53,7 +53,17 @@ export type DropdownOptionElement = {
 
 export type DropdownOptionElements = DropdownOptionElement[];
 
+// TODO: change this
 export type DialogType = typeof NEW | typeof EDIT | typeof CONFIRMATION;
+
+// TODO: new dialog
+type TaskDialogType = "new-task" | "edit-task";
+type RewardDialogType = "new-reward" | "edit-reward";
+type ConfirmationDialogType = "confirmation";
+export type NewDialogType =
+  | TaskDialogType
+  | RewardDialogType
+  | ConfirmationDialogType;
 
 export type UserFormType = typeof USER_FORM_LOGIN | typeof USER_FORM_SIGNUP;
 

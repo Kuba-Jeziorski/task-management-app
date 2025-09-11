@@ -11,8 +11,8 @@ import {
   ALL_POINTS,
   CANCEL,
   CURRENT_POINTS,
-  EDIT,
-  NEW,
+  EDIT_TASK,
+  NEW_TASK,
   REQUIRED_FIELD,
   SAVE_TASK,
   TOOLTIP_TOGGLE_ACTIVE,
@@ -25,19 +25,16 @@ import { Input } from "./the-input";
 import { useUser } from "../../hooks/use-user";
 import { useCurrentPoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 
 type FormValues = {
   taskName: string;
 };
 
 export const TaskForm = () => {
-  const {
-    data: currentTasks,
-    dialogType,
-    setDialogType,
-    currentTaskId,
-    groupName,
-  } = useTaskContext();
+  const { data: currentTasks, currentTaskId, groupName } = useTaskContext();
+
+  const { dialogType, setDialogType } = useGlobalContext();
 
   const { user } = useUser();
   const { id: userId } = user!;
@@ -46,8 +43,8 @@ export const TaskForm = () => {
   const { createTask } = useCreateTask();
   const { updatePoints, isUpdating } = useCurrentPoints();
 
-  const isNewForm = dialogType === NEW;
-  const isEditForm = dialogType === EDIT;
+  const isNewForm = dialogType === NEW_TASK;
+  const isEditForm = dialogType === EDIT_TASK;
 
   const taskToEdit =
     isEditForm && currentTaskId
