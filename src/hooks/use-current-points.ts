@@ -3,10 +3,7 @@ import toast from "react-hot-toast";
 
 import { updatePoints as updatePointsApi } from "../services/api-profile";
 import type { PointsUpdateProps } from "../constants/types";
-import {
-  POINTS_CHANGED_ERROR,
-  POINTS_CHANGED_SUCCESSFULLY,
-} from "../constants/constants";
+import { POINTS_CHANGED_ERROR } from "../constants/constants";
 
 export const useCurrentPoints = () => {
   const queryClient = useQueryClient();
@@ -15,7 +12,7 @@ export const useCurrentPoints = () => {
     mutationFn: ({ taskValue, pointsType }: PointsUpdateProps) =>
       updatePointsApi({ taskValue, pointsType }),
     onSuccess: () => {
-      toast.success(POINTS_CHANGED_SUCCESSFULLY);
+      // toast.success(POINTS_CHANGED_SUCCESSFULLY);
       queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
     onError: (err) => {
