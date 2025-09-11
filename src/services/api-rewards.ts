@@ -1,19 +1,12 @@
-import { EXPECTED_LOGGED_IN_USER } from "../constants/constants";
-import { getCurrentUser } from "../hooks/get-current-user";
+import type { GetUserIdProps, Reward } from "../constants/types";
 import supabase from "./supabase-config";
 
-export const getRewards = async () => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error(EXPECTED_LOGGED_IN_USER);
-  }
-
+export const getRewards = async (userId: GetUserIdProps) => {
   try {
     const { data, error } = await supabase
       .from("rewards")
       .select("*")
-      .eq("user_id", user.id);
+      .eq("user_id", userId);
     if (error) {
       throw new Error(error.message);
     }
@@ -26,13 +19,7 @@ export const getRewards = async () => {
     }
   }
 };
-type Reward = {
-  id: number; // from db
-  user_id: string;
-  name: string;
-  points: number;
-  active: boolean;
-};
+
 export const createReward = async (
   reward: Omit<Reward, "id">
 ): Promise<void> => {

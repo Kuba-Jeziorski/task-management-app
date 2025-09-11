@@ -114,7 +114,7 @@ export const TaskGrid = () => {
 
       {isDialogOpen && (
         <Dialog closeFn={handleCloseDialog}>
-          <div className="flex gap-3 flex-col" data-task={dialogType}>
+          <div className="flex gap-3 flex-col">
             {dialogType === NEW_TASK && groupName && (
               <>
                 <p className="title text-lg text-tma-blue-200">

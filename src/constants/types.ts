@@ -5,13 +5,11 @@ import {
   REWARDS,
   USER_FORM_LOGIN,
   USER_FORM_SIGNUP,
-  type CONFIRMATION,
   type EDIT,
   type GROUP_DECIDE,
   type GROUP_DELEGATE,
   type GROUP_DELETE,
   type GROUP_DO,
-  type NEW,
   type REMOVE,
 } from "./constants";
 
@@ -53,10 +51,6 @@ export type DropdownOptionElement = {
 
 export type DropdownOptionElements = DropdownOptionElement[];
 
-// TODO: change this
-export type DialogType = typeof NEW | typeof EDIT | typeof CONFIRMATION;
-
-// TODO: new dialog
 type TaskDialogType = "new-task" | "edit-task";
 type RewardDialogType = "new-reward" | "edit-reward";
 type ConfirmationDialogType = "confirmation";
@@ -80,7 +74,7 @@ export type LoginProps = Omit<SignupProps, "fullName" | "passwordConfirm">;
 
 export type UpdateUserPassword = { password: string };
 
-export type GetTasksProps = {
+export type GetUserIdProps = {
   userId: string;
 };
 
@@ -106,5 +100,15 @@ export type PointsUpdateProps = {
   taskValue: number;
   pointsType: PointsType;
 };
+
 type Awards = typeof REWARDS | typeof COLLECTED_REWARDS;
+
 export type TooltipMessages = GroupName | Awards;
+
+export type Reward = {
+  id?: number; // from db
+  user_id: string;
+  name: string;
+  points: number;
+  active: boolean;
+};

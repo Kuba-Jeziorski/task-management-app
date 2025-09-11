@@ -1,8 +1,8 @@
 import supabase from "./supabase-config";
 
-import type { GetTasksProps, NewTask, Task } from "../constants/types";
+import type { GetUserIdProps, NewTask, Task } from "../constants/types";
 
-export const getTasks = async (userId: GetTasksProps): Promise<Task[]> => {
+export const getTasks = async (userId: GetUserIdProps): Promise<Task[]> => {
   try {
     const { data, error } = await supabase
       .from("tasks")

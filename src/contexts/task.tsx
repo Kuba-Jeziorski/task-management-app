@@ -1,10 +1,8 @@
 import { createContext, type SetStateAction } from "react";
 
-import type { DialogType, GroupName, Tasks } from "../constants/types";
+import type { GroupName, Tasks } from "../constants/types";
 
 type TaskContextProps = {
-  dialogType: DialogType | null;
-  setDialogType: React.Dispatch<React.SetStateAction<DialogType | null>>;
   isDropdownOpen: boolean;
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   groupName: GroupName | undefined;

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 @theme {
   --color-tma-blue-100: #6174a8;
   --color-tma-blue-200: #00227a;

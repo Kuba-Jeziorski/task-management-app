@@ -1,20 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "../services/api-tasks";
-import { useUser } from "./use-user";
-import type { GetTasksProps } from "../constants/types";
+import type { GetUserIdProps } from "../constants/types";
 import { FETCH_RETRY_ATTEMPTS } from "../constants/constants";
+import { useProfile } from "./use-profile";
 
 export const useTasks = () => {
-  const { user } = useUser();
-  const { id: userId } = user!;
+  const { profile } = useProfile();
+  const userId = profile?.user_id;
 
   const {
     isLoading,
     data: tasks,
     error,
   } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: () => getTasks(userId as unknown as GetTasksProps),
+    queryKey: ["tasks", userId],
+    queryFn: () => getTasks(userId as unknown as GetUserIdProps),
     retry: FETCH_RETRY_ATTEMPTS,
   });
 

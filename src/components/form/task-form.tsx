@@ -22,10 +22,10 @@ import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { useUpdateTask } from "../../hooks/use-update-task";
 import { useCreateTask } from "../../hooks/use-create-task";
 import { Input } from "./the-input";
-import { useUser } from "../../hooks/use-user";
 import { useCurrentPoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
+import { useProfile } from "../../hooks/use-profile";
 
 type FormValues = {
   taskName: string;
@@ -36,8 +36,8 @@ export const TaskForm = () => {
 
   const { dialogType, setDialogType } = useGlobalContext();
 
-  const { user } = useUser();
-  const { id: userId } = user!;
+  const { profile } = useProfile();
+  const userId = profile?.user_id;
 
   const { updateTask } = useUpdateTask();
   const { createTask } = useCreateTask();
