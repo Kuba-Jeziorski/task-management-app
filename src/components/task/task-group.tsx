@@ -1,4 +1,4 @@
-import { Gem, Plus } from "lucide-react";
+import { Gem } from "lucide-react";
 
 import { TaskListing } from "./task-listing";
 import type { GroupName, Tasks } from "../../constants/types";
@@ -14,6 +14,7 @@ import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { Link } from "react-router";
 import { cn } from "../../utils/css";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
+import { AddNewRow } from "../ui/add-new-row";
 
 type TaskGroupProps = {
   title: GroupName;
@@ -73,22 +74,7 @@ export const TaskGroup = ({
       </div>
       <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
         <div className="flex-1 min-h-0 overflow-y-auto">
-          <button className="w-full pr-3  cursor-pointer" onClick={handleOpen}>
-            <div className="flex bg-tma-light-200 px-2 py-3 items-center gap-5 rounded-md mb-3">
-              <div
-                className={cn(
-                  "text-tma-blue-200 transition-all duration-300",
-                  "hover:text-tma-blue-100"
-                )}
-              >
-                <Plus size={32} />
-              </div>
-              <p className="text-tma-blue-200 font-semibold text-lg">
-                {ADD_NEW_TASK}
-              </p>
-            </div>
-          </button>
-
+          <AddNewRow title={ADD_NEW_TASK} openFn={handleOpen} />
           <TaskListing tasks={active} />
           {inactive.length > 0 && (
             <>

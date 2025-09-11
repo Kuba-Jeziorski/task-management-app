@@ -2,6 +2,7 @@
 export const ACTIVE = "active";
 export const ADD_NEW_TASK = "Add a new task";
 export const ADD_NEW_TASK_TO = "Add new task to";
+export const ADD_NEW_REWARD = "Add a new reward";
 export const ALL_POINTS = "all_points";
 export const APPLY_CHANGES = "apply changes";
 export const AUTHENTICATED = "authenticated";
