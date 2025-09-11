@@ -21,7 +21,7 @@ export const RewardsListing = () => {
               <p className="text-[18px] text-tma-blue-200 font-extrabold leading-none line-clamp-1">
                 {reward.name}
               </p>
-              <div className="flex items-center gap-3 min-w-50">
+              <div className="flex items-center gap-3 min-w-50 justify-end">
                 <div className="flex items-center gap-[6px]">
                   <p className="text-[18px] text-tma-blue-200 font-semibold leading-none">
                     {reward.points}
