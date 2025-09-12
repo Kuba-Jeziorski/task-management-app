@@ -9,7 +9,6 @@ import { Toaster } from "react-hot-toast";
 import { AppLayout } from "./components/ui/app-layout";
 import { MyTasksPage } from "./components/pages/my-tasks-page";
 import { AwardsPage } from "./components/pages/awards-page";
-import { MyDayPage } from "./components/pages/my-day-page";
 import { LoginPage } from "./components/pages/login-page";
 import { ProtectedRoute } from "./components/ui/protected-route";
 import { UserPage } from "./components/pages/user-page";
@@ -21,7 +20,6 @@ import {
   URL_ABOUT_PAGE,
   URL_AWARDS_PAGE,
   URL_LOGIN_PAGE,
-  URL_MY_DAY_PAGE,
   URL_MY_TASKS_PAGE,
   URL_USER_PAGE,
 } from "./constants/constants";
@@ -50,7 +48,6 @@ const router = createBrowserRouter([
       },
       { path: `/${URL_MY_TASKS_PAGE}`, Component: MyTasksPage },
       { path: `/${URL_AWARDS_PAGE}`, Component: AwardsPage },
-      { path: `/${URL_MY_DAY_PAGE}`, Component: MyDayPage },
       { path: `/${URL_ABOUT_PAGE}`, Component: AboutPage },
       { path: `/${URL_USER_PAGE}`, Component: UserPage },
       {
