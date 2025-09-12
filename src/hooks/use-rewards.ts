@@ -16,6 +16,7 @@ export const useRewards = () => {
     queryKey: ["rewards", userId],
     queryFn: () => getRewards(userId as unknown as GetUserIdProps),
     retry: FETCH_RETRY_ATTEMPTS,
+    enabled: !!userId,
   });
 
   return { isLoading, rewards, error };
