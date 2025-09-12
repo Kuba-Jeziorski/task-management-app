@@ -22,7 +22,7 @@ import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { useUpdateTask } from "../../hooks/use-update-task";
 import { useCreateTask } from "../../hooks/use-create-task";
 import { Input } from "./the-input";
-import { useCurrentPoints } from "../../hooks/use-current-points";
+import { usePoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { useProfile } from "../../hooks/use-profile";
@@ -41,7 +41,7 @@ export const TaskForm = () => {
 
   const { updateTask } = useUpdateTask();
   const { createTask } = useCreateTask();
-  const { updatePoints, isUpdating } = useCurrentPoints();
+  const { updatePoints, isUpdating } = usePoints();
 
   const isNewForm = dialogType === NEW_TASK;
   const isEditForm = dialogType === EDIT_TASK;

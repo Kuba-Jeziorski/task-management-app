@@ -5,14 +5,13 @@ import { updatePoints as updatePointsApi } from "../services/api-profile";
 import type { PointsUpdateProps } from "../constants/types";
 import { POINTS_CHANGED_ERROR } from "../constants/constants";
 
-export const useCurrentPoints = () => {
+export const usePoints = () => {
   const queryClient = useQueryClient();
 
   const { mutate: updatePoints, isPending: isUpdating } = useMutation({
-    mutationFn: ({ taskValue, pointsType }: PointsUpdateProps) =>
-      updatePointsApi({ taskValue, pointsType }),
+    mutationFn: ({ pointsValue, pointsType }: PointsUpdateProps) =>
+      updatePointsApi({ pointsValue, pointsType }),
     onSuccess: () => {
-      // toast.success(POINTS_CHANGED_SUCCESSFULLY);
       queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
     onError: (err) => {

@@ -12,7 +12,7 @@ import {
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
 import { useUpdateTask } from "../../hooks/use-update-task";
-import { useCurrentPoints } from "../../hooks/use-current-points";
+import { usePoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
 
 type TaskProps = {
@@ -23,7 +23,7 @@ export const TaskListingElement = ({ task }: TaskProps) => {
   const { data: currentTasks } = useTaskContext();
 
   const { updateTask } = useUpdateTask();
-  const { updatePoints, isUpdating } = useCurrentPoints();
+  const { updatePoints, isUpdating } = usePoints();
 
   const handleChangeActive = async () => {
     const taskToUpdate = currentTasks.find((element) => element.id === task.id);
@@ -34,12 +34,12 @@ export const TaskListingElement = ({ task }: TaskProps) => {
       };
       updateTask(updatedTask);
 
-      const taskValue = updatedTask.active
+      const pointsValue = updatedTask.active
         ? taskGroupPoints[updatedTask.group] * -1
         : taskGroupPoints[updatedTask.group];
 
-      updatePoints({ taskValue, pointsType: CURRENT_POINTS });
-      updatePoints({ taskValue, pointsType: ALL_POINTS });
+      updatePoints({ pointsValue, pointsType: CURRENT_POINTS });
+      updatePoints({ pointsValue, pointsType: ALL_POINTS });
     }
   };
 

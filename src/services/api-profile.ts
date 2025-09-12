@@ -97,7 +97,7 @@ export const updateProfileName = async (fullName: string) => {
 };
 
 export const updatePoints = async ({
-  taskValue,
+  pointsValue,
   pointsType,
 }: PointsUpdateProps) => {
   const user = await getCurrentUser();
@@ -117,7 +117,7 @@ export const updatePoints = async ({
       throw new Error(fetchError.message);
     }
 
-    const newPoints = (profile?.[pointsType] ?? 0) + taskValue;
+    const newPoints = (profile?.[pointsType] ?? 0) + pointsValue;
 
     const { data, error } = await supabase
       .from("profiles")

@@ -97,7 +97,7 @@ export type ProfilePoints = {
 type PointsType = typeof CURRENT_POINTS | typeof ALL_POINTS;
 
 export type PointsUpdateProps = {
-  taskValue: number;
+  pointsValue: number;
   pointsType: PointsType;
 };
 
@@ -112,3 +112,5 @@ export type Reward = {
   points: number;
   active: boolean;
 };
+
+export type Rewards = Reward[];

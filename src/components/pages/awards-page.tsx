@@ -49,7 +49,7 @@ export const AwardsPage = () => {
           <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
             <div className="flex-1 min-h-0 overflow-y-auto">
               <AddNewRow title={ADD_NEW_REWARD} openFn={handleOpen} />
-              <RewardsListing />
+              <RewardsListing isActive={true} />
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ export const AwardsPage = () => {
             </CustomTooltip>
           </div>
           <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
-            collected rewards listing placeholder
+            <RewardsListing isActive={false} />
           </div>
         </div>
       </div>
