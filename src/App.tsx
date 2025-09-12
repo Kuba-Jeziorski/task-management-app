@@ -24,6 +24,8 @@ import {
   URL_USER_PAGE,
 } from "./constants/constants";
 import { GlobalContextProvider } from "./contexts/global-context";
+import { RewardContextProvider } from "./contexts/reward-context";
+import { TaskContextProvider } from "./contexts/task-context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,8 +48,14 @@ const router = createBrowserRouter([
         index: true,
         Component: () => <Navigate to={`/${URL_MY_TASKS_PAGE}`} replace />,
       },
-      { path: `/${URL_MY_TASKS_PAGE}`, Component: MyTasksPage },
-      { path: `/${URL_AWARDS_PAGE}`, Component: AwardsPage },
+      {
+        path: `/${URL_MY_TASKS_PAGE}`,
+        Component: MyTasksPage,
+      },
+      {
+        path: `/${URL_AWARDS_PAGE}`,
+        Component: AwardsPage,
+      },
       { path: `/${URL_ABOUT_PAGE}`, Component: AboutPage },
       { path: `/${URL_USER_PAGE}`, Component: UserPage },
       {
@@ -66,20 +74,24 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalContextProvider>
-        <RouterProvider router={router} />
-        <Toaster
-          position="bottom-center"
-          gutter={12}
-          containerStyle={{ margin: "16px" }}
-          toastOptions={{
-            success: {
-              duration: TOAST_SUCCESS_DURATION,
-            },
-            error: {
-              duration: TOAST_ERROR_DURATION,
-            },
-          }}
-        />
+        <TaskContextProvider>
+          <RewardContextProvider>
+            <RouterProvider router={router} />
+            <Toaster
+              position="bottom-center"
+              gutter={12}
+              containerStyle={{ margin: "16px" }}
+              toastOptions={{
+                success: {
+                  duration: TOAST_SUCCESS_DURATION,
+                },
+                error: {
+                  duration: TOAST_ERROR_DURATION,
+                },
+              }}
+            />
+          </RewardContextProvider>
+        </TaskContextProvider>
       </GlobalContextProvider>
     </QueryClientProvider>
   );

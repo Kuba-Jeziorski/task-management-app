@@ -8,6 +8,7 @@ import { CustomTooltip } from "../tooltip/custom-tooltip";
 import {
   ALL_POINTS,
   CURRENT_POINTS,
+  DROPDOWN_TASK,
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
@@ -49,57 +50,58 @@ export const TaskListingElement = ({ task }: TaskProps) => {
 
   return (
     <div
-      key={task.id}
       className={cn(
-        "flex justify-between border-b border-b-tma-light-300 rounded-md px-2 h-[52px] group transition-all duration-300 shrink-0",
+        "flex justify-between px-2 h-[52px] rounded-md group transition-all duration-300 shrink-0",
         "hover:bg-tma-light-200"
       )}
     >
-      <div className="flex gap-5 items-center">
-        <CustomTooltip title={tooltipMessage}>
+      <div className="flex w-full h-full border-b border-b-tma-light-300">
+        <div className="flex gap-5 items-center">
+          <CustomTooltip title={tooltipMessage}>
+            {task.active === true ? (
+              <button
+                disabled={isUpdating}
+                onClick={handleChangeActive}
+                className={cn(
+                  "text-tma-blue-200 cursor-pointer transition-all duration-300",
+                  "hover:text-tma-blue-100"
+                )}
+              >
+                {<CircleCheck size={32} />}
+              </button>
+            ) : (
+              <button
+                disabled={isUpdating}
+                onClick={handleChangeActive}
+                className={cn(
+                  "text-tma-blue-200 cursor-pointer transition-all duration-300",
+                  "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
+                )}
+              >
+                {
+                  <CircleCheck
+                    size={32}
+                    className={cn(
+                      "fill-[#00227a] transition-all duration-300",
+                      "[&_path]:stroke-tma-light-100"
+                    )}
+                  />
+                }
+              </button>
+            )}
+          </CustomTooltip>
           {task.active === true ? (
-            <button
-              disabled={isUpdating}
-              onClick={handleChangeActive}
-              className={cn(
-                "text-tma-blue-200 cursor-pointer transition-all duration-300",
-                "hover:text-tma-blue-100"
-              )}
-            >
-              {<CircleCheck size={32} />}
-            </button>
+            <p className="text-lg text-tma-light-600 line-clamp-1 leading-none">
+              {task.name}
+            </p>
           ) : (
-            <button
-              disabled={isUpdating}
-              onClick={handleChangeActive}
-              className={cn(
-                "text-tma-blue-200 cursor-pointer transition-all duration-300",
-                "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
-              )}
-            >
-              {
-                <CircleCheck
-                  size={32}
-                  className={cn(
-                    "fill-[#00227a] transition-all duration-300",
-                    "[&_path]:stroke-tma-light-100"
-                  )}
-                />
-              }
-            </button>
+            <p className="text-lg text-tma-light-500 line-through line-clamp-1 leading-none">
+              {task.name}
+            </p>
           )}
-        </CustomTooltip>
-        {task.active === true ? (
-          <p className="text-lg text-tma-light-600 line-clamp-1 leading-none">
-            {task.name}
-          </p>
-        ) : (
-          <p className="text-lg text-tma-light-500 line-through line-clamp-1 leading-none">
-            {task.name}
-          </p>
-        )}
+        </div>
       </div>
-      <Dropdown taskId={task.id} />
+      <Dropdown dropdownRecordType={DROPDOWN_TASK} recordId={task.id} />
     </div>
   );
 };

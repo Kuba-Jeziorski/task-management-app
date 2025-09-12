@@ -1,8 +1,11 @@
 import {
   CONFIRMATION,
-  EDIT,
+  DROPDOWN_NAME_REWARD_EDIT,
+  DROPDOWN_NAME_REWARD_REMOVE,
+  DROPDOWN_NAME_TASK_EDIT,
+  DROPDOWN_NAME_TASK_REMOVE,
+  EDIT_REWARD,
   EDIT_TASK,
-  REMOVE,
 } from "../../constants/constants";
 import type { DropdownOptionElement } from "../../constants/types";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
@@ -13,8 +16,11 @@ type Props = {
 };
 
 export const DropdownListingElement = ({ element }: Props) => {
-  const isEdit = element.name === EDIT;
-  const isRemove = element.name === REMOVE;
+  const isEditingTask = element.name === DROPDOWN_NAME_TASK_EDIT;
+  const isRemovingTask = element.name === DROPDOWN_NAME_TASK_REMOVE;
+
+  const isEditingReward = element.name === DROPDOWN_NAME_REWARD_EDIT;
+  const isRemovingReward = element.name === DROPDOWN_NAME_REWARD_REMOVE;
 
   const { setIsDropdownOpen } = useGlobalContext();
 
@@ -22,10 +28,13 @@ export const DropdownListingElement = ({ element }: Props) => {
 
   const handleClick = () => {
     setIsDropdownOpen(false);
-    if (isEdit) {
+    if (isEditingTask) {
       setDialogType(EDIT_TASK);
     }
-    if (isRemove) {
+    if (isEditingReward) {
+      setDialogType(EDIT_REWARD);
+    }
+    if (isRemovingTask || isRemovingReward) {
       setDialogType(CONFIRMATION);
     }
   };

@@ -1,16 +1,25 @@
 import {
   ALL_POINTS,
   COLLECTED_REWARDS,
+  CONFIRMATION,
   CURRENT_POINTS,
+  DROPDOWN_NAME_REWARD_EDIT,
+  DROPDOWN_NAME_REWARD_REMOVE,
+  DROPDOWN_NAME_TASK_EDIT,
+  DROPDOWN_NAME_TASK_REMOVE,
+  DROPDOWN_REWARD,
+  DROPDOWN_TASK,
+  EDIT_REWARD,
+  EDIT_TASK,
+  NEW_REWARD,
+  NEW_TASK,
   REWARDS,
   USER_FORM_LOGIN,
   USER_FORM_SIGNUP,
-  type EDIT,
   type GROUP_DECIDE,
   type GROUP_DELEGATE,
   type GROUP_DELETE,
   type GROUP_DO,
-  type REMOVE,
 } from "./constants";
 
 export type SidebarElement = {
@@ -41,7 +50,14 @@ export type NewTask = Omit<Task, "id">;
 
 export type Tasks = Task[];
 
-type DropdownName = typeof EDIT | typeof REMOVE;
+type DropdownName =
+  | typeof DROPDOWN_NAME_TASK_EDIT
+  | typeof DROPDOWN_NAME_TASK_REMOVE
+  | typeof DROPDOWN_NAME_REWARD_EDIT
+  | typeof DROPDOWN_NAME_REWARD_REMOVE;
+// type DropdownName = typeof EDIT | typeof REMOVE;
+
+export type DropdownRecordType = typeof DROPDOWN_TASK | typeof DROPDOWN_REWARD;
 
 export type DropdownOptionElement = {
   icon: React.ReactNode;
@@ -51,9 +67,10 @@ export type DropdownOptionElement = {
 
 export type DropdownOptionElements = DropdownOptionElement[];
 
-type TaskDialogType = "new-task" | "edit-task";
-type RewardDialogType = "new-reward" | "edit-reward";
-type ConfirmationDialogType = "confirmation";
+type TaskDialogType = typeof NEW_TASK | typeof EDIT_TASK;
+type RewardDialogType = typeof NEW_REWARD | typeof EDIT_REWARD;
+type ConfirmationDialogType = typeof CONFIRMATION;
+
 export type NewDialogType =
   | TaskDialogType
   | RewardDialogType
@@ -106,11 +123,13 @@ type Awards = typeof REWARDS | typeof COLLECTED_REWARDS;
 export type TooltipMessages = GroupName | Awards;
 
 export type Reward = {
-  id?: number; // from db
+  id: number;
   user_id: string;
   name: string;
   points: number;
   active: boolean;
 };
+
+export type NewReward = Omit<Reward, "id">;
 
 export type Rewards = Reward[];

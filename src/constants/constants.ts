@@ -101,6 +101,14 @@ export const USER_INFO_CHANGED_ERROR =
 export const USER_NAME_PLACEHOLDER = "User";
 export const YOU_ALREADY_GAINED = "You already gained";
 
+// DROPDOWN
+export const DROPDOWN_TASK = "task";
+export const DROPDOWN_REWARD = "reward";
+export const DROPDOWN_NAME_TASK_EDIT = "edit task";
+export const DROPDOWN_NAME_TASK_REMOVE = "remove task";
+export const DROPDOWN_NAME_REWARD_EDIT = "edit reward";
+export const DROPDOWN_NAME_REWARD_REMOVE = "remove reward";
+
 // DIALOG
 export const NEW_TASK = "new-task";
 export const EDIT_TASK = "edit-task";

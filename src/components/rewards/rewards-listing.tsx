@@ -8,12 +8,12 @@ type Props = {
 };
 
 export const RewardsListing = ({ isActive }: Props) => {
-  const { rewards = [], isLoading } = useRewards();
+  const { rewards: data = [], isLoading } = useRewards();
 
   const activeRewards: Rewards = [];
   const inactiveRewards: Rewards = [];
 
-  rewards.forEach((reward) => {
+  data.forEach((reward) => {
     if (reward.active) {
       activeRewards.push(reward);
     } else {

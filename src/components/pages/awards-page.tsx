@@ -1,9 +1,8 @@
-import { useState } from "react";
-
 import {
   ADD_NEW_REWARD,
   COLLECTED_REWARDS,
   COLLECTED_REWARDS_TITLE,
+  CONFIRMATION,
   EDIT_REWARD,
   NEW_REWARD,
   REWARD_TITLE,
@@ -15,25 +14,31 @@ import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
 import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { Dialog } from "../dialog/dialog";
-import { AddNewRow } from "../ui/add-new-row";
 import { RewardForm } from "../form/reward-form";
 import { RewardsListing } from "../rewards/rewards-listing";
+import { useRewardContext } from "../../contexts/helpers/use-reward-context";
+import { AddNewRow } from "../ui/add-new-row";
 
 export const AwardsPage = () => {
   useBlockedRedirect();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const { dialogType, setDialogType, setIsDropdownOpen } = useGlobalContext();
+  const { currentRewardId, setCurrentRewardId } = useRewardContext();
 
-  const { dialogType, setDialogType } = useGlobalContext();
+  const handleCloseDialog = () => {
+    setDialogType(null);
+    setCurrentRewardId(null);
+  };
 
   const handleOpen = () => {
-    setIsOpen(true);
+    setIsDropdownOpen(false);
     setDialogType(NEW_REWARD);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  const isDialogOpen =
+    dialogType === NEW_REWARD ||
+    (dialogType === EDIT_REWARD && currentRewardId) ||
+    (dialogType === CONFIRMATION && currentRewardId);
 
   return (
     <>
@@ -66,8 +71,8 @@ export const AwardsPage = () => {
           </div>
         </div>
       </div>
-      {isOpen && (
-        <Dialog closeFn={handleClose}>
+      {isDialogOpen && (
+        <Dialog closeFn={handleCloseDialog}>
           <div className="flex gap-3 flex-col">
             {dialogType === NEW_REWARD && (
               <>
@@ -77,7 +82,8 @@ export const AwardsPage = () => {
                 <RewardForm />
               </>
             )}
-            {dialogType === EDIT_REWARD && <p>edit reward placeholdre</p>}
+            {dialogType === EDIT_REWARD && <p>edit reward placeholder</p>}
+            {dialogType === CONFIRMATION && <p>removing reward placeholder</p>}
           </div>
         </Dialog>
       )}

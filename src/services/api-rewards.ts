@@ -1,4 +1,4 @@
-import type { GetUserIdProps, Reward } from "../constants/types";
+import type { GetUserIdProps, NewReward, Reward } from "../constants/types";
 import supabase from "./supabase-config";
 
 export const getRewards = async (userId: GetUserIdProps) => {
@@ -10,7 +10,7 @@ export const getRewards = async (userId: GetUserIdProps) => {
     if (error) {
       throw new Error(error.message);
     }
-    return data;
+    return data ?? [];
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -20,9 +20,7 @@ export const getRewards = async (userId: GetUserIdProps) => {
   }
 };
 
-export const createReward = async (
-  reward: Omit<Reward, "id">
-): Promise<void> => {
+export const createReward = async (reward: NewReward): Promise<void> => {
   try {
     const { error } = await supabase.from("rewards").insert(reward);
     if (error) {

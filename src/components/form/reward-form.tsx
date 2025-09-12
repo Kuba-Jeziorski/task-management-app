@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { CANCEL, NEW_REWARD, REQUIRED_FIELD } from "../../constants/constants";
-import type { Reward } from "../../constants/types";
+import type { NewReward } from "../../constants/types";
 import { useProfile } from "../../hooks/use-profile";
 import { useCreateReward } from "../../hooks/use-create-reward";
 import { InputWrapper } from "./input-wrapper";
@@ -39,7 +39,7 @@ export const RewardForm = () => {
 
   const onSubmit = (data: FormValues) => {
     if (isNewForm) {
-      const newReward: Reward = {
+      const newReward: NewReward = {
         user_id: userId,
         name: data.rewardName, // input
         points: data.points, // input

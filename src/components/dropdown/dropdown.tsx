@@ -4,9 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
-import { dropdownOptionElements } from "../../constants/dropdown-option-elements";
+import {
+  dropdownRewardOptionElements,
+  dropdownTaskOptionElements,
+} from "../../constants/dropdown-option-elements";
 import { DropdownListing } from "./dropdown-listing";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
+import type { DropdownRecordType } from "../../constants/types";
+import { DROPDOWN_REWARD, DROPDOWN_TASK } from "../../constants/constants";
+import { useRewardContext } from "../../contexts/helpers/use-reward-context";
 
 type Position = {
   x: number;
@@ -14,18 +20,26 @@ type Position = {
 };
 
 type Props = {
-  taskId: number;
+  recordId: number;
+  dropdownRecordType: DropdownRecordType;
 };
 
 const initialPosition = { x: 0, y: 0 };
 
-export const Dropdown = ({ taskId }: Props) => {
+export const Dropdown = ({ recordId, dropdownRecordType }: Props) => {
   const { setIsDropdownOpen, isDropdownOpen } = useGlobalContext();
-
   const { currentTaskId, setCurrentTaskId } = useTaskContext();
+  const { currentRewardId, setCurrentRewardId } = useRewardContext();
 
   const [position, setPosition] = useState<Position>(initialPosition);
-  const dropdownOpenCondition = isDropdownOpen && currentTaskId === taskId;
+
+  const isRecordTask = dropdownRecordType === DROPDOWN_TASK;
+  const isRecordReward = dropdownRecordType === DROPDOWN_REWARD;
+
+  const dropdownTaskOpenCondition =
+    isDropdownOpen && currentTaskId === recordId;
+  const dropdownRewardOpenCondition =
+    isDropdownOpen && currentRewardId === recordId;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -35,10 +49,15 @@ export const Dropdown = ({ taskId }: Props) => {
   ) => {
     e.stopPropagation();
 
-    if (dropdownOpenCondition) {
+    if (dropdownTaskOpenCondition || dropdownRewardOpenCondition) {
       setIsDropdownOpen(false);
     } else {
-      setCurrentTaskId(taskId);
+      if (isRecordTask) {
+        setCurrentTaskId(recordId);
+      }
+      if (isRecordReward) {
+        setCurrentRewardId(recordId);
+      }
       setIsDropdownOpen(true);
 
       const rect = e.currentTarget.getBoundingClientRect();
@@ -61,14 +80,18 @@ export const Dropdown = ({ taskId }: Props) => {
       }
     };
 
-    if (dropdownOpenCondition) {
+    if (dropdownTaskOpenCondition || dropdownRewardOpenCondition) {
       document.addEventListener("click", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [dropdownOpenCondition, setIsDropdownOpen]);
+  }, [
+    dropdownTaskOpenCondition,
+    dropdownRewardOpenCondition,
+    setIsDropdownOpen,
+  ]);
 
   return (
     <div ref={wrapperRef} className="w-7 flex justify-center items-center ml-2">
@@ -84,7 +107,7 @@ export const Dropdown = ({ taskId }: Props) => {
           <EllipsisVertical size={26} />
         </span>
       </button>
-      {dropdownOpenCondition &&
+      {dropdownTaskOpenCondition &&
         createPortal(
           <div
             ref={dropdownRef}
@@ -93,7 +116,20 @@ export const Dropdown = ({ taskId }: Props) => {
               "flex flex-col fixed bg-tma-light-100 shadow-xl shadow-gray-300/30 ring-1 ring-gray-200 rounded-lg overflow-hidden"
             )}
           >
-            <DropdownListing listing={dropdownOptionElements} />
+            <DropdownListing listing={dropdownTaskOptionElements} />
+          </div>,
+          document.body
+        )}
+      {dropdownRewardOpenCondition &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            style={{ right: `${position.x}px`, top: `${position.y}px` }}
+            className={cn(
+              "flex flex-col fixed bg-tma-light-100 shadow-xl shadow-gray-300/30 ring-1 ring-gray-200 rounded-lg overflow-hidden"
+            )}
+          >
+            <DropdownListing listing={dropdownRewardOptionElements} />
           </div>,
           document.body
         )}

@@ -6,13 +6,13 @@ type Props = {
 };
 
 export const RewardContextProvider = ({ children }: Props) => {
-  const [currentReward, setCurrentReward] = useState<number | null>(null);
+  const [currentRewardId, setCurrentRewardId] = useState<number | null>(null);
 
   return (
     <RewardContext.Provider
       value={{
-        currentReward,
-        setCurrentReward,
+        currentRewardId,
+        setCurrentRewardId,
       }}
     >
       {children}
