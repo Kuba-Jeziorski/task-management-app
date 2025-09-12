@@ -16,6 +16,7 @@ export const useTasks = () => {
     queryKey: ["tasks", userId],
     queryFn: () => getTasks(userId as unknown as GetUserIdProps),
     retry: FETCH_RETRY_ATTEMPTS,
+    enabled: !!userId,
   });
 
   return { isLoading, tasks, error };

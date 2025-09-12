@@ -5,6 +5,9 @@ import {
   CONFIRMATION,
   EDIT_REWARD,
   NEW_REWARD,
+  REMOVE_NO,
+  REMOVE_YES,
+  REMOVING,
   REWARD_TITLE,
   REWARDS,
   REWARDS_TITLE,
@@ -18,6 +21,10 @@ import { useRewardContext } from "../../contexts/helpers/use-reward-context";
 import { AddNewRow } from "../ui/add-new-row";
 import { lazy, Suspense } from "react";
 import { Spinner } from "../spinner/the-spinner";
+import { useRewards } from "../../hooks/use-rewards";
+import type { Reward } from "../../constants/types";
+import { Button } from "../button/button";
+import { useRemoveReward } from "../../hooks/use-remove-reward";
 
 const RewardsListing = lazy(() =>
   import("../rewards/rewards-listing").then((module) => ({
@@ -35,16 +42,29 @@ export const AwardsPage = () => {
 
   const { dialogType, setDialogType, setIsDropdownOpen } = useGlobalContext();
   const { currentRewardId, setCurrentRewardId } = useRewardContext();
+  const { rewards = [] } = useRewards();
+  const { removeReward } = useRemoveReward();
 
   const handleCloseDialog = () => {
     setDialogType(null);
     setCurrentRewardId(null);
   };
 
-  const handleOpen = () => {
+  const handleNewRow = () => {
     setIsDropdownOpen(false);
     setDialogType(NEW_REWARD);
   };
+
+  const handleRemoveReward = async (id: number) => {
+    if (currentRewardId != null) {
+      removeReward(id);
+    }
+    handleCloseDialog();
+  };
+
+  const selectedReward: Reward =
+    currentRewardId &&
+    rewards.find((element) => element.id === currentRewardId);
 
   const isDialogOpen =
     dialogType === NEW_REWARD ||
@@ -64,7 +84,7 @@ export const AwardsPage = () => {
           </div>
           <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
             <div className="flex-1 min-h-0 overflow-y-auto">
-              <AddNewRow title={ADD_NEW_REWARD} openFn={handleOpen} />
+              <AddNewRow title={ADD_NEW_REWARD} openFn={handleNewRow} />
               <Suspense fallback={<Spinner />}>
                 <RewardsListing isActive={true} />
               </Suspense>
@@ -79,10 +99,12 @@ export const AwardsPage = () => {
               </div>
             </CustomTooltip>
           </div>
-          <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
-            <Suspense fallback={<Spinner />}>
-              <RewardsListing isActive={false} />
-            </Suspense>
+          <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0 overflow-auto">
+            <div className="flex-1 min-h-0 overflow-y-auto">
+              <Suspense fallback={<Spinner />}>
+                <RewardsListing isActive={false} />
+              </Suspense>
+            </div>
           </div>
         </div>
       </div>
@@ -100,7 +122,30 @@ export const AwardsPage = () => {
               </>
             )}
             {dialogType === EDIT_REWARD && <p>edit reward placeholder</p>}
-            {dialogType === CONFIRMATION && <p>removing reward placeholder</p>}
+            {dialogType === CONFIRMATION && (
+              <div className="flex flex-col gap-4">
+                <p className="title text-lg text-tma-blue-200 line-clamp-1">
+                  {`${REMOVING}: `}
+                  <span className="font-black">{selectedReward.name}</span>
+                </p>
+                <p>Removing reward placeholder</p>
+                <div className="flex gap-4">
+                  <Button
+                    variant="danger"
+                    onClick={() => handleRemoveReward(selectedReward.id)}
+                  >
+                    {REMOVE_YES}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={handleCloseDialog}
+                    className="uppercase"
+                  >
+                    {REMOVE_NO}
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </Dialog>
       )}
