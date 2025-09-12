@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { dropdownOptionElements } from "../../constants/dropdown-option-elements";
 import { DropdownListing } from "./dropdown-listing";
+import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 
 type Position = {
   x: number;
@@ -19,8 +20,9 @@ type Props = {
 const initialPosition = { x: 0, y: 0 };
 
 export const Dropdown = ({ taskId }: Props) => {
-  const { currentTaskId, setCurrentTaskId, setIsDropdownOpen, isDropdownOpen } =
-    useTaskContext();
+  const { setIsDropdownOpen, isDropdownOpen } = useGlobalContext();
+
+  const { currentTaskId, setCurrentTaskId } = useTaskContext();
 
   const [position, setPosition] = useState<Position>(initialPosition);
   const dropdownOpenCondition = isDropdownOpen && currentTaskId === taskId;

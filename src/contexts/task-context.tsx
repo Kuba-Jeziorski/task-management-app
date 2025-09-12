@@ -9,7 +9,6 @@ type Props = {
 };
 
 export const TaskContextProvider = ({ children }: Props) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [groupName, setGroupName] = useState<GroupName | undefined>(undefined);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
@@ -18,8 +17,6 @@ export const TaskContextProvider = ({ children }: Props) => {
   return (
     <TaskContext.Provider
       value={{
-        isDropdownOpen,
-        setIsDropdownOpen,
         groupName,
         setGroupName,
         data: tasks,

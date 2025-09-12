@@ -29,7 +29,8 @@ export const TaskGroup = ({
   tasks,
   points,
 }: TaskGroupProps) => {
-  const { setIsDropdownOpen, setGroupName } = useTaskContext();
+  const { setIsDropdownOpen } = useGlobalContext();
+  const { setGroupName } = useTaskContext();
 
   const { setDialogType } = useGlobalContext();
 

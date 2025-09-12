@@ -9,10 +9,13 @@ type Props = {
 
 export const GlobalContextProvider = ({ children }: Props) => {
   const [dialogType, setDialogType] = useState<NewDialogType | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <GlobalContext.Provider
       value={{
+        isDropdownOpen,
+        setIsDropdownOpen,
         dialogType,
         setDialogType,
       }}

@@ -6,7 +6,6 @@ import {
 } from "../../constants/constants";
 import type { DropdownOptionElement } from "../../constants/types";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
-import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 
 type Props = {
@@ -17,7 +16,7 @@ export const DropdownListingElement = ({ element }: Props) => {
   const isEdit = element.name === EDIT;
   const isRemove = element.name === REMOVE;
 
-  const { setIsDropdownOpen } = useTaskContext();
+  const { setIsDropdownOpen } = useGlobalContext();
 
   const { setDialogType } = useGlobalContext();
 
