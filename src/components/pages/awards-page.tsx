@@ -4,10 +4,12 @@ import {
   COLLECTED_REWARDS_TITLE,
   CONFIRMATION,
   EDIT_REWARD,
+  EDITING,
   NEW_REWARD,
   REMOVE_NO,
   REMOVE_YES,
   REMOVING,
+  REWARD_REMOVING,
   REWARD_TITLE,
   REWARDS,
   REWARDS_TITLE,
@@ -121,14 +123,26 @@ export const AwardsPage = () => {
                 </Suspense>
               </>
             )}
-            {dialogType === EDIT_REWARD && <p>edit reward placeholder</p>}
+            {dialogType === EDIT_REWARD && (
+              <>
+                <p className="title text-lg text-tma-blue-200">
+                  {EDITING}{" "}
+                  <span className="font-black uppercase">
+                    {selectedReward?.name}
+                  </span>
+                </p>
+                <Suspense fallback={<Spinner />}>
+                  <RewardForm />
+                </Suspense>
+              </>
+            )}
             {dialogType === CONFIRMATION && (
               <div className="flex flex-col gap-4">
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
                   {`${REMOVING}: `}
-                  <span className="font-black">{selectedReward.name}</span>
+                  <span className="font-black">{selectedReward?.name}</span>
                 </p>
-                <p>Removing reward placeholder</p>
+                <p>{REWARD_REMOVING}</p>
                 <div className="flex gap-4">
                   <Button
                     variant="danger"

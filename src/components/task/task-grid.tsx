@@ -16,7 +16,7 @@ import {
   REMOVE_NO,
   REMOVE_YES,
   REMOVING,
-  TASK_EDITING,
+  EDITING,
   TASK_REMOVING,
   NEW_TASK,
   EDIT_TASK,
@@ -134,7 +134,7 @@ export const TaskGrid = () => {
             {dialogType === EDIT_TASK && currentTask && (
               <>
                 <p className="title text-lg text-tma-blue-200 line-clamp-1">
-                  {TASK_EDITING}{" "}
+                  {EDITING}{" "}
                   <span className="font-black uppercase">
                     {currentTask.name}
                   </span>

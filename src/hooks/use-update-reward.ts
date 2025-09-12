@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 export const useUpdateReward = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: updateReward } = useMutation({
+  const { mutate: updateReward, isPending } = useMutation({
     mutationFn: updateRewardApi,
     onSuccess: () => {
-      toast.success("Updated reward");
+      toast.success("Updated reward placeholder");
       queryClient.invalidateQueries({ queryKey: ["rewards"] });
     },
     onError: (err) => toast.error(err.message),
   });
 
-  return { updateReward };
+  return { updateReward, isPending };
 };

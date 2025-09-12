@@ -1,14 +1,22 @@
 import { useForm } from "react-hook-form";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
-import { CANCEL, NEW_REWARD, REQUIRED_FIELD } from "../../constants/constants";
-import type { NewReward } from "../../constants/types";
+import {
+  CANCEL,
+  EDIT_REWARD,
+  NEW_REWARD,
+  REQUIRED_FIELD,
+} from "../../constants/constants";
+import type { NewReward, Reward } from "../../constants/types";
 import { useProfile } from "../../hooks/use-profile";
 import { useCreateReward } from "../../hooks/use-create-reward";
 import { InputWrapper } from "./input-wrapper";
 import { Input } from "./the-input";
 import { Button } from "../button/button";
+import { useUpdateReward } from "../../hooks/use-update-reward";
+import { useRewards } from "../../hooks/use-rewards";
+import { useRewardContext } from "../../contexts/helpers/use-reward-context";
 
 type FormValues = {
   rewardName: string;
@@ -21,16 +29,36 @@ export const RewardForm = () => {
 
   const { dialogType, setDialogType } = useGlobalContext();
 
-  const { createReward, isPending } = useCreateReward();
+  const { createReward, isPending: isCreating } = useCreateReward();
+  const { updateReward, isPending: isEditing } = useUpdateReward();
+  const { rewards = [] } = useRewards();
+  const { currentRewardId } = useRewardContext();
 
   const isNewForm = dialogType === NEW_REWARD;
+  const isEditForm = dialogType === EDIT_REWARD;
+
+  const rewardToEdit: Reward =
+    isEditForm && currentRewardId
+      ? rewards.find((element) => element.id === currentRewardId)
+      : null;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      rewardName: rewardToEdit?.name ?? "",
+      points: rewardToEdit?.points ?? 0,
+    },
+  });
+
+  useEffect(() => {
+    if (isEditForm && rewardToEdit) {
+      reset({ rewardName: rewardToEdit.name, points: rewardToEdit.points });
+    }
+  }, [isEditForm, rewardToEdit, reset]);
 
   const closeForm = useCallback(() => {
     reset();
@@ -41,12 +69,28 @@ export const RewardForm = () => {
     if (isNewForm) {
       const newReward: NewReward = {
         user_id: userId,
-        name: data.rewardName, // input
-        points: data.points, // input
+        name: data.rewardName,
+        points: data.points,
         active: true,
       };
 
       createReward(newReward);
+    }
+
+    if (isEditForm && currentRewardId != null) {
+      // TODO: maybe use rewardToEdit?
+      const rewardToUpdate = rewards.find(
+        (element) => element.id === currentRewardId
+      );
+
+      if (rewardToUpdate) {
+        const updatedReward: Reward = {
+          ...rewardToUpdate,
+          name: data.rewardName,
+          points: data.points,
+        };
+        updateReward(updatedReward);
+      }
     }
 
     closeForm();
@@ -89,6 +133,7 @@ export const RewardForm = () => {
             type="reset"
             onClick={closeForm}
             className="uppercase"
+            disabled={isCreating || isEditing}
           >
             {CANCEL}
           </Button>
@@ -96,7 +141,7 @@ export const RewardForm = () => {
             variant={"primary"}
             type="submit"
             className="uppercase"
-            disabled={isPending}
+            disabled={isCreating || isEditing}
           >
             SAVE REWARD
           </Button>
