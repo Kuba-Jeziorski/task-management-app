@@ -106,12 +106,12 @@ export const TaskForm = () => {
         };
         updateTask(updatedTask);
 
-        const taskValue = updatedTask.active
+        const pointsValue = updatedTask.active
           ? taskGroupPoints[updatedTask.group] * -1
           : taskGroupPoints[updatedTask.group];
 
-        updatePoints({ taskValue, pointsType: CURRENT_POINTS });
-        updatePoints({ taskValue, pointsType: ALL_POINTS });
+        updatePoints({ pointsValue, pointsType: CURRENT_POINTS });
+        updatePoints({ pointsValue, pointsType: ALL_POINTS });
       }
     }
     closeForm();
