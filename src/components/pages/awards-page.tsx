@@ -14,10 +14,21 @@ import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
 import { CustomTooltip } from "../tooltip/custom-tooltip";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { Dialog } from "../dialog/dialog";
-import { RewardForm } from "../form/reward-form";
-import { RewardsListing } from "../rewards/rewards-listing";
 import { useRewardContext } from "../../contexts/helpers/use-reward-context";
 import { AddNewRow } from "../ui/add-new-row";
+import { lazy, Suspense } from "react";
+import { Spinner } from "../spinner/the-spinner";
+
+const RewardsListing = lazy(() =>
+  import("../rewards/rewards-listing").then((module) => ({
+    default: module.RewardsListing,
+  }))
+);
+const RewardForm = lazy(() =>
+  import("../form/reward-form").then((module) => ({
+    default: module.RewardForm,
+  }))
+);
 
 export const AwardsPage = () => {
   useBlockedRedirect();
@@ -54,7 +65,9 @@ export const AwardsPage = () => {
           <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
             <div className="flex-1 min-h-0 overflow-y-auto">
               <AddNewRow title={ADD_NEW_REWARD} openFn={handleOpen} />
-              <RewardsListing isActive={true} />
+              <Suspense fallback={<Spinner />}>
+                <RewardsListing isActive={true} />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -67,7 +80,9 @@ export const AwardsPage = () => {
             </CustomTooltip>
           </div>
           <div className="flex-1 flex flex-col p-3 h-1/2 min-h-0">
-            <RewardsListing isActive={false} />
+            <Suspense fallback={<Spinner />}>
+              <RewardsListing isActive={false} />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -79,7 +94,9 @@ export const AwardsPage = () => {
                 <p className="title text-lg text-tma-blue-200">
                   {REWARD_TITLE}
                 </p>
-                <RewardForm />
+                <Suspense fallback={<Spinner />}>
+                  <RewardForm />
+                </Suspense>
               </>
             )}
             {dialogType === EDIT_REWARD && <p>edit reward placeholder</p>}

@@ -23,14 +23,18 @@ import {
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
-import { TaskForm } from "../form/task-form";
 import { Button } from "../button/button";
+import { lazy, Suspense } from "react";
+import { Spinner } from "../spinner/the-spinner";
 import type { Tasks } from "../../constants/types";
 import { useTasks } from "../../hooks/use-tasks";
 import { useRemoveTask } from "../../hooks/use-remove-task";
-import { Spinner } from "../spinner/the-spinner";
 import { Dialog } from "../dialog/dialog";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
+
+const TaskForm = lazy(() =>
+  import("../form/task-form").then((module) => ({ default: module.TaskForm }))
+);
 
 type GroupedTasks = {
   [GROUP_DO]: Tasks;
@@ -121,7 +125,9 @@ export const TaskGrid = () => {
                   {`${ADD_NEW_TASK_TO} `}
                   <span className="font-black uppercase">{groupName}</span>
                 </p>
-                <TaskForm />
+                <Suspense fallback={<Spinner />}>
+                  <TaskForm />
+                </Suspense>
               </>
             )}
 
@@ -133,7 +139,9 @@ export const TaskGrid = () => {
                     {currentTask.name}
                   </span>
                 </p>
-                <TaskForm />
+                <Suspense fallback={<Spinner />}>
+                  <TaskForm />
+                </Suspense>
               </>
             )}
 

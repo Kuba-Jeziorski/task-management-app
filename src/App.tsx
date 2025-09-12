@@ -5,15 +5,12 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import { lazy, Suspense } from "react";
 
 import { AppLayout } from "./components/ui/app-layout";
-import { MyTasksPage } from "./components/pages/my-tasks-page";
-import { AwardsPage } from "./components/pages/awards-page";
-import { LoginPage } from "./components/pages/login-page";
 import { ProtectedRoute } from "./components/ui/protected-route";
-import { UserPage } from "./components/pages/user-page";
-import { AboutPage } from "./components/pages/about-page";
-import { NotFoundPage } from "./components/pages/not-found-page";
+import { Spinner } from "./components/spinner/the-spinner";
+
 import {
   TOAST_ERROR_DURATION,
   TOAST_SUCCESS_DURATION,
@@ -26,6 +23,37 @@ import {
 import { GlobalContextProvider } from "./contexts/global-context";
 import { RewardContextProvider } from "./contexts/reward-context";
 import { TaskContextProvider } from "./contexts/task-context";
+
+const MyTasksPage = lazy(() =>
+  import("./components/pages/my-tasks-page").then((module) => ({
+    default: module.MyTasksPage,
+  }))
+);
+const AwardsPage = lazy(() =>
+  import("./components/pages/awards-page").then((module) => ({
+    default: module.AwardsPage,
+  }))
+);
+const LoginPage = lazy(() =>
+  import("./components/pages/login-page").then((module) => ({
+    default: module.LoginPage,
+  }))
+);
+const UserPage = lazy(() =>
+  import("./components/pages/user-page").then((module) => ({
+    default: module.UserPage,
+  }))
+);
+const AboutPage = lazy(() =>
+  import("./components/pages/about-page").then((module) => ({
+    default: module.AboutPage,
+  }))
+);
+const NotFoundPage = lazy(() =>
+  import("./components/pages/not-found-page").then((module) => ({
+    default: module.NotFoundPage,
+  }))
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,23 +78,53 @@ const router = createBrowserRouter([
       },
       {
         path: `/${URL_MY_TASKS_PAGE}`,
-        Component: MyTasksPage,
+        Component: () => (
+          <Suspense fallback={<Spinner />}>
+            <MyTasksPage />
+          </Suspense>
+        ),
       },
       {
         path: `/${URL_AWARDS_PAGE}`,
-        Component: AwardsPage,
+        Component: () => (
+          <Suspense fallback={<Spinner />}>
+            <AwardsPage />
+          </Suspense>
+        ),
       },
-      { path: `/${URL_ABOUT_PAGE}`, Component: AboutPage },
-      { path: `/${URL_USER_PAGE}`, Component: UserPage },
+      {
+        path: `/${URL_ABOUT_PAGE}`,
+        Component: () => (
+          <Suspense fallback={<Spinner />}>
+            <AboutPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: `/${URL_USER_PAGE}`,
+        Component: () => (
+          <Suspense fallback={<Spinner />}>
+            <UserPage />
+          </Suspense>
+        ),
+      },
       {
         path: "*",
-        Component: NotFoundPage,
+        Component: () => (
+          <Suspense fallback={<Spinner />}>
+            <NotFoundPage />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: `/${URL_LOGIN_PAGE}`,
-    Component: LoginPage,
+    Component: () => (
+      <Suspense fallback={<Spinner />}>
+        <LoginPage />
+      </Suspense>
+    ),
   },
 ]);
 
