@@ -133,3 +133,12 @@ export type Reward = {
 export type NewReward = Omit<Reward, "id">;
 
 export type Rewards = Reward[];
+
+export type Log = {
+  id: string;
+  user_id: string;
+  date: string;
+  actions: [];
+};
+
+export type CreateLog = Omit<Log, "id">;
