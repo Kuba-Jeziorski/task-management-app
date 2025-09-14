@@ -78,14 +78,9 @@ export const RewardForm = () => {
     }
 
     if (isEditForm && currentRewardId != null) {
-      // TODO: maybe use rewardToEdit?
-      const rewardToUpdate = rewards.find(
-        (element) => element.id === currentRewardId
-      );
-
-      if (rewardToUpdate) {
+      if (rewardToEdit) {
         const updatedReward: Reward = {
-          ...rewardToUpdate,
+          ...rewardToEdit,
           name: data.rewardName,
           points: data.points,
         };

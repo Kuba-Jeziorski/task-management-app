@@ -95,12 +95,9 @@ export const TaskForm = () => {
     }
 
     if (isEditForm && currentTaskId != null) {
-      const taskToUpdate = currentTasks.find(
-        (task) => task.id === currentTaskId
-      );
-      if (taskToUpdate) {
+      if (taskToEdit) {
         const updatedTask: Task = {
-          ...taskToUpdate,
+          ...taskToEdit,
           name: data.taskName,
           active: localActivity,
         };
