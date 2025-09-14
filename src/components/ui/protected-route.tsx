@@ -47,7 +47,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
       createLog({
         user_id: user.id,
-        date: new Date().toISOString(),
         actions: [loginAction],
       });
     }

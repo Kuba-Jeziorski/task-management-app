@@ -139,7 +139,6 @@ export type Log = {
   id: string;
   created_at: string;
   user_id: string;
-  date: string;
   actions: Log_Action[];
 };
 

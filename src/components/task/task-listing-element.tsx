@@ -1,6 +1,6 @@
 import { CircleCheck } from "lucide-react";
 
-import type { Task } from "../../constants/types";
+import type { Task, UpdateLog } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Dropdown } from "../dropdown/dropdown";
@@ -9,12 +9,16 @@ import {
   ALL_POINTS,
   CURRENT_POINTS,
   DROPDOWN_TASK,
+  LOG_EDIT_TASK_ACTIVITY,
   TOOLTIP_TOGGLE_ACTIVE,
   TOOLTIP_TOGGLE_INACTIVE,
 } from "../../constants/constants";
 import { useUpdateTask } from "../../hooks/use-update-task";
 import { usePoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type { Log_EditTaskActivity } from "../../constants/log-action-variants";
 
 type TaskProps = {
   task: Task;
@@ -26,9 +30,32 @@ export const TaskListingElement = ({ task }: TaskProps) => {
   const { updateTask } = useUpdateTask();
   const { updatePoints, isUpdating } = usePoints();
 
+  const { updateLog } = useUpdateLog();
+  const { logs } = useLogs();
+
   const handleChangeActive = async () => {
     const taskToUpdate = currentTasks.find((element) => element.id === task.id);
+
+    const currentLog: UpdateLog | undefined = logs?.at(-1);
     if (taskToUpdate) {
+      if (currentLog !== undefined) {
+        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+        const taskActivityChangeAction: Log_EditTaskActivity = {
+          id: lastId + 1,
+          name: LOG_EDIT_TASK_ACTIVITY,
+          title: taskToUpdate.name,
+          newActivity: !taskToUpdate.active,
+          group: taskToUpdate.group,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...currentLog,
+          actions: [...currentLog.actions, taskActivityChangeAction],
+        };
+
+        updateLog(updatedLog);
+      }
+
       const updatedTask: Task = {
         ...taskToUpdate,
         active: !taskToUpdate.active,

@@ -40,9 +40,9 @@ export type Log_AddTask = {
 export type Log_EditTaskName = {
   id: number;
   name: typeof LOG_EDIT_TASK_NAME;
-  title: string;
   prevName: string;
   newName: string;
+  group: string;
 };
 
 export type Log_EditTaskActivity = {
@@ -50,6 +50,7 @@ export type Log_EditTaskActivity = {
   name: typeof LOG_EDIT_TASK_ACTIVITY;
   title: string;
   newActivity: boolean;
+  group: string;
 };
 
 export type Log_RemoveTask = {

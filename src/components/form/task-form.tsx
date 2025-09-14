@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CircleCheck } from "lucide-react";
 
 import { InputWrapper } from "./input-wrapper";
-import type { NewTask, Task } from "../../constants/types";
+import type { NewTask, Task, UpdateLog } from "../../constants/types";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { cn } from "../../utils/css";
 import { Button } from "../button/button";
@@ -12,6 +12,9 @@ import {
   CANCEL,
   CURRENT_POINTS,
   EDIT_TASK,
+  LOG_ADD_TASK,
+  LOG_EDIT_TASK_ACTIVITY,
+  LOG_EDIT_TASK_NAME,
   NEW_TASK,
   REQUIRED_FIELD,
   SAVE_TASK,
@@ -26,6 +29,13 @@ import { usePoints } from "../../hooks/use-current-points";
 import { taskGroupPoints } from "../../constants/task-group-points";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { useProfile } from "../../hooks/use-profile";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type {
+  Log_AddTask,
+  Log_EditTaskActivity,
+  Log_EditTaskName,
+} from "../../constants/log-action-variants";
 
 type FormValues = {
   taskName: string;
@@ -42,6 +52,9 @@ export const TaskForm = () => {
   const { updateTask } = useUpdateTask();
   const { createTask } = useCreateTask();
   const { updatePoints, isUpdating } = usePoints();
+
+  const { updateLog } = useUpdateLog();
+  const { logs } = useLogs();
 
   const isNewForm = dialogType === NEW_TASK;
   const isEditForm = dialogType === EDIT_TASK;
@@ -83,6 +96,7 @@ export const TaskForm = () => {
   };
 
   const onSubmit = (data: FormValues) => {
+    const currentLog: UpdateLog | undefined = logs?.at(-1);
     if (isNewForm && groupName) {
       const newTask: NewTask = {
         user_id: userId,
@@ -92,10 +106,64 @@ export const TaskForm = () => {
       };
 
       createTask(newTask);
+
+      if (currentLog !== undefined) {
+        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+        const newTaskAction: Log_AddTask = {
+          id: lastId + 1,
+          name: LOG_ADD_TASK,
+          title: data.taskName,
+          group: groupName,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...currentLog,
+          actions: [...currentLog.actions, newTaskAction],
+        };
+
+        updateLog(updatedLog);
+      }
     }
 
     if (isEditForm && currentTaskId != null) {
       if (taskToEdit) {
+        if (currentLog !== undefined) {
+          if (data.taskName !== taskToEdit.name) {
+            const lastId = currentLog.actions.at(-1)?.id ?? 0;
+            const taskNameChangeAction: Log_EditTaskName = {
+              id: lastId + 1,
+              name: LOG_EDIT_TASK_NAME,
+              prevName: taskToEdit.name,
+              newName: data.taskName,
+              group: taskToEdit.group,
+            };
+
+            const updatedLog: UpdateLog = {
+              ...currentLog,
+              actions: [...currentLog.actions, taskNameChangeAction],
+            };
+
+            updateLog(updatedLog);
+          }
+          if (taskToEdit.active !== localActivity) {
+            const lastId = currentLog.actions.at(-1)?.id ?? 0;
+            const taskActivityChangeAction: Log_EditTaskActivity = {
+              id: lastId + 1,
+              name: LOG_EDIT_TASK_ACTIVITY,
+              title: taskToEdit.name,
+              newActivity: localActivity,
+              group: taskToEdit.group,
+            };
+
+            const updatedLog: UpdateLog = {
+              ...currentLog,
+              actions: [...currentLog.actions, taskActivityChangeAction],
+            };
+
+            updateLog(updatedLog);
+          }
+        }
+
         const updatedTask: Task = {
           ...taskToEdit,
           name: data.taskName,

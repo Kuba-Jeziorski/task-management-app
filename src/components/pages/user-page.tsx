@@ -1,6 +1,9 @@
 import {
   CHANGE_YOUR_NAME,
   CHANGE_YOUR_PASSWORD,
+  LOG_ADD_TASK,
+  LOG_EDIT_TASK_ACTIVITY,
+  LOG_EDIT_TASK_NAME,
   LOG_LOGIN,
   LOG_NAME_UPDATE,
   LOG_OUT,
@@ -61,20 +64,38 @@ export const UserPage = () => {
             {data?.map((log) => (
               <div key={log.id} className="flex flex-col gap-3">
                 <p className="text-tma-light-500 font-semibold text-lg pb-2 border-b border-b-tma-light-500">
-                  {dataFormat(log.date)}
+                  {dataFormat(log.created_at)}
                 </p>
                 <ul className="flex flex-col gap-1">
                   {log.actions.map((single) => (
                     <li key={single.id}>
                       <p className="text-tma-light-500 text-sm">
-                        {/* login case */}
-                        {single.name === LOG_LOGIN && "You have logged in"}
-                        {/* name update case */}
+                        {/* login */}
+                        {single.name === LOG_LOGIN &&
+                          "[USER] You have logged in"}
+                        {/* name updated */}
                         {single.name === LOG_NAME_UPDATE &&
-                          `You have changed your name from ${single.prevName} to ${single.newName}`}
-                        {/* password update case */}
+                          `[USER] You have changed your name from ${single.prevName} to ${single.newName}`}
+                        {/* password updated */}
                         {single.name === LOG_PASSWORD_UPDATE &&
-                          "You have changed your password"}
+                          "[USER] You have changed your password"}
+                        {/* added task */}
+                        {single.name === LOG_ADD_TASK &&
+                          `[TASK] You have added a ${single.title} to ${single.group} group`}
+                        {/* edited task name */}
+                        {single.name === LOG_EDIT_TASK_NAME &&
+                          `[TASK] You have changed ${single.prevName} to ${single.newName} (${single.group})`}
+                        {/* edited task activity */}
+                        {single.name === LOG_EDIT_TASK_ACTIVITY &&
+                          `[TASK] You have changed ${single.title} to ${
+                            single.newActivity ? "active" : "completed"
+                          } (${single.group})`}
+                        {/* removed task */}
+                        {/* added reward */}
+                        {/* edited reward name */}
+                        {/* edited reward points */}
+                        {/* edited reward activity */}
+                        {/* removed reward */}
                       </p>
                     </li>
                   ))}
