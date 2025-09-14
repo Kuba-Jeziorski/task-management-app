@@ -1,7 +1,12 @@
-import type { CreateLog, GetUserIdProps, Log } from "../constants/types";
+import type {
+  CreateLog,
+  GetUserIdProps,
+  Logs,
+  UpdateLog,
+} from "../constants/types";
 import supabase from "./supabase-config";
 
-export const getLogs = async (userId: GetUserIdProps) => {
+export const getLogs = async (userId: GetUserIdProps): Promise<Logs> => {
   try {
     const { data, error } = await supabase
       .from("logs")
@@ -35,7 +40,7 @@ export const createLog = async (log: CreateLog) => {
   }
 };
 
-export const updateLog = async (log: Log) => {
+export const updateLog = async (log: UpdateLog) => {
   try {
     const { data, error } = await supabase
       .from("logs")

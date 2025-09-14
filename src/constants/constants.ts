@@ -139,3 +139,17 @@ export const GROUP_DELEGATE_POINTS = 2;
 export const GROUP_DELETE_POINTS = 1;
 export const BASE_ALL_POINTS = 0;
 export const BASE_CURRENT_POINTS = 0;
+
+// LOGs
+export const LOG_LOGIN = "login";
+export const LOG_NAME_UPDATE = "name-update";
+export const LOG_PASSWORD_UPDATE = "password-update";
+export const LOG_ADD_TASK = "task-add";
+export const LOG_EDIT_TASK_NAME = "task-name";
+export const LOG_EDIT_TASK_ACTIVITY = "task-activity";
+export const LOG_REMOVE_TASK = "task-remove";
+export const LOG_ADD_REWARD = "reward-add";
+export const LOG_EDIT_REWARD_NAME = "reward-name";
+export const LOG_EDIT_REWARD_POINTS = "reward-points";
+export const LOG_EDIT_REWARD_ACTIVITY = "reward-activitiy";
+export const LOG_REMOVE_REWARD = "reward-remove";

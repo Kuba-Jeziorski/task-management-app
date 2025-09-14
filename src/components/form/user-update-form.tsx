@@ -6,13 +6,22 @@ import { useChangePassword } from "../../hooks/use-update-user";
 import {
   APPLY_CHANGES,
   EMAIL_ADDRESS_PLACEHOLDER,
+  LOG_NAME_UPDATE,
+  LOG_PASSWORD_UPDATE,
   PASSWORD_REPEAT,
   USER_FORM_TYPE_FULLNAME,
   USER_FORM_TYPE_PASSWORD,
 } from "../../constants/constants";
-import type { UpdateUserPassword } from "../../constants/types";
+import type { UpdateLog, UpdateUserPassword } from "../../constants/types";
 import { useUser } from "../../hooks/use-user";
 import { useUpdateProfileName } from "../../hooks/use-update-profile";
+import { useProfile } from "../../hooks/use-profile";
+import { useLogs } from "../../hooks/use-logs";
+import type {
+  Log_NameUpdate,
+  Log_PasswordUpdate,
+} from "../../constants/log-action-variants";
+import { useUpdateLog } from "../../hooks/use-update-log";
 
 type Props = {
   type: typeof USER_FORM_TYPE_FULLNAME | typeof USER_FORM_TYPE_PASSWORD;
@@ -21,7 +30,10 @@ type Props = {
 export const UserUpdateForm = ({ type }: Props) => {
   const { passwordChange, isPending } = useChangePassword();
   const { updateProfileName, isUpdating } = useUpdateProfileName();
+  const { profile } = useProfile();
   const { user } = useUser();
+  const { updateLog } = useUpdateLog();
+  const { logs } = useLogs();
 
   const {
     register,
@@ -31,14 +43,48 @@ export const UserUpdateForm = ({ type }: Props) => {
   } = useForm<FieldValues>();
 
   const onSubmit = (values: FieldValues) => {
+    const currentLog: UpdateLog | undefined = logs?.at(-1);
+
     if (type === USER_FORM_TYPE_FULLNAME) {
       const newName = values.fullName;
       updateProfileName(newName);
+
+      if (currentLog !== undefined) {
+        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+        const nameUpdateAction: Log_NameUpdate = {
+          id: lastId + 1,
+          prevName: profile.name,
+          newName: newName,
+          name: LOG_NAME_UPDATE,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...currentLog,
+          actions: [...currentLog.actions, nameUpdateAction],
+        };
+
+        updateLog(updatedLog);
+      }
     }
 
     if (type === USER_FORM_TYPE_PASSWORD) {
       const newPassword: UpdateUserPassword = { password: values.password };
       passwordChange(newPassword);
+
+      if (currentLog !== undefined) {
+        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+        const passwordUpdateAction: Log_PasswordUpdate = {
+          id: lastId + 1,
+          name: LOG_PASSWORD_UPDATE,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...currentLog,
+          actions: [...currentLog.actions, passwordUpdateAction],
+        };
+
+        updateLog(updatedLog);
+      }
     }
   };
 

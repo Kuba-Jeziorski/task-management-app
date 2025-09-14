@@ -21,6 +21,7 @@ import {
   type GROUP_DELETE,
   type GROUP_DO,
 } from "./constants";
+import type { Log_Action } from "./log-action-variants";
 
 export type SidebarElement = {
   icon: React.ReactNode;
@@ -136,9 +137,14 @@ export type Rewards = Reward[];
 
 export type Log = {
   id: string;
+  created_at: string;
   user_id: string;
   date: string;
-  actions: [];
+  actions: Log_Action[];
 };
 
-export type CreateLog = Omit<Log, "id">;
+export type Logs = Log[];
+
+export type CreateLog = Omit<Log, "id" | "created_at">;
+
+export type UpdateLog = Omit<Log, "created_at">;
