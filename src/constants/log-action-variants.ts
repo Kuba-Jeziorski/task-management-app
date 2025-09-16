@@ -57,6 +57,7 @@ export type Log_RemoveTask = {
   id: number;
   name: typeof LOG_REMOVE_TASK;
   title: string;
+  group: string;
 };
 
 export type Log_AddReward = {
@@ -69,7 +70,6 @@ export type Log_AddReward = {
 export type Log_EditRewardName = {
   id: number;
   name: typeof LOG_EDIT_REWARD_NAME;
-  title: string;
   prevName: string;
   newName: string;
 };
@@ -86,6 +86,7 @@ export type Log_EditRewardActivity = {
   id: number;
   name: typeof LOG_EDIT_REWARD_ACTIVITY;
   title: string;
+  points: number;
   // no activity, because it can be only done one way (active -> collected)
 };
 
@@ -93,6 +94,7 @@ export type Log_RemoveReward = {
   id: number;
   name: typeof LOG_REMOVE_REWARD;
   title: string;
+  points: number;
 };
 
 export type Log_Action =

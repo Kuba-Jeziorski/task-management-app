@@ -5,10 +5,13 @@ import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import {
   CANCEL,
   EDIT_REWARD,
+  LOG_ADD_REWARD,
+  LOG_EDIT_REWARD_NAME,
+  LOG_EDIT_REWARD_POINTS,
   NEW_REWARD,
   REQUIRED_FIELD,
 } from "../../constants/constants";
-import type { NewReward, Reward } from "../../constants/types";
+import type { NewReward, Reward, UpdateLog } from "../../constants/types";
 import { useProfile } from "../../hooks/use-profile";
 import { useCreateReward } from "../../hooks/use-create-reward";
 import { InputWrapper } from "./input-wrapper";
@@ -17,6 +20,13 @@ import { Button } from "../button/button";
 import { useUpdateReward } from "../../hooks/use-update-reward";
 import { useRewards } from "../../hooks/use-rewards";
 import { useRewardContext } from "../../contexts/helpers/use-reward-context";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type {
+  Log_AddReward,
+  Log_EditRewardName,
+  Log_EditRewardPoints,
+} from "../../constants/log-action-variants";
 
 type FormValues = {
   rewardName: string;
@@ -29,10 +39,13 @@ export const RewardForm = () => {
 
   const { dialogType, setDialogType } = useGlobalContext();
 
+  const { rewards = [] } = useRewards();
   const { createReward, isPending: isCreating } = useCreateReward();
   const { updateReward, isPending: isEditing } = useUpdateReward();
-  const { rewards = [] } = useRewards();
   const { currentRewardId } = useRewardContext();
+
+  const { updateLog } = useUpdateLog();
+  const { latestLog } = useLogs();
 
   const isNewForm = dialogType === NEW_REWARD;
   const isEditForm = dialogType === EDIT_REWARD;
@@ -74,6 +87,23 @@ export const RewardForm = () => {
         active: true,
       };
 
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
+        const newRewardAction: Log_AddReward = {
+          id: lastId + 1,
+          name: LOG_ADD_REWARD,
+          title: data.rewardName,
+          points: data.points,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...latestLog,
+          actions: [...latestLog.actions, newRewardAction],
+        };
+
+        updateLog(updatedLog);
+      }
+
       createReward(newReward);
     }
 
@@ -84,6 +114,79 @@ export const RewardForm = () => {
           name: data.rewardName,
           points: data.points,
         };
+
+        if (latestLog !== undefined) {
+          if (
+            data.rewardName !== rewardToEdit.name &&
+            data.points === rewardToEdit.points
+          ) {
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
+            const rewardNameChangeAction: Log_EditRewardName = {
+              id: lastId + 1,
+              name: LOG_EDIT_REWARD_NAME,
+              prevName: rewardToEdit.name,
+              newName: data.rewardName,
+            };
+
+            const updatedLog: UpdateLog = {
+              ...latestLog,
+              actions: [...latestLog.actions, rewardNameChangeAction],
+            };
+
+            updateLog(updatedLog);
+          }
+          if (
+            data.rewardName === rewardToEdit.name &&
+            data.points !== rewardToEdit.points
+          ) {
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
+            const rewardPointsChangeAction: Log_EditRewardPoints = {
+              id: lastId + 1,
+              name: LOG_EDIT_REWARD_POINTS,
+              title: rewardToEdit.name,
+              prevPoints: rewardToEdit.points,
+              newPoints: data.points,
+            };
+
+            const updatedLog: UpdateLog = {
+              ...latestLog,
+              actions: [...latestLog.actions, rewardPointsChangeAction],
+            };
+
+            updateLog(updatedLog);
+          }
+          if (
+            data.rewardName !== rewardToEdit.name &&
+            data.points !== rewardToEdit.points
+          ) {
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
+            const rewardNameChangeAction: Log_EditRewardName = {
+              id: lastId + 1,
+              name: LOG_EDIT_REWARD_NAME,
+              prevName: rewardToEdit.name,
+              newName: data.rewardName,
+            };
+            const rewardPointsChangeAction: Log_EditRewardPoints = {
+              id: lastId + 2,
+              name: LOG_EDIT_REWARD_POINTS,
+              title: data.rewardName,
+              prevPoints: rewardToEdit.points,
+              newPoints: data.points,
+            };
+
+            const updatedLog: UpdateLog = {
+              ...latestLog,
+              actions: [
+                ...latestLog.actions,
+                rewardNameChangeAction,
+                rewardPointsChangeAction,
+              ],
+            };
+
+            updateLog(updatedLog);
+          }
+        }
+
         updateReward(updatedReward);
       }
     }

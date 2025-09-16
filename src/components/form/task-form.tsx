@@ -131,7 +131,6 @@ export const TaskForm = () => {
             data.taskName !== taskToEdit.name &&
             taskToEdit.active === localActivity
           ) {
-            console.log(`only name`);
             const lastId = latestLog.actions.at(-1)?.id ?? 0;
             const taskNameChangeAction: Log_EditTaskName = {
               id: lastId + 1,

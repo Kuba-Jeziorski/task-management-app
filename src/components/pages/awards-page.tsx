@@ -5,6 +5,7 @@ import {
   CONFIRMATION,
   EDIT_REWARD,
   EDITING,
+  LOG_REMOVE_REWARD,
   NEW_REWARD,
   REMOVE_NO,
   REMOVE_YES,
@@ -24,9 +25,12 @@ import { AddNewRow } from "../ui/add-new-row";
 import { lazy, Suspense } from "react";
 import { Spinner } from "../spinner/the-spinner";
 import { useRewards } from "../../hooks/use-rewards";
-import type { Reward } from "../../constants/types";
+import type { Reward, UpdateLog } from "../../constants/types";
 import { Button } from "../button/button";
 import { useRemoveReward } from "../../hooks/use-remove-reward";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type { Log_RemoveReward } from "../../constants/log-action-variants";
 
 const RewardsListing = lazy(() =>
   import("../rewards/rewards-listing").then((module) => ({
@@ -47,6 +51,9 @@ export const AwardsPage = () => {
   const { rewards = [] } = useRewards();
   const { removeReward } = useRemoveReward();
 
+  const { updateLog } = useUpdateLog();
+  const { latestLog } = useLogs();
+
   const handleCloseDialog = () => {
     setDialogType(null);
     setCurrentRewardId(null);
@@ -57,16 +64,33 @@ export const AwardsPage = () => {
     setDialogType(NEW_REWARD);
   };
 
+  const selectedReward: Reward =
+    currentRewardId &&
+    rewards.find((element) => element.id === currentRewardId);
+
   const handleRemoveReward = async (id: number) => {
     if (currentRewardId != null) {
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
+        const removeRewardAction: Log_RemoveReward = {
+          id: lastId + 1,
+          name: LOG_REMOVE_REWARD,
+          title: selectedReward?.name,
+          points: selectedReward?.points,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...latestLog,
+          actions: [...latestLog.actions, removeRewardAction],
+        };
+
+        updateLog(updatedLog);
+      }
+
       removeReward(id);
     }
     handleCloseDialog();
   };
-
-  const selectedReward: Reward =
-    currentRewardId &&
-    rewards.find((element) => element.id === currentRewardId);
 
   const isDialogOpen =
     dialogType === NEW_REWARD ||

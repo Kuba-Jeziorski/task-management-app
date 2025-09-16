@@ -1,17 +1,21 @@
 import { Gem } from "lucide-react";
 import { cn } from "../../utils/css";
 
-import type { Reward } from "../../constants/types";
+import type { Reward, UpdateLog } from "../../constants/types";
 import {
   CURRENT_POINTS,
   DROPDOWN_REWARD,
   GET_IT_NOW,
+  LOG_EDIT_REWARD_ACTIVITY,
 } from "../../constants/constants";
 import { useProfile } from "../../hooks/use-profile";
 import { useRewards } from "../../hooks/use-rewards";
 import { useUpdateReward } from "../../hooks/use-update-reward";
 import { usePoints } from "../../hooks/use-current-points";
 import { Dropdown } from "../dropdown/dropdown";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type { Log_EditRewardActivity } from "../../constants/log-action-variants";
 
 type Props = {
   reward: Reward;
@@ -26,6 +30,9 @@ export const RewardListingElement = ({ reward }: Props) => {
   const { updateReward } = useUpdateReward();
   const { updatePoints, isUpdating } = usePoints();
 
+  const { updateLog } = useUpdateLog();
+  const { latestLog } = useLogs();
+
   const handleChangeActive = async () => {
     const rewardToUpdate = rewards.find((element) => element.id === reward.id);
 
@@ -34,6 +41,23 @@ export const RewardListingElement = ({ reward }: Props) => {
         ...rewardToUpdate,
         active: false,
       };
+
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
+        const rewardActivityChangeAction: Log_EditRewardActivity = {
+          id: lastId + 1,
+          name: LOG_EDIT_REWARD_ACTIVITY,
+          title: rewardToUpdate.name,
+          points: rewardToUpdate.points,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...latestLog,
+          actions: [...latestLog.actions, rewardActivityChangeAction],
+        };
+
+        updateLog(updatedLog);
+      }
 
       updateReward(updatedReward);
 

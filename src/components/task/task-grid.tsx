@@ -95,6 +95,7 @@ export const TaskGrid = () => {
           id: lastId + 1,
           name: LOG_REMOVE_TASK,
           title: currentTask?.name,
+          group: currentTask?.group,
         };
 
         const updatedLog: UpdateLog = {

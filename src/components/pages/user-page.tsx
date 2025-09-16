@@ -1,13 +1,18 @@
 import {
   CHANGE_YOUR_NAME,
   CHANGE_YOUR_PASSWORD,
+  LOG_ADD_REWARD,
   LOG_ADD_TASK,
+  LOG_EDIT_REWARD_ACTIVITY,
+  LOG_EDIT_REWARD_NAME,
+  LOG_EDIT_REWARD_POINTS,
   LOG_EDIT_TASK_ACTIVITY,
   LOG_EDIT_TASK_NAME,
   LOG_LOGIN,
   LOG_NAME_UPDATE,
   LOG_OUT,
   LOG_PASSWORD_UPDATE,
+  LOG_REMOVE_REWARD,
   LOG_REMOVE_TASK,
 } from "../../constants/constants";
 import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
@@ -21,7 +26,6 @@ export const UserPage = () => {
   const { logout, isPending } = useLogout();
 
   const { logs: data = [] } = useLogs();
-  console.log(data);
 
   useBlockedRedirect();
 
@@ -83,23 +87,33 @@ export const UserPage = () => {
                           "[USER] You have changed your password"}
                         {/* added task */}
                         {single.name === LOG_ADD_TASK &&
-                          `[TASK] You have added a ${single.title} to ${single.group} group`}
+                          `[TASK] You have added a ${single.title} (${single.group} group)`}
                         {/* edited task name */}
                         {single.name === LOG_EDIT_TASK_NAME &&
-                          `[TASK] You have changed ${single.prevName} to ${single.newName} (${single.group})`}
+                          `[TASK] You have changed ${single.prevName} to ${single.newName} (${single.group} group)`}
                         {/* edited task activity */}
                         {single.name === LOG_EDIT_TASK_ACTIVITY &&
                           `[TASK] You have changed ${single.title} to ${
                             single.newActivity ? "active" : "completed"
-                          } (${single.group})`}
+                          } (${single.group} group)`}
                         {/* removed task */}
                         {single.name === LOG_REMOVE_TASK &&
-                          `[TASK] You have removed ${single.title}`}
+                          `[TASK] You have removed ${single.title} (${single.group} group)`}
                         {/* added reward */}
+                        {single.name === LOG_ADD_REWARD &&
+                          `[REWARD] You have added a ${single.title} (${single.points} points)`}
                         {/* edited reward name */}
+                        {single.name === LOG_EDIT_REWARD_NAME &&
+                          `[REWARD] You have changed ${single.prevName} to ${single.newName}`}
                         {/* edited reward points */}
+                        {single.name === LOG_EDIT_REWARD_POINTS &&
+                          `[REWARD] You have changed ${single.title} from ${single.prevPoints} points to ${single.newPoints} points`}
                         {/* edited reward activity */}
+                        {single.name === LOG_EDIT_REWARD_ACTIVITY &&
+                          `[REWARD] You have claimed ${single.title} (${single.points} points)`}
                         {/* removed reward */}
+                        {single.name === LOG_REMOVE_REWARD &&
+                          `[REWARD] You have removed ${single.title} (${single.points} points)`}
                       </p>
                     </li>
                   ))}
