@@ -33,6 +33,9 @@ export const RewardListingElement = ({ reward }: Props) => {
   const { updateLog } = useUpdateLog();
   const { latestLog } = useLogs();
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const handleChangeActive = async () => {
     const rewardToUpdate = rewards.find((element) => element.id === reward.id);
 
@@ -42,21 +45,13 @@ export const RewardListingElement = ({ reward }: Props) => {
         active: false,
       };
 
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const rewardActivityChangeAction: Log_EditRewardActivity = {
-          id: lastId + 1,
-          name: LOG_EDIT_REWARD_ACTIVITY,
-          title: rewardToUpdate.name,
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_EDIT_REWARD_ACTIVITY,
+          name: rewardToUpdate.name,
           points: rewardToUpdate.points,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, rewardActivityChangeAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_EditRewardActivity);
       }
 
       updateReward(updatedReward);
@@ -64,6 +59,13 @@ export const RewardListingElement = ({ reward }: Props) => {
       const pointsValue = reward.points * -1;
 
       updatePoints({ pointsValue, pointsType: CURRENT_POINTS });
+
+      if (latestLog && newActions.length > 0) {
+        updateLog({
+          ...latestLog,
+          actions: [...latestLog.actions, ...newActions],
+        });
+      }
     }
   };
 

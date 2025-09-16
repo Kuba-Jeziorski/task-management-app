@@ -33,27 +33,21 @@ export const TaskListingElement = ({ task }: TaskProps) => {
   const { updateLog } = useUpdateLog();
   const { latestLog } = useLogs();
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const handleChangeActive = async () => {
     const taskToUpdate = currentTasks.find((element) => element.id === task.id);
 
     if (taskToUpdate) {
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-
-        const taskActivityChangeAction: Log_EditTaskActivity = {
-          id: lastId + 1,
-          name: LOG_EDIT_TASK_ACTIVITY,
-          title: taskToUpdate.name,
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_EDIT_TASK_ACTIVITY,
+          name: taskToUpdate.name,
           newActivity: !taskToUpdate.active,
           group: taskToUpdate.group,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, taskActivityChangeAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_EditTaskActivity);
       }
 
       const updatedTask: Task = {
@@ -68,6 +62,13 @@ export const TaskListingElement = ({ task }: TaskProps) => {
 
       updatePoints({ pointsValue, pointsType: CURRENT_POINTS });
       updatePoints({ pointsValue, pointsType: ALL_POINTS });
+
+      if (latestLog && newActions.length > 0) {
+        updateLog({
+          ...latestLog,
+          actions: [...latestLog.actions, ...newActions],
+        });
+      }
     }
   };
 

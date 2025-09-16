@@ -50,29 +50,29 @@ const logFormatters: LogFormatterMap = {
     `[USER] You have changed your name from ${record.prevName} to ${record.newName}`,
   [LOG_PASSWORD_UPDATE]: () => "[USER] You have changed your password",
   [LOG_ADD_TASK]: (record) =>
-    `[TASK] You have added ${record.title} (${record.group} group)`,
+    `[TASK] You have added ${record.name} (${record.group} group)`,
   [LOG_EDIT_TASK_NAME]: (record) =>
     `[TASK] You have changed ${record.prevName} to ${record.newName} (${record.group} group)`,
   [LOG_EDIT_TASK_ACTIVITY]: (record) =>
-    `[TASK] You have changed ${record.title} to ${
+    `[TASK] You have changed ${record.name} to ${
       record.newActivity ? "active" : "completed"
     } (${record.group} group)`,
   [LOG_REMOVE_TASK]: (record) =>
-    `[TASK] You have removed ${record.title} (${record.group} group)`,
+    `[TASK] You have removed ${record.name} (${record.group} group)`,
   [LOG_ADD_REWARD]: (record) =>
-    `[REWARD] You have added ${record.title} (${record.points} points)`,
+    `[REWARD] You have added ${record.name} (${record.points} points)`,
   [LOG_EDIT_REWARD_NAME]: (record) =>
-    `[REWARD] You have changed ${record.prevName} to ${record.newName}`,
+    `[REWARD] You have changed ${record.prevName} to ${record.newName} (${record.points} points)`,
   [LOG_EDIT_REWARD_POINTS]: (record) =>
-    `[REWARD] You have changed ${record.title} from ${record.prevPoints} points to ${record.newPoints} points`,
+    `[REWARD] You have changed ${record.name} from ${record.prevPoints} points to ${record.newPoints} points`,
   [LOG_EDIT_REWARD_ACTIVITY]: (record) =>
-    `[REWARD] You have claimed ${record.title} (${record.points} points)`,
+    `[REWARD] You have claimed ${record.name} (${record.points} points)`,
   [LOG_REMOVE_REWARD]: (record) =>
-    `[REWARD] You have removed ${record.title} (${record.points} points)`,
+    `[REWARD] You have removed ${record.name} (${record.points} points)`,
 };
 
 export const formatLogMessage = (record: Log_Action): string => {
-  const formatter = logFormatters[record.name as keyof LogFormatterMap];
+  const formatter = logFormatters[record.type as keyof LogFormatterMap];
   return formatter
     ? formatter(record as any)
     : "[UNKNOWN] Unrecognized log entry";

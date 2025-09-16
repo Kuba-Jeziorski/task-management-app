@@ -15,31 +15,31 @@ import type {
 
 export type Log_Login = {
   id: number;
-  name: typeof LOG_LOGIN; // condition for different cases
+  type: typeof LOG_LOGIN; // condition for different cases
 };
 
 export type Log_NameUpdate = {
   id: number;
-  name: typeof LOG_NAME_UPDATE;
+  type: typeof LOG_NAME_UPDATE;
   prevName: string;
   newName: string;
 };
 
 export type Log_PasswordUpdate = {
   id: number;
-  name: typeof LOG_PASSWORD_UPDATE;
+  type: typeof LOG_PASSWORD_UPDATE;
 };
 
 export type Log_AddTask = {
   id: number;
-  name: typeof LOG_ADD_TASK;
-  title: string;
+  type: typeof LOG_ADD_TASK;
+  name: string;
   group: string;
 };
 
 export type Log_EditTaskName = {
   id: number;
-  name: typeof LOG_EDIT_TASK_NAME;
+  type: typeof LOG_EDIT_TASK_NAME;
   prevName: string;
   newName: string;
   group: string;
@@ -47,53 +47,53 @@ export type Log_EditTaskName = {
 
 export type Log_EditTaskActivity = {
   id: number;
-  name: typeof LOG_EDIT_TASK_ACTIVITY;
-  title: string;
+  type: typeof LOG_EDIT_TASK_ACTIVITY;
+  name: string;
   newActivity: boolean;
   group: string;
 };
 
 export type Log_RemoveTask = {
   id: number;
-  name: typeof LOG_REMOVE_TASK;
-  title: string;
+  type: typeof LOG_REMOVE_TASK;
+  name: string;
   group: string;
 };
 
 export type Log_AddReward = {
   id: number;
-  name: typeof LOG_ADD_REWARD;
-  title: string;
+  type: typeof LOG_ADD_REWARD;
+  name: string;
   points: number;
 };
 
 export type Log_EditRewardName = {
   id: number;
-  name: typeof LOG_EDIT_REWARD_NAME;
+  type: typeof LOG_EDIT_REWARD_NAME;
   prevName: string;
   newName: string;
+  points: number;
 };
 
 export type Log_EditRewardPoints = {
   id: number;
-  name: typeof LOG_EDIT_REWARD_POINTS;
-  title: string;
+  type: typeof LOG_EDIT_REWARD_POINTS;
+  name: string;
   prevPoints: number;
   newPoints: number;
 };
 
 export type Log_EditRewardActivity = {
   id: number;
-  name: typeof LOG_EDIT_REWARD_ACTIVITY;
-  title: string;
+  type: typeof LOG_EDIT_REWARD_ACTIVITY;
+  name: string;
   points: number;
-  // no activity, because it can be only done one way (active -> collected)
 };
 
 export type Log_RemoveReward = {
   id: number;
-  name: typeof LOG_REMOVE_REWARD;
-  title: string;
+  type: typeof LOG_REMOVE_REWARD;
+  name: string;
   points: number;
 };
 

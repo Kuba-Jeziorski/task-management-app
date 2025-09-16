@@ -87,26 +87,29 @@ export const TaskGrid = () => {
     setCurrentTaskId(null);
   };
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const handleRemoveTask = async (id: number) => {
     if (currentTask && currentTaskId != null) {
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const removeTaskAction: Log_RemoveTask = {
-          id: lastId + 1,
-          name: LOG_REMOVE_TASK,
-          title: currentTask?.name,
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_REMOVE_TASK,
+          name: currentTask?.name,
           group: currentTask?.group,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, removeTaskAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_RemoveTask);
       }
       removeTask(id);
     }
+
+    if (latestLog && newActions.length > 0) {
+      updateLog({
+        ...latestLog,
+        actions: [...latestLog.actions, ...newActions],
+      });
+    }
+
     handleCloseDialog();
   };
 

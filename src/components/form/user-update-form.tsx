@@ -42,26 +42,21 @@ export const UserUpdateForm = ({ type }: Props) => {
     formState: { errors },
   } = useForm<FieldValues>();
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const onSubmit = (values: FieldValues) => {
     if (type === USER_FORM_TYPE_FULLNAME) {
       const newName = values.fullName;
       updateProfileName(newName);
 
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const nameUpdateAction: Log_NameUpdate = {
-          id: lastId + 1,
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_NAME_UPDATE,
           prevName: profile.name,
           newName: newName,
-          name: LOG_NAME_UPDATE,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, nameUpdateAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_NameUpdate);
       }
     }
 
@@ -69,20 +64,19 @@ export const UserUpdateForm = ({ type }: Props) => {
       const newPassword: UpdateUserPassword = { password: values.password };
       passwordChange(newPassword);
 
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const passwordUpdateAction: Log_PasswordUpdate = {
-          id: lastId + 1,
-          name: LOG_PASSWORD_UPDATE,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, passwordUpdateAction],
-        };
-
-        updateLog(updatedLog);
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_PASSWORD_UPDATE,
+        } as Log_PasswordUpdate);
       }
+    }
+
+    if (latestLog && newActions.length > 0) {
+      updateLog({
+        ...latestLog,
+        actions: [...latestLog.actions, ...newActions],
+      });
     }
   };
 

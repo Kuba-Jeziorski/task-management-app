@@ -95,6 +95,9 @@ export const TaskForm = () => {
     setLocalActivity((prev) => !prev);
   };
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const onSubmit = (data: FormValues) => {
     if (isNewForm && groupName) {
       const newTask: NewTask = {
@@ -106,99 +109,63 @@ export const TaskForm = () => {
 
       createTask(newTask);
 
-      if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const newTaskAction: Log_AddTask = {
-          id: lastId + 1,
-          name: LOG_ADD_TASK,
-          title: data.taskName,
+      if (latestLog) {
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_ADD_TASK,
+          name: data.taskName,
           group: groupName,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, newTaskAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_AddTask);
       }
     }
 
     if (isEditForm && currentTaskId != null) {
       if (taskToEdit) {
-        if (latestLog !== undefined) {
+        if (latestLog) {
+          let nextId = lastActionId + 1;
           if (
             data.taskName !== taskToEdit.name &&
             taskToEdit.active === localActivity
           ) {
-            const lastId = latestLog.actions.at(-1)?.id ?? 0;
-            const taskNameChangeAction: Log_EditTaskName = {
-              id: lastId + 1,
-              name: LOG_EDIT_TASK_NAME,
+            newActions.push({
+              id: nextId++,
+              type: LOG_EDIT_TASK_NAME,
               prevName: taskToEdit.name,
               newName: data.taskName,
               group: taskToEdit.group,
-            };
-
-            const updatedLog: UpdateLog = {
-              ...latestLog,
-              actions: [...latestLog.actions, taskNameChangeAction],
-            };
-
-            updateLog(updatedLog);
+            } as Log_EditTaskName);
           }
           if (
             taskToEdit.active !== localActivity &&
             data.taskName === taskToEdit.name
           ) {
-            console.log(`only activity`);
-            const lastId = latestLog.actions.at(-1)?.id ?? 0;
-            const taskActivityChangeAction: Log_EditTaskActivity = {
-              id: lastId + 1,
-              name: LOG_EDIT_TASK_ACTIVITY,
-              title: taskToEdit.name,
+            newActions.push({
+              id: nextId++,
+              type: LOG_EDIT_TASK_ACTIVITY,
+              name: taskToEdit.name,
               newActivity: localActivity,
               group: taskToEdit.group,
-            };
-
-            const updatedLog: UpdateLog = {
-              ...latestLog,
-              actions: [...latestLog.actions, taskActivityChangeAction],
-            };
-
-            updateLog(updatedLog);
+            } as Log_EditTaskActivity);
           }
           if (
             data.taskName !== taskToEdit.name &&
             taskToEdit.active !== localActivity
           ) {
-            const lastId = latestLog.actions.at(-1)?.id ?? 0;
-            const taskNameChangeAction: Log_EditTaskName = {
-              id: lastId + 1,
-              name: LOG_EDIT_TASK_NAME,
+            newActions.push({
+              id: nextId++,
+              type: LOG_EDIT_TASK_NAME,
               prevName: taskToEdit.name,
               newName: data.taskName,
               group: taskToEdit.group,
-            };
+            } as Log_EditTaskName);
 
-            const taskActivityChangeAction: Log_EditTaskActivity = {
-              id: lastId + 2,
-              name: LOG_EDIT_TASK_ACTIVITY,
-              title: data.taskName,
+            newActions.push({
+              id: nextId++,
+              type: LOG_EDIT_TASK_ACTIVITY,
+              name: data.taskName,
               newActivity: localActivity,
               group: taskToEdit.group,
-            };
-
-            const activityUpdatedLog: UpdateLog = {
-              ...latestLog,
-              actions: [
-                ...latestLog.actions,
-                taskNameChangeAction,
-                taskActivityChangeAction,
-              ],
-            };
-
-            updateLog(activityUpdatedLog);
+            } as Log_EditTaskActivity);
           }
         }
 
@@ -217,6 +184,14 @@ export const TaskForm = () => {
         updatePoints({ pointsValue, pointsType: ALL_POINTS });
       }
     }
+
+    if (latestLog && newActions.length > 0) {
+      updateLog({
+        ...latestLog,
+        actions: [...latestLog.actions, ...newActions],
+      });
+    }
+
     closeForm();
   };
 

@@ -42,7 +42,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     if (isFirstLogOfDay(logs, user.id)) {
       const loginAction: Log_Login = {
         id: 0,
-        name: LOG_LOGIN,
+        type: LOG_LOGIN,
       };
 
       createLog({

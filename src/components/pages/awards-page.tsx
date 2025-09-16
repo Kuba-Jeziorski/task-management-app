@@ -68,27 +68,30 @@ export const AwardsPage = () => {
     currentRewardId &&
     rewards.find((element) => element.id === currentRewardId);
 
+  const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
+  const newActions: UpdateLog["actions"] = [];
+
   const handleRemoveReward = async (id: number) => {
-    if (currentRewardId != null) {
+    if (currentRewardId) {
       if (latestLog !== undefined) {
-        const lastId = latestLog.actions.at(-1)?.id ?? 0;
-        const removeRewardAction: Log_RemoveReward = {
-          id: lastId + 1,
-          name: LOG_REMOVE_REWARD,
-          title: selectedReward?.name,
+        newActions.push({
+          id: lastActionId + 1,
+          type: LOG_REMOVE_REWARD,
+          name: selectedReward?.name,
           points: selectedReward?.points,
-        };
-
-        const updatedLog: UpdateLog = {
-          ...latestLog,
-          actions: [...latestLog.actions, removeRewardAction],
-        };
-
-        updateLog(updatedLog);
+        } as Log_RemoveReward);
       }
 
       removeReward(id);
     }
+
+    if (latestLog && newActions.length > 0) {
+      updateLog({
+        ...latestLog,
+        actions: [...latestLog.actions, ...newActions],
+      });
+    }
+
     handleCloseDialog();
   };
 

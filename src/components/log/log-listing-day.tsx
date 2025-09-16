@@ -10,7 +10,7 @@ export const LogListingDay = ({ log }: Props) => {
     <>
       <ul className="flex flex-col gap-1">
         {log.actions.map((record) => (
-          <LogListingDayRecord record={record} />
+          <LogListingDayRecord key={record.id} record={record} />
         ))}
       </ul>
     </>
