@@ -54,7 +54,7 @@ export const TaskForm = () => {
   const { updatePoints, isUpdating } = usePoints();
 
   const { updateLog } = useUpdateLog();
-  const { logs } = useLogs();
+  const { latestLog } = useLogs();
 
   const isNewForm = dialogType === NEW_TASK;
   const isEditForm = dialogType === EDIT_TASK;
@@ -96,7 +96,6 @@ export const TaskForm = () => {
   };
 
   const onSubmit = (data: FormValues) => {
-    const currentLog: UpdateLog | undefined = logs?.at(-1);
     if (isNewForm && groupName) {
       const newTask: NewTask = {
         user_id: userId,
@@ -107,8 +106,8 @@ export const TaskForm = () => {
 
       createTask(newTask);
 
-      if (currentLog !== undefined) {
-        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
         const newTaskAction: Log_AddTask = {
           id: lastId + 1,
           name: LOG_ADD_TASK,
@@ -117,8 +116,8 @@ export const TaskForm = () => {
         };
 
         const updatedLog: UpdateLog = {
-          ...currentLog,
-          actions: [...currentLog.actions, newTaskAction],
+          ...latestLog,
+          actions: [...latestLog.actions, newTaskAction],
         };
 
         updateLog(updatedLog);
@@ -127,9 +126,13 @@ export const TaskForm = () => {
 
     if (isEditForm && currentTaskId != null) {
       if (taskToEdit) {
-        if (currentLog !== undefined) {
-          if (data.taskName !== taskToEdit.name) {
-            const lastId = currentLog.actions.at(-1)?.id ?? 0;
+        if (latestLog !== undefined) {
+          if (
+            data.taskName !== taskToEdit.name &&
+            taskToEdit.active === localActivity
+          ) {
+            console.log(`only name`);
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
             const taskNameChangeAction: Log_EditTaskName = {
               id: lastId + 1,
               name: LOG_EDIT_TASK_NAME,
@@ -139,14 +142,18 @@ export const TaskForm = () => {
             };
 
             const updatedLog: UpdateLog = {
-              ...currentLog,
-              actions: [...currentLog.actions, taskNameChangeAction],
+              ...latestLog,
+              actions: [...latestLog.actions, taskNameChangeAction],
             };
 
             updateLog(updatedLog);
           }
-          if (taskToEdit.active !== localActivity) {
-            const lastId = currentLog.actions.at(-1)?.id ?? 0;
+          if (
+            taskToEdit.active !== localActivity &&
+            data.taskName === taskToEdit.name
+          ) {
+            console.log(`only activity`);
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
             const taskActivityChangeAction: Log_EditTaskActivity = {
               id: lastId + 1,
               name: LOG_EDIT_TASK_ACTIVITY,
@@ -156,11 +163,43 @@ export const TaskForm = () => {
             };
 
             const updatedLog: UpdateLog = {
-              ...currentLog,
-              actions: [...currentLog.actions, taskActivityChangeAction],
+              ...latestLog,
+              actions: [...latestLog.actions, taskActivityChangeAction],
             };
 
             updateLog(updatedLog);
+          }
+          if (
+            data.taskName !== taskToEdit.name &&
+            taskToEdit.active !== localActivity
+          ) {
+            const lastId = latestLog.actions.at(-1)?.id ?? 0;
+            const taskNameChangeAction: Log_EditTaskName = {
+              id: lastId + 1,
+              name: LOG_EDIT_TASK_NAME,
+              prevName: taskToEdit.name,
+              newName: data.taskName,
+              group: taskToEdit.group,
+            };
+
+            const taskActivityChangeAction: Log_EditTaskActivity = {
+              id: lastId + 2,
+              name: LOG_EDIT_TASK_ACTIVITY,
+              title: data.taskName,
+              newActivity: localActivity,
+              group: taskToEdit.group,
+            };
+
+            const activityUpdatedLog: UpdateLog = {
+              ...latestLog,
+              actions: [
+                ...latestLog.actions,
+                taskNameChangeAction,
+                taskActivityChangeAction,
+              ],
+            };
+
+            updateLog(activityUpdatedLog);
           }
         }
 

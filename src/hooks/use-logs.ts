@@ -19,5 +19,13 @@ export const useLogs = () => {
     enabled: !!userId,
   });
 
-  return { isLoading, logs, error };
+  const latestLog = logs?.length
+    ? logs.reduce((latest, current) =>
+        new Date(current.created_at) > new Date(latest.created_at)
+          ? current
+          : latest
+      )
+    : undefined;
+
+  return { isLoading, logs, latestLog, error };
 };

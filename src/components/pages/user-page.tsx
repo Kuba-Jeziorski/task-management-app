@@ -8,6 +8,7 @@ import {
   LOG_NAME_UPDATE,
   LOG_OUT,
   LOG_PASSWORD_UPDATE,
+  LOG_REMOVE_TASK,
 } from "../../constants/constants";
 import { useBlockedRedirect } from "../../hooks/use-blocked-redirect";
 import { useLogout } from "../../hooks/use-logout";
@@ -60,6 +61,7 @@ export const UserPage = () => {
       </div>
       <div className="w-2/5 h-full p-4 pr-1 bg-tma-light-100 rounded-[20px]">
         <div className="flex p-2 w-full h-full min-h-0 overflow-auto text-tma-blue-100 text-lg">
+          {/* log component */}
           <div className="flex flex-1 flex-col gap-8 min-h-0 overflow-y-auto pr-3">
             {data?.map((log) => (
               <div key={log.id} className="flex flex-col gap-3">
@@ -91,6 +93,8 @@ export const UserPage = () => {
                             single.newActivity ? "active" : "completed"
                           } (${single.group})`}
                         {/* removed task */}
+                        {single.name === LOG_REMOVE_TASK &&
+                          `[TASK] You have removed ${single.title}`}
                         {/* added reward */}
                         {/* edited reward name */}
                         {/* edited reward points */}

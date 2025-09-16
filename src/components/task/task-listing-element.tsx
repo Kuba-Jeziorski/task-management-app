@@ -31,15 +31,15 @@ export const TaskListingElement = ({ task }: TaskProps) => {
   const { updatePoints, isUpdating } = usePoints();
 
   const { updateLog } = useUpdateLog();
-  const { logs } = useLogs();
+  const { latestLog } = useLogs();
 
   const handleChangeActive = async () => {
     const taskToUpdate = currentTasks.find((element) => element.id === task.id);
 
-    const currentLog: UpdateLog | undefined = logs?.at(-1);
     if (taskToUpdate) {
-      if (currentLog !== undefined) {
-        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
+
         const taskActivityChangeAction: Log_EditTaskActivity = {
           id: lastId + 1,
           name: LOG_EDIT_TASK_ACTIVITY,
@@ -49,8 +49,8 @@ export const TaskListingElement = ({ task }: TaskProps) => {
         };
 
         const updatedLog: UpdateLog = {
-          ...currentLog,
-          actions: [...currentLog.actions, taskActivityChangeAction],
+          ...latestLog,
+          actions: [...latestLog.actions, taskActivityChangeAction],
         };
 
         updateLog(updatedLog);

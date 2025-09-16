@@ -20,17 +20,21 @@ import {
   TASK_REMOVING,
   NEW_TASK,
   EDIT_TASK,
+  LOG_REMOVE_TASK,
 } from "../../constants/constants";
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
 import { Button } from "../button/button";
 import { lazy, Suspense } from "react";
 import { Spinner } from "../spinner/the-spinner";
-import type { Tasks } from "../../constants/types";
+import type { Tasks, UpdateLog } from "../../constants/types";
 import { useTasks } from "../../hooks/use-tasks";
 import { useRemoveTask } from "../../hooks/use-remove-task";
 import { Dialog } from "../dialog/dialog";
 import { useGlobalContext } from "../../contexts/helpers/use-global-context";
+import { useUpdateLog } from "../../hooks/use-update-log";
+import { useLogs } from "../../hooks/use-logs";
+import type { Log_RemoveTask } from "../../constants/log-action-variants";
 
 const TaskForm = lazy(() =>
   import("../form/task-form").then((module) => ({ default: module.TaskForm }))
@@ -51,6 +55,9 @@ export const TaskGrid = () => {
 
   const { tasks: data = [], isLoading } = useTasks();
   const { removeTask } = useRemoveTask();
+
+  const { updateLog } = useUpdateLog();
+  const { latestLog } = useLogs();
 
   const currentTask = currentTaskId
     ? data.find((task) => task.id === currentTaskId)
@@ -81,7 +88,22 @@ export const TaskGrid = () => {
   };
 
   const handleRemoveTask = async (id: number) => {
-    if (currentTaskId != null) {
+    if (currentTask && currentTaskId != null) {
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
+        const removeTaskAction: Log_RemoveTask = {
+          id: lastId + 1,
+          name: LOG_REMOVE_TASK,
+          title: currentTask?.name,
+        };
+
+        const updatedLog: UpdateLog = {
+          ...latestLog,
+          actions: [...latestLog.actions, removeTaskAction],
+        };
+
+        updateLog(updatedLog);
+      }
       removeTask(id);
     }
     handleCloseDialog();

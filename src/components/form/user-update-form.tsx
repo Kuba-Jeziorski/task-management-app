@@ -33,7 +33,7 @@ export const UserUpdateForm = ({ type }: Props) => {
   const { profile } = useProfile();
   const { user } = useUser();
   const { updateLog } = useUpdateLog();
-  const { logs } = useLogs();
+  const { latestLog } = useLogs();
 
   const {
     register,
@@ -43,14 +43,12 @@ export const UserUpdateForm = ({ type }: Props) => {
   } = useForm<FieldValues>();
 
   const onSubmit = (values: FieldValues) => {
-    const currentLog: UpdateLog | undefined = logs?.at(-1);
-
     if (type === USER_FORM_TYPE_FULLNAME) {
       const newName = values.fullName;
       updateProfileName(newName);
 
-      if (currentLog !== undefined) {
-        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
         const nameUpdateAction: Log_NameUpdate = {
           id: lastId + 1,
           prevName: profile.name,
@@ -59,8 +57,8 @@ export const UserUpdateForm = ({ type }: Props) => {
         };
 
         const updatedLog: UpdateLog = {
-          ...currentLog,
-          actions: [...currentLog.actions, nameUpdateAction],
+          ...latestLog,
+          actions: [...latestLog.actions, nameUpdateAction],
         };
 
         updateLog(updatedLog);
@@ -71,16 +69,16 @@ export const UserUpdateForm = ({ type }: Props) => {
       const newPassword: UpdateUserPassword = { password: values.password };
       passwordChange(newPassword);
 
-      if (currentLog !== undefined) {
-        const lastId = currentLog.actions.at(-1)?.id ?? 0;
+      if (latestLog !== undefined) {
+        const lastId = latestLog.actions.at(-1)?.id ?? 0;
         const passwordUpdateAction: Log_PasswordUpdate = {
           id: lastId + 1,
           name: LOG_PASSWORD_UPDATE,
         };
 
         const updatedLog: UpdateLog = {
-          ...currentLog,
-          actions: [...currentLog.actions, passwordUpdateAction],
+          ...latestLog,
+          actions: [...latestLog.actions, passwordUpdateAction],
         };
 
         updateLog(updatedLog);
