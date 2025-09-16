@@ -110,11 +110,3 @@ export type Log_Action =
   | Log_EditRewardPoints
   | Log_EditRewardActivity
   | Log_RemoveReward;
-
-// export type Log = {
-//   id: string;
-//   created_at: string;
-//   user_id: string;
-//   date: string;
-//   actions: Log_Action[];
-// };
