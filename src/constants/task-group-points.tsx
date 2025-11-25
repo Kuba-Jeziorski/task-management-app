@@ -8,9 +8,9 @@ import {
   GROUP_DELEGATE_POINTS,
   GROUP_DELETE_POINTS,
 } from "./constants";
-import type { GroupName } from "./types";
+import type { TaskGroupPoints } from "./types";
 
-export const taskGroupPoints: Record<GroupName, number> = {
+export const taskGroupPoints: TaskGroupPoints = {
   [GROUP_DO]: GROUP_DO_POINTS,
   [GROUP_DECIDE]: GROUP_DECIDE_POINTS,
   [GROUP_DELEGATE]: GROUP_DELEGATE_POINTS,

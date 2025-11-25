@@ -77,7 +77,7 @@ Stay focused, prioritize effectively, and turn productivity into rewards.
 
 - Create an Award page
 - Create an exchanging points for prizes functionality
-- Create a section with bought awards display
+- Create a section with collected awards display
 
 ### **Phase fve**
 

@@ -139,6 +139,8 @@ export const GROUP_DELEGATE_POINTS = 2;
 export const GROUP_DELETE_POINTS = 1;
 export const BASE_ALL_POINTS = 0;
 export const BASE_CURRENT_POINTS = 0;
+export const STALE_TIME = 0;
+export const SIDEBAR_ICON_SIZE = 36;
 
 // LOGs
 export const LOG_LOGIN = "login";
@@ -153,3 +155,9 @@ export const LOG_EDIT_REWARD_NAME = "reward-name";
 export const LOG_EDIT_REWARD_POINTS = "reward-points";
 export const LOG_EDIT_REWARD_ACTIVITY = "reward-activitiy";
 export const LOG_REMOVE_REWARD = "reward-remove";
+
+// BOOLEANs
+export const IS_MY_TASK_PAGE_DISABLED = false;
+export const IS_AWARDS_PAGE_DISABLED = false;
+export const IS_ABOUT_PAGE_DISABLED = false;
+export const IS_USER_PAGE_DISABLED = false;

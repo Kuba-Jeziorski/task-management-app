@@ -14,7 +14,7 @@ import {
 } from "./constants";
 import type { TooltipMessages } from "./types";
 
-export const tooltipMessages: Record<TooltipMessages, string> = {
+export const tooltipMessages: TooltipMessages = {
   // tasks
   [GROUP_DO]: TOOLTIP_DO,
   [GROUP_DECIDE]: TOOLTIP_DECIDE,

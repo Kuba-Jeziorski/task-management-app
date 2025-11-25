@@ -51,12 +51,13 @@ export type NewTask = Omit<Task, "id">;
 
 export type Tasks = Task[];
 
+export type TaskGroupPoints = Record<GroupName, number>;
+
 type DropdownName =
   | typeof DROPDOWN_NAME_TASK_EDIT
   | typeof DROPDOWN_NAME_TASK_REMOVE
   | typeof DROPDOWN_NAME_REWARD_EDIT
   | typeof DROPDOWN_NAME_REWARD_REMOVE;
-// type DropdownName = typeof EDIT | typeof REMOVE;
 
 export type DropdownRecordType = typeof DROPDOWN_TASK | typeof DROPDOWN_REWARD;
 
@@ -121,7 +122,8 @@ export type PointsUpdateProps = {
 
 type Awards = typeof REWARDS | typeof COLLECTED_REWARDS;
 
-export type TooltipMessages = GroupName | Awards;
+export type TooltipMessageName = GroupName | Awards;
+export type TooltipMessages = Record<TooltipMessageName, string>;
 
 export type Reward = {
   id: number;

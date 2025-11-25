@@ -12,6 +12,7 @@ import { ProtectedRoute } from "./components/ui/protected-route";
 import { Spinner } from "./components/spinner/the-spinner";
 
 import {
+  STALE_TIME,
   TOAST_ERROR_DURATION,
   TOAST_SUCCESS_DURATION,
   URL_ABOUT_PAGE,
@@ -58,7 +59,7 @@ const NotFoundPage = lazy(() =>
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: STALE_TIME,
     },
   },
 });

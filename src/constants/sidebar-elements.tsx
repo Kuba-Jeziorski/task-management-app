@@ -2,8 +2,13 @@ import { Grid2X2Check, LibraryBig, Trophy, User } from "lucide-react";
 
 import type { SidebarElements } from "./types";
 import {
+  IS_ABOUT_PAGE_DISABLED,
+  IS_AWARDS_PAGE_DISABLED,
+  IS_MY_TASK_PAGE_DISABLED,
+  IS_USER_PAGE_DISABLED,
   SIDEBAR_ABOUT_PAGE_NAME,
   SIDEBAR_AWARDS_PAGE_NAME,
+  SIDEBAR_ICON_SIZE,
   SIDEBAR_MY_TASKS_PAGE_NAME,
   SIDEBAR_USER_PAGE_NAME,
   URL_ABOUT_PAGE,
@@ -14,27 +19,27 @@ import {
 
 export const sidebarElements: SidebarElements = [
   {
-    icon: <Grid2X2Check size={36} />,
+    icon: <Grid2X2Check size={SIDEBAR_ICON_SIZE} />,
     url: `/${URL_MY_TASKS_PAGE}`,
     name: SIDEBAR_MY_TASKS_PAGE_NAME,
-    disabled: false,
+    disabled: IS_MY_TASK_PAGE_DISABLED,
   },
   {
-    icon: <Trophy size={36} />,
+    icon: <Trophy size={SIDEBAR_ICON_SIZE} />,
     url: `/${URL_AWARDS_PAGE}`,
     name: SIDEBAR_AWARDS_PAGE_NAME,
-    disabled: false,
+    disabled: IS_AWARDS_PAGE_DISABLED,
   },
   {
-    icon: <LibraryBig size={36} />,
+    icon: <LibraryBig size={SIDEBAR_ICON_SIZE} />,
     url: `/${URL_ABOUT_PAGE}`,
     name: SIDEBAR_ABOUT_PAGE_NAME,
-    disabled: false,
+    disabled: IS_ABOUT_PAGE_DISABLED,
   },
   {
-    icon: <User size={36} />,
+    icon: <User size={SIDEBAR_ICON_SIZE} />,
     url: `/${URL_USER_PAGE}`,
     name: SIDEBAR_USER_PAGE_NAME,
-    disabled: false,
+    disabled: IS_USER_PAGE_DISABLED,
   },
 ];
