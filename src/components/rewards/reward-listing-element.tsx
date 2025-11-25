@@ -92,7 +92,12 @@ export const RewardListingElement = ({ reward }: Props) => {
         </p>
         <div className="flex items-center gap-3 min-w-50 justify-end">
           <div className="flex items-center gap-[6px]">
-            <p className="text-[18px] text-tma-blue-200 font-semibold leading-none">
+            <p
+              className={cn(
+                "text-[18px] font-semibold leading-none",
+                isActive ? "text-tma-blue-200" : "text-tma-light-600"
+              )}
+            >
               {reward.points}
             </p>
             <span
@@ -116,7 +121,12 @@ export const RewardListingElement = ({ reward }: Props) => {
               {GET_IT_NOW}
             </button>
           )}
-          <Dropdown dropdownRecordType={DROPDOWN_REWARD} recordId={reward.id} />
+          {isActive && (
+            <Dropdown
+              dropdownRecordType={DROPDOWN_REWARD}
+              recordId={reward.id}
+            />
+          )}
         </div>
       </div>
     </div>
