@@ -64,9 +64,9 @@ export const AwardsPage = () => {
     setDialogType(NEW_REWARD);
   };
 
-  const selectedReward: Reward =
-    currentRewardId &&
-    rewards.find((element) => element.id === currentRewardId);
+  const selectedReward: Reward | null = currentRewardId
+    ? rewards.find((r) => r.id === currentRewardId) ?? null
+    : null;
 
   const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
   const newActions: UpdateLog["actions"] = [];
@@ -171,12 +171,14 @@ export const AwardsPage = () => {
                 </p>
                 <p>{REWARD_REMOVING}</p>
                 <div className="flex gap-4">
-                  <Button
-                    variant="danger"
-                    onClick={() => handleRemoveReward(selectedReward.id)}
-                  >
-                    {REMOVE_YES}
-                  </Button>
+                  {selectedReward && (
+                    <Button
+                      variant="danger"
+                      onClick={() => handleRemoveReward(selectedReward.id)}
+                    >
+                      {REMOVE_YES}
+                    </Button>
+                  )}
                   <Button
                     variant="secondary"
                     onClick={handleCloseDialog}

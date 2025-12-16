@@ -11,12 +11,7 @@ import {
   NEW_REWARD,
   REQUIRED_FIELD,
 } from "../../constants/constants";
-import type {
-  FullReward,
-  NewReward,
-  Reward,
-  UpdateLog,
-} from "../../constants/types";
+import type { NewReward, Reward, UpdateLog } from "../../constants/types";
 import { useProfile } from "../../hooks/use-profile";
 import { useCreateReward } from "../../hooks/use-create-reward";
 import { InputWrapper } from "./input-wrapper";
@@ -55,7 +50,7 @@ export const RewardForm = () => {
   const isNewForm = dialogType === NEW_REWARD;
   const isEditForm = dialogType === EDIT_REWARD;
 
-  const rewardToEdit: FullReward | null | undefined =
+  const rewardToEdit: Reward | null | undefined =
     isEditForm && currentRewardId
       ? rewards.find((element) => element.id === currentRewardId)
       : null;
