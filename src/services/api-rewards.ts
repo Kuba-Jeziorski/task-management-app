@@ -1,7 +1,12 @@
-import type { GetUserIdProps, NewReward, Reward } from "../constants/types";
+import type {
+  GetUserIdProps,
+  NewReward,
+  Reward,
+  Rewards,
+} from "../constants/types";
 import supabase from "./supabase-config";
 
-export const getRewards = async (userId: GetUserIdProps) => {
+export const getRewards = async (userId: GetUserIdProps): Promise<Rewards> => {
   try {
     const { data, error } = await supabase
       .from("rewards")
@@ -35,7 +40,7 @@ export const createReward = async (reward: NewReward): Promise<void> => {
   }
 };
 
-export const updateReward = async (reward: Reward): Promise<Reward | null> => {
+export const updateReward = async (reward: Reward): Promise<Reward> => {
   try {
     const { data, error } = await supabase
       .from("rewards")

@@ -36,7 +36,7 @@ export const createTask = async (task: NewTask): Promise<void> => {
   }
 };
 
-export const updateTask = async (task: Task): Promise<Task | null> => {
+export const updateTask = async (task: Task): Promise<Task> => {
   try {
     const { data, error } = await supabase
       .from("tasks")
