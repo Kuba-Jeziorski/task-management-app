@@ -77,6 +77,13 @@ export const Dropdown = ({ recordId, dropdownRecordType }: Props) => {
 
       if (isWrapperClickValid && isDropdownClickValid) {
         setIsDropdownOpen(false);
+
+        if (isRecordTask) {
+          setCurrentTaskId(null);
+        }
+        if (isRecordReward) {
+          setCurrentRewardId(null);
+        }
       }
     };
 
@@ -91,6 +98,10 @@ export const Dropdown = ({ recordId, dropdownRecordType }: Props) => {
     dropdownTaskOpenCondition,
     dropdownRewardOpenCondition,
     setIsDropdownOpen,
+    setCurrentTaskId,
+    isRecordTask,
+    setCurrentRewardId,
+    isRecordReward,
   ]);
 
   return (

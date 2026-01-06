@@ -79,7 +79,7 @@ export const AboutPage = () => {
         </ul>
         <Link
           to={`${URL_MY_TASKS_PAGE}`}
-          className="underline transition-color duration-300 hover:text-tma-blue-200 font-bold pt-4"
+          className="underline transition-color duration-300 hover:text-tma-blue-200 font-bold mt-4"
         >
           Start today and experience a gamified way to get things done!
         </Link>

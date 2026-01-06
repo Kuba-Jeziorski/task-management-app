@@ -4,6 +4,7 @@ import { LogListingDay } from "./log-listing-day";
 
 export const LogListing = () => {
   const { logs: data = [] } = useLogs();
+
   return (
     <div className="flex flex-1 flex-col gap-8 min-h-0 overflow-y-auto pr-3">
       {data?.map((log) => (

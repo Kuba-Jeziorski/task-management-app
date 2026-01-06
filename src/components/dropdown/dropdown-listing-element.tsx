@@ -28,6 +28,7 @@ export const DropdownListingElement = ({ element }: Props) => {
 
   const handleClick = () => {
     setIsDropdownOpen(false);
+
     if (isEditingTask) {
       setDialogType(EDIT_TASK);
     }
