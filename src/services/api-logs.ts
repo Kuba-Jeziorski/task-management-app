@@ -7,11 +7,16 @@ import type {
 import supabase from "./supabase-config";
 
 export const getLogs = async (userId: GetUserIdProps): Promise<Logs> => {
+  // Fetched logs that are no older then one month
+  const oneMonthAgo = new Date();
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
   try {
     const { data, error } = await supabase
       .from("logs")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .gte("created_at", oneMonthAgo.toISOString());
     if (error) {
       throw new Error(error.message);
     }

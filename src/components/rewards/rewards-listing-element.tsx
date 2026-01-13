@@ -21,7 +21,7 @@ type Props = {
   reward: Reward;
 };
 
-export const RewardListingElement = ({ reward }: Props) => {
+export const RewardsListingElement = ({ reward }: Props) => {
   const {
     profile: { current_points },
   } = useProfile();

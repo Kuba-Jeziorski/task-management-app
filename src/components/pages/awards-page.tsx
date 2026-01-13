@@ -73,14 +73,12 @@ export const AwardsPage = () => {
 
   const handleRemoveReward = async (id: number) => {
     if (currentRewardId) {
-      if (latestLog !== undefined) {
-        newActions.push({
-          id: lastActionId + 1,
-          type: LOG_REMOVE_REWARD,
-          name: selectedReward?.name,
-          points: selectedReward?.points,
-        } as Log_RemoveReward);
-      }
+      newActions.push({
+        id: lastActionId + 1,
+        type: LOG_REMOVE_REWARD,
+        name: selectedReward?.name,
+        points: selectedReward?.points,
+      } as Log_RemoveReward);
 
       removeReward(id);
     }
@@ -153,7 +151,7 @@ export const AwardsPage = () => {
             {dialogType === EDIT_REWARD && (
               <>
                 <p className="title text-lg text-tma-blue-200">
-                  {EDITING}{" "}
+                  {`${EDITING} `}
                   <span className="font-black uppercase">
                     {selectedReward?.name}
                   </span>

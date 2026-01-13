@@ -1,7 +1,7 @@
 import type { Rewards } from "../../constants/types";
 import { useRewards } from "../../hooks/use-rewards";
 import { Spinner } from "../spinner/the-spinner";
-import { RewardListingElement } from "./reward-listing-element";
+import { RewardsListingElement } from "./rewards-listing-element";
 
 type Props = {
   isActive: boolean;
@@ -29,10 +29,10 @@ export const RewardsListing = ({ isActive }: Props) => {
     <ul className="flex flex-col pr-3">
       {isActive
         ? activeRewards.map((reward) => (
-            <RewardListingElement reward={reward} key={reward.id} />
+            <RewardsListingElement reward={reward} key={reward.id} />
           ))
         : inactiveRewards.map((reward) => (
-            <RewardListingElement reward={reward} key={reward.id} />
+            <RewardsListingElement reward={reward} key={reward.id} />
           ))}
     </ul>
   );
