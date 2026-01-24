@@ -100,7 +100,7 @@ export const AwardsPage = () => {
 
   return (
     <>
-      <div className="w-full flex gap-10 h-full">
+      <div className="w-full flex gap-10 h-full max-custom-1440:gap-6">
         <div className="w-3/5 h-full bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden">
           <div className="bg-tma-light-400 border-b border-b-tma-blue-200 flex justify-between items-center px-5 py-4">
             <CustomTooltip title={tooltipMessages[REWARDS]}>

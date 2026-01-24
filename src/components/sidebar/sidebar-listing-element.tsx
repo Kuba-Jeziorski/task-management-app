@@ -16,8 +16,8 @@ export const SidebarListingElement = ({
       key={url}
       className={({ isActive }) =>
         cn(
-          "flex pl-5 items-center cursor-pointer h-[76px] transition-all duration-300 group justify-between",
-          isActive && "bg-tma-light-400",
+          "flex pl-5 items-center cursor-pointer h-[76px] transition-all duration-300 group justify-between  border-r-[6px] border-r-transparent max-custom-1440:h-16 max-custom-600:px-5 max-custom-480:px-2",
+          isActive && "bg-tma-light-400 border-r-tma-blue-200",
           "hover:bg-tma-light-400",
           disabled && "opacity-50 pointer-events-none"
         )
@@ -25,7 +25,7 @@ export const SidebarListingElement = ({
     >
       {({ isActive }) => (
         <>
-          <div className="flex gap-5 items-center pr-5">
+          <div className="flex gap-5 items-center pr-5 max-custom-600:pr-0">
             <span
               className={cn(
                 isActive ? "text-tma-blue-200" : "text-tma-light-600",
@@ -36,7 +36,7 @@ export const SidebarListingElement = ({
             </span>
             <p
               className={cn(
-                "uppercase leading-none font-semibold text-lg line-clamp-1",
+                "uppercase leading-none font-semibold text-lg line-clamp-1 max-custom-1440:text-base max-custom-900:hidden",
                 isActive ? "text-tma-blue-200" : "text-tma-light-600",
                 "group-hover:text-tma-blue-200"
               )}
@@ -44,13 +44,6 @@ export const SidebarListingElement = ({
               {name}
             </p>
           </div>
-          <div
-            className={cn(
-              "w-[6px] min-w-[6px] flex h-full",
-              isActive && "bg-tma-blue-200",
-              "group-hover:bg-tma-blue-200"
-            )}
-          />
         </>
       )}
     </NavLink>

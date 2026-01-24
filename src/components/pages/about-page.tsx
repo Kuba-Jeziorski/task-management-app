@@ -7,9 +7,9 @@ export const AboutPage = () => {
   useBlockedRedirect();
 
   return (
-    <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-[20px]">
+    <div className="w-2/3 h-full p-4 bg-tma-light-100 rounded-[20px] max-custom-1152:w-full">
       <div className="flex flex-col gap-3 p-2 pr-4 w-full overflow-auto h-full text-tma-blue-100 text-lg">
-        <h1 className="font-black text-tma-blue-200 text-3xl">
+        <h1 className="font-black text-tma-blue-200 text-3xl max-custom-1152:text-2xl max-custom-800:text-xl">
           About this application
         </h1>
         <p className="font-bold text-balance">
@@ -19,7 +19,7 @@ export const AboutPage = () => {
           and importance.
         </p>
 
-        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl">
+        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl max-custom-800:text-xl">
           How it works
         </h2>
         <ul className="list-disc pl-6 space-y-3">
@@ -58,7 +58,7 @@ export const AboutPage = () => {
             clearing the right priorities.
           </li>
         </ul>
-        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl">
+        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl max-custom-800:text-xl">
           Turn Productivity Into Rewards
         </h2>
         <p className="font-semibold">
@@ -66,7 +66,9 @@ export const AboutPage = () => {
           within the app. The more consistently you manage and complete your
           tasks, the more rewards you unlock.
         </p>
-        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl">Our Goal</h2>
+        <h2 className="mt-5 font-black text-tma-blue-200 text-2xl max-custom-800:text-xl">
+          Our Goal
+        </h2>
         <p className="font-semibold">
           We believe productivity should feel encouraging, not overwhelming. By
           combining a trusted prioritization method with a built-in reward

@@ -22,7 +22,7 @@ export const UserPage = () => {
   const { logout, isPending } = useLogout();
 
   return (
-    <div className="w-full flex gap-10 h-full">
+    <div className="w-full flex gap-10 h-full  max-custom-1440:gap-6">
       <div className="w-2/3 p-4 pr-1 bg-tma-light-100 rounded-[20px]">
         <div className="flex p-2 w-full h-full min-h-0 overflow-auto text-tma-blue-100 text-lg">
           <div className="flex flex-1 flex-col gap-3 min-h-0 overflow-y-auto pr-3">

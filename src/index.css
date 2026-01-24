@@ -9,6 +9,7 @@
 }
 
 @theme {
+  /* Colors */
   --color-tma-blue-100: #6174a8;
   --color-tma-blue-200: #00227a;
   --color-tma-light-100: #ffffff;
@@ -20,6 +21,14 @@
   --color-tma-light-700: #000000;
   --color-tma-danger: #dc3545;
   --color-tma-danger-darker: #a71d2a;
+
+  /* Breakpoints */
+  --breakpoint-custom-1440: 1440px;
+  --breakpoint-custom-1152: 1152px;
+  --breakpoint-custom-900: 900px;
+  --breakpoint-custom-800: 800px;
+  --breakpoint-custom-600: 600px;
+  --breakpoint-custom-480: 480px;
 }
 
 @font-face {
