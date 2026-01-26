@@ -37,7 +37,7 @@ import { useLogs } from "../../hooks/use-logs";
 import type { Log_RemoveTask } from "../../constants/log-action-variants";
 
 const TaskForm = lazy(() =>
-  import("../form/task-form").then((module) => ({ default: module.TaskForm }))
+  import("../form/task-form").then((module) => ({ default: module.TaskForm })),
 );
 
 type GroupedTasks = {
@@ -178,7 +178,7 @@ export const TaskGrid = () => {
                   <span className="font-black">{currentTask.name}</span>
                 </p>
                 <p>{TASK_REMOVING}</p>
-                <div className="flex gap-4">
+                <div className="flex gap-4 max-custom-480:flex-col">
                   <Button
                     variant="danger"
                     onClick={() => handleRemoveTask(currentTask.id)}

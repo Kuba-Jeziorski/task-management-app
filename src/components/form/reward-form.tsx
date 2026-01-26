@@ -174,7 +174,7 @@ export const RewardForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center max-custom-600:flex-col">
           <InputWrapper
             label="New reward name"
             error={errors?.rewardName?.message}
@@ -202,12 +202,12 @@ export const RewardForm = () => {
             />
           </InputWrapper>
         </div>
-        <div className="flex gap-4 justify-end">
+        <div className="flex gap-4 justify-end max-custom-375:flex-col">
           <Button
             variant={"secondary"}
             type="reset"
             onClick={closeForm}
-            className="uppercase"
+            className="uppercase max-custom-375:w-full"
             disabled={isCreating || isEditing}
           >
             {CANCEL}
@@ -215,7 +215,7 @@ export const RewardForm = () => {
           <Button
             variant={"primary"}
             type="submit"
-            className="uppercase"
+            className="uppercase max-custom-375:w-full"
             disabled={isCreating || isEditing}
           >
             SAVE REWARD

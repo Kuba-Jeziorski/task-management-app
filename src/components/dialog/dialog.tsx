@@ -23,11 +23,11 @@ export const Dialog = ({ children, closeFn }: Props) => {
               className="w-full h-full bg-tma-light-700 opacity-25 absolute top-0 left-0"
               onClick={closeFn}
             ></div>
-            <div className="relative z-1 w-xl bg-tma-light-100 rounded-xl shadow-xl shadow-gray-300/30 ring-1 ring-gray-200 p-3">
+            <div className="relative z-1 w-full max-w-xl bg-tma-light-100 rounded-xl shadow-xl shadow-gray-300/30 ring-1 ring-gray-200 p-3 max-custom-600:max-w-full max-custom-600:mx-5">
               <button
                 className={cn(
                   "absolute top-[6px] right-[6px] text-tma-blue-200 cursor-pointer transition-colors duration-300",
-                  "hover:text-tma-blue-100"
+                  "hover:text-tma-blue-100",
                 )}
                 onClick={closeFn}
               >
@@ -38,7 +38,7 @@ export const Dialog = ({ children, closeFn }: Props) => {
               </div>
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </>
   );

@@ -172,7 +172,7 @@ export const AwardsPage = () => {
                   <span className="font-black">{selectedReward?.name}</span>
                 </p>
                 <p>{REWARD_REMOVING}</p>
-                <div className="flex gap-4">
+                <div className="flex gap-4 max-custom-480:flex-col">
                   {selectedReward && (
                     <Button
                       variant="danger"

@@ -12,7 +12,7 @@ export const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-2/3 p-4 bg-tma-light-100 rounded-xl">
+    <div className="w-2/3 p-4 bg-tma-light-100 rounded-xl max-custom-1152:w-full">
       <div className="flex flex-col gap-3 p-2 pr-4 w-full overflow-auto text-tma-blue-100 text-lg">
         <h1 className="font-black text-tma-blue-200 text-3xl max-custom-1152:text-2xl max-custom-800:text-xl">
           {NOT_FOUND_PAGE_TITLE}

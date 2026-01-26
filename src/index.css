@@ -30,6 +30,7 @@
   --breakpoint-custom-800: 800px;
   --breakpoint-custom-600: 600px;
   --breakpoint-custom-480: 480px;
+  --breakpoint-custom-375: 375px;
 }
 
 @font-face {

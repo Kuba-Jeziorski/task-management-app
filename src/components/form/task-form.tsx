@@ -76,7 +76,7 @@ export const TaskForm = () => {
   });
 
   const [localActivity, setLocalActivity] = useState(
-    taskToEdit?.active ?? true
+    taskToEdit?.active ?? true,
   );
 
   useEffect(() => {
@@ -204,7 +204,7 @@ export const TaskForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center max-custom-600:flex-col">
           <CustomTooltip title={tooltipMessage}>
             <button
               type="button"
@@ -215,7 +215,7 @@ export const TaskForm = () => {
                 isNewForm && "opacity-50 pointer-events-none",
                 localActivity
                   ? "hover:text-tma-blue-100"
-                  : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100"
+                  : "[&:hover_svg]:fill-[#6174a8] [&:hover]:text-tma-blue-100",
               )}
             >
               {
@@ -223,7 +223,7 @@ export const TaskForm = () => {
                   size={32}
                   className={cn(
                     !localActivity &&
-                      "fill-[#00227a] transition-all duration-300 [&_path]:stroke-tma-light-100"
+                      "fill-[#00227a] transition-all duration-300 [&_path]:stroke-tma-light-100",
                   )}
                 />
               }
