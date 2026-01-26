@@ -25,9 +25,13 @@ import {
 import { useTaskContext } from "../../contexts/helpers/use-task-context";
 import { TaskGroup } from "./task-group";
 import { Button } from "../button/button";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Spinner } from "../spinner/the-spinner";
-import type { Tasks, UpdateLog } from "../../constants/types";
+import {
+  type GroupName,
+  type Tasks,
+  type UpdateLog,
+} from "../../constants/types";
 import { useTasks } from "../../hooks/use-tasks";
 import { useRemoveTask } from "../../hooks/use-remove-task";
 import { Dialog } from "../dialog/dialog";
@@ -35,6 +39,7 @@ import { useGlobalContext } from "../../contexts/helpers/use-global-context";
 import { useUpdateLog } from "../../hooks/use-update-log";
 import { useLogs } from "../../hooks/use-logs";
 import type { Log_RemoveTask } from "../../constants/log-action-variants";
+import { cn } from "../../utils/css";
 
 const TaskForm = lazy(() =>
   import("../form/task-form").then((module) => ({ default: module.TaskForm })),
@@ -58,6 +63,8 @@ export const TaskGrid = () => {
 
   const { updateLog } = useUpdateLog();
   const { latestLog } = useLogs();
+
+  const [openTab, setOpenTab] = useState<GroupName | null>(null);
 
   const currentTask = currentTaskId
     ? data.find((task) => task.id === currentTaskId)
@@ -113,91 +120,125 @@ export const TaskGrid = () => {
     handleCloseDialog();
   };
 
+  const hangleOpenTab = (label: GroupName) => {
+    setOpenTab(label);
+  };
+
+  const buttonLabels: GroupName[] = [
+    GROUP_DO,
+    GROUP_DECIDE,
+    GROUP_DELEGATE,
+    GROUP_DELETE,
+  ];
+
   return isLoading ? (
     <Spinner />
   ) : (
-    <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-10">
-      <TaskGroup
-        title={GROUP_DO}
-        description={GROUP_DO_DESCRIPTION}
-        tasks={groupedTasks[GROUP_DO]}
-        points={GROUP_DO_POINTS}
-      />
-      <TaskGroup
-        title={GROUP_DECIDE}
-        description={GROUP_DECIDE_DESCRIPTION}
-        tasks={groupedTasks[GROUP_DECIDE]}
-        points={GROUP_DECIDE_POINTS}
-      />
-      <TaskGroup
-        title={GROUP_DELEGATE}
-        description={GROUP_DELEGATE_DESCRIPTION}
-        tasks={groupedTasks[GROUP_DELEGATE]}
-        points={GROUP_DELEGATE_POINTS}
-      />
-      <TaskGroup
-        title={GROUP_DELETE}
-        description={GROUP_DELETE_DESCRIPTION}
-        tasks={groupedTasks[GROUP_DELETE]}
-        points={GROUP_DELETE_POINTS}
-      />
+    <div className="h-full flex flex-col gap-3 items-stretch">
+      <div className="hidden min-h-24 h-24 grid-cols-2 gap-3 max-custom-1152:grid">
+        {buttonLabels.map((label) => {
+          return (
+            <button
+              key={label}
+              onClick={() => hangleOpenTab(label)}
+              className={cn(
+                "rounded-xl h-full w-full flex items-center justify-center px-3 border-[2px] border-tma-blue-200 bg-tma-light-100 uppercase font-bold cursor-pointer transition-all duration-300",
+                "hover:bg-tma-blue-200 hover:text-tma-light-100",
+                openTab === label && "bg-tma-blue-200 text-tma-light-100",
+              )}
+            >
+              {label}
+            </button>
+          );
+        })}
+      </div>
+      <div className="grid grid-cols-2 grid-rows-2 w-full h-full gap-10 max-custom-1440:gap-5 max-custom-1152:grid-rows-1 max-custom-1152:grid-cols-1">
+        <TaskGroup
+          title={GROUP_DO}
+          description={GROUP_DO_DESCRIPTION}
+          tasks={groupedTasks[GROUP_DO]}
+          points={GROUP_DO_POINTS}
+          openTab={openTab}
+        />
+        <TaskGroup
+          title={GROUP_DECIDE}
+          description={GROUP_DECIDE_DESCRIPTION}
+          tasks={groupedTasks[GROUP_DECIDE]}
+          points={GROUP_DECIDE_POINTS}
+          openTab={openTab}
+        />
+        <TaskGroup
+          title={GROUP_DELEGATE}
+          description={GROUP_DELEGATE_DESCRIPTION}
+          tasks={groupedTasks[GROUP_DELEGATE]}
+          points={GROUP_DELEGATE_POINTS}
+          openTab={openTab}
+        />
+        <TaskGroup
+          title={GROUP_DELETE}
+          description={GROUP_DELETE_DESCRIPTION}
+          tasks={groupedTasks[GROUP_DELETE]}
+          points={GROUP_DELETE_POINTS}
+          openTab={openTab}
+        />
 
-      {isDialogOpen && (
-        <Dialog closeFn={handleCloseDialog}>
-          <div className="flex gap-3 flex-col">
-            {dialogType === NEW_TASK && groupName && (
-              <>
-                <p className="title text-lg text-tma-blue-200">
-                  {`${ADD_NEW_TASK_TO} `}
-                  <span className="font-black uppercase">{groupName}</span>
-                </p>
-                <Suspense fallback={<Spinner />}>
-                  <TaskForm />
-                </Suspense>
-              </>
-            )}
+        {isDialogOpen && (
+          <Dialog closeFn={handleCloseDialog}>
+            <div className="flex gap-3 flex-col">
+              {dialogType === NEW_TASK && groupName && (
+                <>
+                  <p className="title text-lg text-tma-blue-200">
+                    {`${ADD_NEW_TASK_TO} `}
+                    <span className="font-black uppercase">{groupName}</span>
+                  </p>
+                  <Suspense fallback={<Spinner />}>
+                    <TaskForm />
+                  </Suspense>
+                </>
+              )}
 
-            {dialogType === EDIT_TASK && currentTask && (
-              <>
-                <p className="title text-lg text-tma-blue-200 line-clamp-1">
-                  {EDITING}{" "}
-                  <span className="font-black uppercase">
-                    {currentTask.name}
-                  </span>
-                </p>
-                <Suspense fallback={<Spinner />}>
-                  <TaskForm />
-                </Suspense>
-              </>
-            )}
+              {dialogType === EDIT_TASK && currentTask && (
+                <>
+                  <p className="title text-lg text-tma-blue-200 line-clamp-1">
+                    {EDITING}{" "}
+                    <span className="font-black uppercase">
+                      {currentTask.name}
+                    </span>
+                  </p>
+                  <Suspense fallback={<Spinner />}>
+                    <TaskForm />
+                  </Suspense>
+                </>
+              )}
 
-            {dialogType === CONFIRMATION && currentTask && (
-              <div className="flex flex-col gap-4">
-                <p className="title text-lg text-tma-blue-200 line-clamp-1">
-                  {`${REMOVING}: `}
-                  <span className="font-black">{currentTask.name}</span>
-                </p>
-                <p>{TASK_REMOVING}</p>
-                <div className="flex gap-4 max-custom-480:flex-col">
-                  <Button
-                    variant="danger"
-                    onClick={() => handleRemoveTask(currentTask.id)}
-                  >
-                    {REMOVE_YES}
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={handleCloseDialog}
-                    className="uppercase"
-                  >
-                    {REMOVE_NO}
-                  </Button>
+              {dialogType === CONFIRMATION && currentTask && (
+                <div className="flex flex-col gap-4">
+                  <p className="title text-lg text-tma-blue-200 line-clamp-1">
+                    {`${REMOVING}: `}
+                    <span className="font-black">{currentTask.name}</span>
+                  </p>
+                  <p>{TASK_REMOVING}</p>
+                  <div className="flex gap-4 max-custom-480:flex-col">
+                    <Button
+                      variant="danger"
+                      onClick={() => handleRemoveTask(currentTask.id)}
+                    >
+                      {REMOVE_YES}
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={handleCloseDialog}
+                      className="uppercase"
+                    >
+                      {REMOVE_NO}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </Dialog>
-      )}
+              )}
+            </div>
+          </Dialog>
+        )}
+      </div>
     </div>
   );
 };

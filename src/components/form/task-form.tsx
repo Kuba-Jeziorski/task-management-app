@@ -204,7 +204,7 @@ export const TaskForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <div className="flex gap-3 items-center max-custom-600:flex-col">
+        <div className="flex gap-3 items-center">
           <CustomTooltip title={tooltipMessage}>
             <button
               type="button"
@@ -241,7 +241,7 @@ export const TaskForm = () => {
             />
           </InputWrapper>
         </div>
-        <div className="flex gap-4 justify-end">
+        <div className="flex gap-4 justify-end max-custom-375:flex-col">
           <Button
             variant={"secondary"}
             type="reset"
