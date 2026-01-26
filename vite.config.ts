@@ -9,7 +9,6 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.svg", "robots.txt"],
       manifest: {
         name: "TMA",
         short_name: "TMA_2",
