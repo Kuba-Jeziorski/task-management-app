@@ -3,6 +3,7 @@ import { cn } from "../../utils/css";
 
 import type { Reward, UpdateLog } from "../../constants/types";
 import {
+  CLAIM,
   CURRENT_POINTS,
   DROPDOWN_REWARD,
   GET_IT_NOW,
@@ -75,34 +76,34 @@ export const RewardsListingElement = ({ reward }: Props) => {
   return (
     <div
       className={cn(
-        "w-full group rounded-md flex h-[52px] px-2",
-        "hover:bg-tma-light-200 "
+        "w-full group rounded-md flex min-h-[52px] px-2",
+        "hover:bg-tma-light-200 ",
       )}
     >
-      <div className="flex h-full w-full border-b border-b-tma-light-300 items-center justify-between gap-3 py-2">
+      <div className="flex h-full w-full border-b border-b-tma-light-300 items-center justify-between gap-3 py-2 max-custom-480:flex-col-reverse max-custom-480:items-start max-custom-480:gap-1">
         <p
           className={cn(
-            "text-[18px] leading-none line-clamp-1",
+            "text-[18px] leading-none line-clamp-1 max-custom-600:text-base",
             isActive
               ? "text-tma-blue-200 font-extrabold"
-              : "text-tma-light-600 font-semibold"
+              : "text-tma-light-600 font-semibold",
           )}
         >
           {reward.name}
         </p>
-        <div className="flex items-center gap-3 min-w-50 justify-end">
+        <div className="flex items-center gap-3 justify-end max-custom-480:ml-auto">
           <div className="flex items-center gap-[6px]">
             <p
               className={cn(
                 "text-[18px] font-semibold leading-none",
-                isActive ? "text-tma-blue-200" : "text-tma-light-600"
+                isActive ? "text-tma-blue-200" : "text-tma-light-600",
               )}
             >
               {reward.points}
             </p>
             <span
               className={cn(
-                isActive ? "text-tma-blue-200" : "text-tma-light-600"
+                isActive ? "text-tma-blue-200" : "text-tma-light-600",
               )}
             >
               <Gem size={24} />
@@ -111,14 +112,15 @@ export const RewardsListingElement = ({ reward }: Props) => {
           {isActive && (
             <button
               className={cn(
-                "h-8 px-4 rounded-full bg-tma-blue-200 cursor-pointer text-[18px] text-tma-light-100 font-semibold leading-none transition-all duration-300",
+                "h-8 px-4 rounded-full bg-tma-blue-200 cursor-pointer text-[18px] text-tma-light-100 font-semibold leading-none transition-all duration-300 max-custom-600:text-base",
                 "not-disabled:hover:bg-tma-blue-100",
-                "disabled:opacity-50 disabled:cursor-no-drop"
+                "disabled:opacity-50 disabled:cursor-no-drop",
               )}
               onClick={() => handleChangeActive()}
               disabled={isDisabled || isLoading || isUpdating}
             >
-              {GET_IT_NOW}
+              <span className="max-custom-480:hidden">{GET_IT_NOW}</span>
+              <span className="hidden max-custom-480:block">{CLAIM}</span>
             </button>
           )}
           {isActive && (

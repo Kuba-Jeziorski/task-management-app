@@ -18,10 +18,10 @@ export const AppLayout = () => {
     profile?.profile ?? {};
 
   return (
-    <div className="w-full p-10 flex flex-wrap gap-10 items-center h-full max-h-100vh overflow-hidden min-h-0 max-custom-1440:gap-6 max-custom-1152:p-5">
+    <div className="w-full p-10 flex flex-wrap gap-10 items-center h-full max-h-100vh overflow-hidden min-h-0 max-custom-1440:gap-6 max-custom-1152:p-5 max-custom-1152:gap-5">
       <Sidebar />
       <div className="flex-1 h-full w-full min-h-0">
-        <div className="flex flex-col flex-1 h-full w-full gap-10 min-h-0 max-custom-1440:gap-6">
+        <div className="flex flex-col flex-1 h-full w-full gap-10 min-h-0 max-custom-1440:gap-6 max-custom-1152:gap-5">
           <div className="bg-tma-light-100 rounded-2xl px-5 py-4 flex items-center justify-between gap-6 flex-wrap max-custom-800:flex-col max-custom-800:items-start max-custom-800:gap-3">
             <p className="text-tma-blue-200 font-semibold text-2xl max-custom-1152:text-xl">
               {HELLO_THERE} <span className="font-black">{name}</span>!
@@ -32,7 +32,7 @@ export const AppLayout = () => {
                 <span
                   className={cn(
                     "font-black flex gap-[6px] items-center text-tma-blue-200 transition-all duration-300",
-                    "hover:text-tma-blue-100"
+                    "hover:text-tma-blue-100",
                   )}
                 >
                   {current_points} <Gem size={26} />

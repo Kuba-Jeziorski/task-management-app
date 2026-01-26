@@ -13,7 +13,7 @@ import { Spinner } from "../spinner/the-spinner";
 const LogListing = lazy(() =>
   import("../log/log-listing").then((module) => ({
     default: module.LogListing,
-  }))
+  })),
 );
 
 export const UserPage = () => {
@@ -22,7 +22,7 @@ export const UserPage = () => {
   const { logout, isPending } = useLogout();
 
   return (
-    <div className="w-full flex gap-10 h-full max-custom-1440:gap-6 max-custom-1152:flex-col max-custom-1152:justify-stretch">
+    <div className="w-full flex gap-10 h-full max-custom-1440:gap-6 max-custom-1152:gap-5 max-custom-1152:flex-col max-custom-1152:justify-stretch">
       <div className="w-2/3 p-4 pr-1 bg-tma-light-100 rounded-[20px] max-custom-1152:w-full max-custom-1152:flex-1 max-custom-1152:p-0 max-custom-800:h-full">
         <div className="flex p-2 w-full h-full min-h-0 overflow-auto text-tma-blue-100 text-lg">
           <div className="flex flex-1 flex-col gap-3 min-h-0 overflow-y-auto pr-3 max-custom-1152:grid max-custom-1152:grid-cols-2 max-custom-1152:p-1 max-custom-800:grid-cols-1 max-custom-800:pr-2">

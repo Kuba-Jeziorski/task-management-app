@@ -9,6 +9,7 @@ export const AUTHENTICATED = "authenticated";
 export const CANCEL = "cancel";
 export const CHANGE_YOUR_NAME = "Change your name";
 export const CHANGE_YOUR_PASSWORD = "Change your password";
+export const CLAIM = "Claim";
 export const COLLECTED_REWARDS = "collected_rewards";
 export const COLLECTED_REWARDS_TITLE = "Recent awards";
 export const COLLECTED_REWARDS_TOOLTIP = "Collected rewards tooltip";

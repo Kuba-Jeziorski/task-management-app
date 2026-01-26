@@ -35,12 +35,12 @@ import type { Log_RemoveReward } from "../../constants/log-action-variants";
 const RewardsListing = lazy(() =>
   import("../rewards/rewards-listing").then((module) => ({
     default: module.RewardsListing,
-  }))
+  })),
 );
 const RewardForm = lazy(() =>
   import("../form/reward-form").then((module) => ({
     default: module.RewardForm,
-  }))
+  })),
 );
 
 export const AwardsPage = () => {
@@ -65,7 +65,7 @@ export const AwardsPage = () => {
   };
 
   const selectedReward: Reward | null = currentRewardId
-    ? rewards.find((r) => r.id === currentRewardId) ?? null
+    ? (rewards.find((r) => r.id === currentRewardId) ?? null)
     : null;
 
   const lastActionId = latestLog?.actions.at(-1)?.id ?? 0;
@@ -100,12 +100,14 @@ export const AwardsPage = () => {
 
   return (
     <>
-      <div className="w-full flex gap-10 h-full max-custom-1440:gap-6">
-        <div className="w-3/5 h-full bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden">
+      <div className="w-full flex gap-10 h-full max-custom-1440:gap-6 max-custom-1152:gap-5 max-custom-1024:flex-col">
+        <div className="w-3/5 h-full bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden max-custom-1024:w-full">
           <div className="bg-tma-light-400 border-b border-b-tma-blue-200 flex justify-between items-center px-5 py-4">
             <CustomTooltip title={tooltipMessages[REWARDS]}>
               <div className="flex flex-col text-tma-blue-200 uppercase">
-                <p className="font-black text-2xl">{REWARDS_TITLE}</p>
+                <p className="font-black text-2xl max-custom-900:text-xl">
+                  {REWARDS_TITLE}
+                </p>
               </div>
             </CustomTooltip>
           </div>
@@ -118,11 +120,13 @@ export const AwardsPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-2/5 h-full bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden">
+        <div className="w-2/5 h-full bg-tma-light-100 flex flex-col rounded-[20px] overflow-hidden max-custom-1024:w-full">
           <div className="bg-tma-light-400 border-b border-b-tma-blue-200 flex justify-between items-center px-5 py-4">
             <CustomTooltip title={tooltipMessages[COLLECTED_REWARDS]}>
               <div className="flex flex-col text-tma-blue-200 uppercase">
-                <p className="font-black text-2xl">{COLLECTED_REWARDS_TITLE}</p>
+                <p className="font-black text-2xl max-custom-900:text-xl">
+                  {COLLECTED_REWARDS_TITLE}
+                </p>
               </div>
             </CustomTooltip>
           </div>
