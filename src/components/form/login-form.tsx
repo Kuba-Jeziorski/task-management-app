@@ -25,7 +25,7 @@ export const LoginForm = () => {
           setEmail("");
           setPassword("");
         },
-      }
+      },
     );
   };
 
@@ -57,8 +57,12 @@ export const LoginForm = () => {
             disabled={isPending}
           />
         </InputWrapper>
-        <div className="flex">
-          <Button variant={"primary"} type="submit" className="uppercase">
+        <div className="flex max-custom-375:w-full">
+          <Button
+            variant={"primary"}
+            type="submit"
+            className="uppercase max-custom-375:w-full"
+          >
             {LOG_IN}
           </Button>
         </div>

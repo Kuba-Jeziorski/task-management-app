@@ -40,7 +40,7 @@ export const SignUpForm = ({ handleFormTypeChange }: SignUpFormProps) => {
           handleFormTypeChange(USER_FORM_LOGIN);
           reset();
         },
-      }
+      },
     );
   };
 
@@ -111,12 +111,12 @@ export const SignUpForm = ({ handleFormTypeChange }: SignUpFormProps) => {
             })}
           />
         </InputWrapper>
-        <div className="flex gap-3">
+        <div className="flex gap-3 max-custom-480:flex-col">
           <Button
             variant="primary"
             disabled={isPending}
             type="submit"
-            className="uppercase"
+            className="uppercase max-custom-480:w-full"
           >
             {USER_FORM_SIGNUP}
           </Button>
@@ -124,7 +124,7 @@ export const SignUpForm = ({ handleFormTypeChange }: SignUpFormProps) => {
             variant="secondary"
             disabled={isPending}
             type="reset"
-            className="uppercase"
+            className="uppercase max-custom-480:w-full"
           >
             {CANCEL}
           </Button>
