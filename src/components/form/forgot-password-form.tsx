@@ -23,7 +23,7 @@ export const ForgotPasswordForm = () => {
 
   return (
     <>
-      <h1 className="text-tma-blue-200 text-2xl font-semibold text-center">
+      <h1 className="text-tma-blue-200 text-2xl font-semibold text-center max-custom-800:text-xl">
         {WHATS_YOUR_EMAIL_ADDRESS}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">

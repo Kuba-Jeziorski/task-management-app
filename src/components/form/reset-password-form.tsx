@@ -45,7 +45,7 @@ export const ResetPasswordForm = () => {
 
   return (
     <>
-      <h1 className="text-tma-blue-200 text-2xl font-semibold text-center">
+      <h1 className="text-tma-blue-200 text-2xl font-semibold text-center max-custom-800:text-xl">
         {ENTER_A_NEW_PASSWORD}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">

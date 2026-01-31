@@ -36,7 +36,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col gap-3 justify-center items-center">
+    <div className="w-full h-full flex flex-col gap-3 justify-center items-center max-custom-600:px-5">
       <div className="w-full max-w-xl overflow-hidden bg-tma-light-100 shadow-xl text-base text-tma-blue-200 shadow-gray-300/30 ring-1 ring-gray-200 rounded-lg mx-5">
         <div className="flex flex-col">
           <LoginFormTabs currentTab={formType} setCurrentTab={handleToggle} />

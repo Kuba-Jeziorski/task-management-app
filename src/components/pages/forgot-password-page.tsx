@@ -25,7 +25,7 @@ export const ForgotPasswordPage = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center gap-3">
+    <div className="w-full h-full flex flex-col justify-center items-center gap-3 max-custom-600:px-5">
       <div className="w-full max-w-xl">
         <Button
           variant={"primary"}
