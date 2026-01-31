@@ -17,43 +17,47 @@ import {
   TOAST_SUCCESS_DURATION,
   URL_ABOUT_PAGE,
   URL_AWARDS_PAGE,
+  URL_FORGET_PASSWORD,
   URL_LOGIN_PAGE,
   URL_MY_TASKS_PAGE,
+  URL_RESET_PASSWORD_PAGE,
   URL_USER_PAGE,
 } from "./constants/constants";
 import { GlobalContextProvider } from "./contexts/global-context";
 import { RewardContextProvider } from "./contexts/reward-context";
 import { TaskContextProvider } from "./contexts/task-context";
+import { ForgotPasswordPage } from "./components/pages/forgot-password-page";
+import { ResetPasswordPage } from "./components/pages/reset-password-page";
 
 const MyTasksPage = lazy(() =>
   import("./components/pages/my-tasks-page").then((module) => ({
     default: module.MyTasksPage,
-  }))
+  })),
 );
 const AwardsPage = lazy(() =>
   import("./components/pages/awards-page").then((module) => ({
     default: module.AwardsPage,
-  }))
+  })),
 );
 const LoginPage = lazy(() =>
   import("./components/pages/login-page").then((module) => ({
     default: module.LoginPage,
-  }))
+  })),
 );
 const UserPage = lazy(() =>
   import("./components/pages/user-page").then((module) => ({
     default: module.UserPage,
-  }))
+  })),
 );
 const AboutPage = lazy(() =>
   import("./components/pages/about-page").then((module) => ({
     default: module.AboutPage,
-  }))
+  })),
 );
 const NotFoundPage = lazy(() =>
   import("./components/pages/not-found-page").then((module) => ({
     default: module.NotFoundPage,
-  }))
+  })),
 );
 
 const queryClient = new QueryClient({
@@ -124,6 +128,22 @@ const router = createBrowserRouter([
     Component: () => (
       <Suspense fallback={<Spinner />}>
         <LoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: `/${URL_FORGET_PASSWORD}`,
+    Component: () => (
+      <Suspense fallback={<Spinner />}>
+        <ForgotPasswordPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: `/${URL_RESET_PASSWORD_PAGE}`,
+    Component: () => (
+      <Suspense fallback={<Spinner />}>
+        <ResetPasswordPage />
       </Suspense>
     ),
   },

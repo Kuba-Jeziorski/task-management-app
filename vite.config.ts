@@ -10,9 +10,9 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "TMA",
-        short_name: "TMA_2",
-        description: "TMA_3",
+        name: "Priority Matrix",
+        short_name: "Priority Matrix",
+        description: "Priority Matrix app",
         start_url: "/",
         display: "standalone",
         background_color: "#ffffff",

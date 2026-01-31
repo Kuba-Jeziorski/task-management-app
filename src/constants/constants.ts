@@ -6,6 +6,7 @@ export const ADD_NEW_REWARD = "Add a new reward";
 export const ALL_POINTS = "all_points";
 export const APPLY_CHANGES = "apply changes";
 export const AUTHENTICATED = "authenticated";
+export const BOTH_FIELDS_REQUIRED = "Both fields are required";
 export const CANCEL = "cancel";
 export const CHANGE_YOUR_NAME = "Change your name";
 export const CHANGE_YOUR_PASSWORD = "Change your password";
@@ -19,10 +20,14 @@ export const EDIT = "edit";
 export const EDITING = "Editing:";
 export const EMAIL_ADDRESS = "Email address";
 export const EMAIL_ADDRESS_PLACEHOLDER = "placeholder@mail.com";
+export const EMAIL_WAS_SENT = "Email with password reset was sent";
+export const ENTER_A_NEW_PASSWORD = "Enter a new password";
 export const EXPECTED_LOGGED_IN_USER = "Expected logged-in user but got null";
+export const FORGOT_PASSWORD = "Forgot password?";
 export const FULL_NAME = "Full name";
 export const FULL_NAME_CHANGED_SUCCESSFULLY = "Name changed successfully";
 export const FULL_NAME_CHANGED_ERROR = "Can't change name at the moment";
+export const GET_BACK_TO_LOGIN_PAGE = "Get back to login page";
 export const GET_IT_NOW = "Get it now!";
 export const GROUP_DO = "do";
 export const GROUP_DECIDE = "decide";
@@ -50,11 +55,13 @@ export const NOT_FOUND_PAGE_TITLE = "Nothing to do here!";
 export const PASSWORD = "Password";
 export const PASSWORD_CHANGED_SUCCESSFULLY = "Password changed successfully";
 export const PASSWORD_MIN_LENGTH = "Password needs a minimum of 8 characters";
+export const PASSWORD_MISMATCH = "Passwords do not match";
 export const PASSWORD_REPEAT = "Repeat password";
 export const POINTS_CHANGED_SUCCESSFULLY = "Your points has changed!";
 export const POINTS_CHANGED_ERROR =
   "There was some issue with updating your points!";
 export const PRIORITY_MATRIX = "priority matrix";
+export const REMIND = "Remind";
 export const REMOVE = "remove";
 export const REMOVE_YES = "yes, remove it";
 export const REMOVE_NO = "no, go back";
@@ -99,6 +106,7 @@ export const TOOLTIP_DELETE =
 export const TOOLTIP_DO =
   "Do it immediately - tasks that are urgent and important.";
 export const TRY_AGAIN = "try again";
+export const UPDATE_PASSWORD = "Update password";
 export const USER_FORM_LOGIN = "login";
 export const USER_FORM_SIGNUP = "sign up";
 export const USER_FORM_TYPE_FULLNAME = "fullName";
@@ -106,6 +114,7 @@ export const USER_FORM_TYPE_PASSWORD = "password";
 export const USER_INFO_CHANGED_ERROR =
   "Can't change user info now. Try again later";
 export const USER_NAME_PLACEHOLDER = "User";
+export const WHATS_YOUR_EMAIL_ADDRESS = "What's your email address?";
 export const YOU_ALREADY_GAINED = "You already gained";
 
 // DROPDOWN
@@ -126,17 +135,19 @@ export const CONFIRMATION = "confirmation";
 // URLs
 export const URL_ABOUT_PAGE = "about";
 export const URL_AWARDS_PAGE = "awards";
+export const URL_FORGET_PASSWORD = "forget-password";
 export const URL_LOGIN_PAGE = "login";
 export const URL_MY_TASKS_PAGE = "my-tasks";
+export const URL_RESET_PASSWORD_PAGE = "reset-password";
 export const URL_USER_PAGE = "user";
 
 // NUMBERS
 export const FETCH_RETRY_ATTEMPTS = 5;
 export const TOAST_ERROR_DURATION = 5000;
 export const TOAST_SUCCESS_DURATION = 3000;
-export const GROUP_DO_POINTS = 4;
-export const GROUP_DECIDE_POINTS = 3;
-export const GROUP_DELEGATE_POINTS = 2;
+export const GROUP_DO_POINTS = 1;
+export const GROUP_DECIDE_POINTS = 1;
+export const GROUP_DELEGATE_POINTS = 1;
 export const GROUP_DELETE_POINTS = 1;
 export const BASE_ALL_POINTS = 0;
 export const BASE_CURRENT_POINTS = 0;

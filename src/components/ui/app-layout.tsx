@@ -18,7 +18,7 @@ export const AppLayout = () => {
     profile?.profile ?? {};
 
   return (
-    <div className="w-full p-10 flex flex-wrap gap-10 items-center h-full max-h-100vh overflow-hidden min-h-0 max-custom-1440:gap-6 max-custom-1152:p-5 max-custom-1152:gap-5">
+    <div className="w-full p-10 flex flex-wrap gap-10 items-center h-full max-h-100dvh overflow-hidden min-h-0 max-custom-1440:gap-6 max-custom-1152:p-5 max-custom-1152:gap-5">
       <Sidebar />
       <div className="flex-1 h-full w-full min-h-0">
         <div className="flex flex-col flex-1 h-full w-full gap-10 min-h-0 max-custom-1440:gap-6 max-custom-1152:gap-5">

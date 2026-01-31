@@ -57,3 +57,16 @@ export const passwordChange = async (payload: UpdateUserPassword) => {
 
   return data;
 };
+
+export const forgotPassword = async (email: string) => {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://matrix-inner.netlify.app/reset-password",
+    // redirectTo: "http://localhost:5173/reset-password",
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};

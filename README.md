@@ -73,24 +73,24 @@ Stay focused, prioritize effectively, and turn productivity into rewards.
 - Create a Not-found page
 - Create a README.md file
 
-### **Phase four (ongoing) ✍**
+### **Phase four (finished) ✅**
 
 - Create an Award page
 - Create an exchanging points for prizes functionality
 - Create a section with collected awards display
 
-### **Phase fve**
+### **Phase five (finished) ✅**
 
-- Create a My day page
-- Create a logic for adding tasks into My Day
 - RWD
-- Upload to Netlify
+- Upload to Netlify (https://matrix-inner.netlify.app/)
+- PWA
 
 ### **Extra features for future development**
 
-- Create a tasks log (history of created/edited/removed/activity-changed tasks)
+- Create a tasks log (history of created/edited/removed/activity-changed tasks) ✅
 - Create a search bar
 - Create a sorting/filtering functionality
-- PWA
 - Dark mode
 - Multilang (i18n)
+- Skeleton loading
+- Badges
