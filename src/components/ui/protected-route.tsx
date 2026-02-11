@@ -37,7 +37,9 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }, [isAuthenticated, isLoading, navigate]);
 
   useEffect(() => {
-    if (!user || !isAuthenticated || !logs) return;
+    if (!user || !isAuthenticated || !logs) {
+      return;
+    }
 
     if (isFirstLogOfDay(logs, user.id)) {
       const loginAction: Log_Login = {

@@ -22,6 +22,7 @@ let root = document.getElementById("root");
 if (!root) {
   root = document.createElement("div");
   root.id = "root";
+  root.classList.add("w-full", "h-full", "bg-tma-light-300");
   document.body.appendChild(root);
 }
 
