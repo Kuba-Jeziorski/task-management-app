@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getCurrentUser } from "./get-current-user";
+import { getCurrentUser } from "../services/get-current-user";
 import { AUTHENTICATED } from "../constants/constants";
 
 export function useUser() {

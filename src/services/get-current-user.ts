@@ -1,4 +1,4 @@
-import supabase from "../services/supabase-config";
+import supabase from "./supabase-config";
 
 export const getCurrentUser = async () => {
   const { data: session } = await supabase.auth.getSession();

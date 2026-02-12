@@ -73,7 +73,9 @@ const logFormatters: LogFormatterMap = {
 
 export const formatLogMessage = (record: Log_Action): string => {
   const formatter = logFormatters[record.type as keyof LogFormatterMap];
+
   return formatter
-    ? formatter(record as any)
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      formatter(record as any)
     : "[UNKNOWN] Unrecognized log entry";
 };

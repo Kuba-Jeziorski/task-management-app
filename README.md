@@ -94,3 +94,4 @@ Stay focused, prioritize effectively, and turn productivity into rewards.
 - Multilang (i18n)
 - Skeleton loading
 - Badges
+- Banner when user gets to the limit of tasks

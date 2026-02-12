@@ -11,7 +11,7 @@ import type {
   ProfilePoints,
   ProfileProps,
 } from "../constants/types";
-import { getCurrentUser } from "../hooks/get-current-user";
+import { getCurrentUser } from "./get-current-user";
 
 export const createProfile = async () => {
   const user = await getCurrentUser();
