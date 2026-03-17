@@ -183,6 +183,7 @@ export const RewardForm = () => {
               type="text"
               id="rewardName"
               placeholder="placeholder"
+              autoFocus
               {...register("rewardName", {
                 required: REQUIRED_FIELD,
               })}

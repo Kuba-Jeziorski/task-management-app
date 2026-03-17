@@ -236,6 +236,7 @@ export const TaskForm = () => {
               type="text"
               id="taskName"
               placeholder="placeholder"
+              autoFocus
               {...register("taskName", {
                 required: REQUIRED_FIELD,
               })}
